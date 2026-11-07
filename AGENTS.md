@@ -8,6 +8,7 @@ Read `docs/CHALLENGE.md` first: it's the challenge text, and its "What a fix mus
 - Never commit `.env`, real chat exports, private photos, or `eval_data/` as a whole. Only the Commons photos chosen for the demo are copied into `data/demo/photos/`.
 - Never automate WhatsApp or any other app. The only input is an exported chat, a bot or a form.
 - **The model reads, a fixed rule decides:** ask the model for specific observations (features, boxes, verdicts), and make decisions such as same cat, fixed or not, and alert severity in plain, tested code.
+- A cat name in a message is only a hint, never an identity decision. For every photo, the agent still runs `match_cat()`; a possible match creates a suggestion, and two cats are merged only after recorded human confirmation.
 - **A person confirms every merge of two cats and every adopted/missing/deceased change.** The AI only creates suggestions. No code path may merge cats or change `status` without a recorded human decision. Don't let the agent invent cats or facts that aren't in the messages.
 - **Privacy:** every page and API route requires the team passcode, except `/healthz`, the sign-in page and the sponsor report link. The sponsor report never includes locations, volunteer names, phone numbers or photos.
 - **Demo data** in `data/demo/`:
