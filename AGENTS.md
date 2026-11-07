@@ -8,7 +8,8 @@ Read `PLAN.md` first. It has the problem, the architecture, the data model and t
 - Never commit `.env`, real chat exports or real people's photos. Demo data in `data/demo/` is made up or openly licensed; record each photo's source in `data/demo/PHOTO_SOURCES.md`.
 - Never automate WhatsApp or any other app. The only input is an exported chat, a bot or a form.
 - AI output is a suggestion. Uncertain matches go to the review queue and are never merged automatically. Don't let the agent invent cats or facts that aren't in the messages.
-- Log the token use and estimated cost of every OpenAI call in one place, so the demo can quote cost per 100 photos.
+- **API credits are limited ($50 total).** Cache each photo description by file hash, and never call the API twice for the same photo. Resize images to about 768 px on the long side before sending. During development, test on a small sample of about 10 messages and 10 photos, not the full demo set.
+- Log the token use and estimated cost of every OpenAI call in one place (`costs.log` or a table), so we always know what's been spent and the demo can quote cost per 100 photos.
 - Any non-trivial logic (the parser, matching decisions, alert rules) gets one small runnable `assert`-based test.
 - Commit messages: short, plain, imperative.
 

@@ -34,6 +34,18 @@ It all has to be recorded: which cats are fixed, which still need **TNR** (trap,
   4. Feasibility and reasoning.
   5. Presentation.
 
+### Budget: $100 in Codex credits and $50 in OpenAI API credits
+
+- **API ($50) pays for the product:** photo descriptions, matching calls and the agent. The $50 has to cover development runs, the matching test and the live demo.
+  - **Cache every photo description by file hash** in SQLite. Re-running an import must not pay again for photos it has already seen. This is the biggest saving.
+  - **Set a hard monthly spending limit** in the OpenAI dashboard, about $40, so a runaway loop can't drain the credits.
+  - **Develop on a small sample** of 10 messages and 10 photos. Run the full 80-message import only to check the end-to-end flow, and again for the demo.
+  - **Use a cheaper model while developing**, and the better vision model for the matching test and the demo. `OPENAI_MODEL` switches between them.
+  - **Log the cost of every call**, so we always know what's been spent and can quote the cost per 100 photos in the pitch.
+  - Keep images small: resize to about 768 px on the long side before sending.
+- **Codex ($100) pays for building.** Give it one focused step from §9 at a time, not "build the whole app." Read its diffs instead of letting it loop on failing runs, and check the remaining balance after each step.
+- **Stop rule:** if API spend passes $25 before Sunday, switch to the cheaper model everywhere and cut the live re-import from the demo. Show a run that was already processed.
+
 ## 3. The pitch in one line
 
 Volunteers keep texting the way they already do. Cat Colony Watch turns the chat export into a live record of every colony and every cat. It recognizes repeat sightings of the same cat from photos, flags urgent cases (pregnant, injured, kittens) the same day, and produces a sponsor report without exact locations.
