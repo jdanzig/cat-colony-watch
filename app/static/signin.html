@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#173f35">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Fraunces:opsz,wght@9..144,700;9..144,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/app.css">
+    <script defer src="/static/ui_text.js"></script>
+    <script defer src="/static/signin.js"></script>
+  </head>
+  <body class="signin-page">
+    <div class="paper-noise" aria-hidden="true"></div>
+    <main class="signin-card">
+      <div class="signin-art" aria-hidden="true">
+        <span class="sun-disc"></span>
+        <svg viewBox="0 0 360 270"><path d="M0 224c53-29 98-35 145-11 55 29 100-22 151-7 31 9 50 28 64 42v22H0v-46Z"/><path class="cat-line" d="M105 216c0-35 20-61 49-61 31 0 52 29 52 62m-88-55-10-34 31 23m53 12 13-34-34 23m-47 33c18-11 39-11 58 0m-52 1-31-6m32 17-34 5m77-16 33-7m-31 17 34 5"/></svg>
+      </div>
+      <section class="signin-copy">
+        <p class="eyebrow" id="signin-kicker"></p>
+        <h1 id="signin-title"></h1>
+        <p class="lede" id="signin-body"></p>
+        <p class="form-error" id="signin-error" hidden></p>
+        <form method="post" action="/signin">
+          <label class="field"><span id="passcode-label"></span><input type="password" name="passcode" autocomplete="current-password" required autofocus></label>
+          <button class="primary-button" id="signin-button"></button>
+        </form>
+        <p class="privacy-note" id="privacy-note"></p>
+      </section>
+    </main>
+  </body>
+</html>

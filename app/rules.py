@@ -8,7 +8,7 @@ two existing records should be offered to a person as a possible duplicate.
 from __future__ import annotations
 
 import re
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from app.database import Database
 
@@ -102,7 +102,7 @@ def rebuild_alerts(db: Database, as_of: str | None = None) -> list[dict]:
         if row is None or row["at"] is None:
             return []
         as_of = str(row["at"])
-    now = datetime.fromisoformat(as_of)
+    now = _parse_datetime(as_of)
     stale_at = now - timedelta(days=1)
     unfed_at = now - timedelta(days=2)
     new_cat_at = now - timedelta(days=7)
@@ -182,7 +182,7 @@ def rebuild_alerts(db: Database, as_of: str | None = None) -> list[dict]:
             )
         if (
             cat["tnr_status"] == "needs_tnr"
-            and datetime.fromisoformat(cat["first_seen"]) >= new_cat_at
+            and _parse_datetime(cat["first_seen"]) >= new_cat_at
         ):
             add(
                 "needs_tnr",
@@ -230,7 +230,7 @@ def rebuild_alerts(db: Database, as_of: str | None = None) -> list[dict]:
             reported_unfed_days[event["colony_id"]] = int(days.group(1))
     for feeding in feeding_rows:
         colony_id = feeding["colony_id"]
-        last_fed = datetime.fromisoformat(feeding["last_fed_at"])
+        last_fed = _parse_datetime(feeding["last_fed_at"])
         stopped = stopping.get(colony_id)
         if stopped:
             if last_fed <= unfed_at:
@@ -304,3 +304,11 @@ def _clean_health_note(detail: str) -> str:
         r"[.;]?\s*(?:photo match|identity)\b.*$", "", detail, flags=re.IGNORECASE
     ).strip()
     return note.rstrip(".;")
+
+
+def _parse_datetime(value: str) -> datetime:
+    """Compare imported local timestamps and live UTC timestamps consistently."""
+    parsed = datetime.fromisoformat(value)
+    if parsed.tzinfo is not None:
+        parsed = parsed.astimezone(timezone.utc).replace(tzinfo=None)
+    return parsed

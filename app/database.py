@@ -605,7 +605,14 @@ class Database:
             )
         return {"action": "suggestion", "suggestion_id": int(cursor.lastrowid)}
 
-    def confirm_suggestion(self, suggestion_id: int, decided_by: str, decision: str) -> None:
+    def confirm_suggestion(
+        self,
+        suggestion_id: int,
+        decided_by: str,
+        decision: str,
+        *,
+        decided_at: str | None = None,
+    ) -> None:
         if decision not in {"confirmed", "rejected"}:
             raise ValueError("decision must be confirmed or rejected")
         self._require_volunteer(decided_by)
@@ -616,7 +623,7 @@ class Database:
             raise ValueError(f"unknown suggestion: {suggestion_id}")
         if suggestion["decided"] is not None:
             raise ValueError(f"suggestion {suggestion_id} is already decided")
-        decided_at = datetime.now(timezone.utc).isoformat()
+        decided_at = decided_at or datetime.now(timezone.utc).isoformat()
         with self.connection:
             self.connection.execute(
                 """
@@ -728,6 +735,17 @@ class Database:
                         (item["severity"], item["text"], existing["id"]),
                     )
                 else:
+                    acknowledged = self.connection.execute(
+                        """
+                        SELECT 1 FROM alerts
+                        WHERE colony_id IS ? AND cat_id IS ? AND kind = ?
+                          AND resolved_at IS NOT NULL AND resolved_at >= ?
+                        LIMIT 1
+                        """,
+                        (*key, item.get("created_at", resolved_at)),
+                    ).fetchone()
+                    if acknowledged:
+                        continue
                     self.connection.execute(
                         """
                         INSERT INTO alerts(colony_id, cat_id, kind, severity, text, created_at)
@@ -747,7 +765,13 @@ class Database:
         rows = self.connection.execute(
             """
             SELECT a.id, a.colony_id, COALESCE(c.name, 'All colonies') AS colony, a.cat_id,
-                   cat.display_name AS cat, a.kind, a.severity, a.text, a.created_at
+                   cat.display_name AS cat, a.kind, a.severity, a.text, a.created_at,
+                   COALESCE(
+                       (SELECT p.id FROM photos p WHERE p.cat_id = a.cat_id ORDER BY p.id LIMIT 1),
+                       (SELECT p.id FROM photos p JOIN cats pc ON pc.id = p.cat_id
+                        WHERE pc.colony_id = a.colony_id AND pc.merged_into_cat_id IS NULL
+                        ORDER BY p.id LIMIT 1)
+                   ) AS photo_id
             FROM alerts a
             LEFT JOIN colonies c ON c.id = a.colony_id
             LEFT JOIN cats cat ON cat.id = a.cat_id
@@ -785,18 +809,132 @@ class Database:
         rows = self.connection.execute(
             """
             SELECT s.id, s.kind, s.strength, s.reason, s.new_status, s.created_at,
-                   p.path AS photo_path, candidate.display_name AS candidate,
-                   target.display_name AS target,
-                   COALESCE(candidate.colony_id, target.colony_id) AS colony_id
+                   s.photo_id, s.cat_id, s.candidate_cat_id, s.feature_verdicts_json,
+                   candidate.display_name AS candidate, target.display_name AS target,
+                   COALESCE(candidate.colony_id, target.colony_id) AS colony_id,
+                   c.name AS colony,
+                   (SELECT rp.id FROM photos rp WHERE rp.cat_id = s.candidate_cat_id
+                    ORDER BY rp.id LIMIT 1) AS candidate_photo_id,
+                   (SELECT tp.id FROM photos tp WHERE tp.cat_id = s.cat_id
+                    ORDER BY tp.id LIMIT 1) AS target_photo_id
             FROM suggestions s
-            LEFT JOIN photos p ON p.id = s.photo_id
             LEFT JOIN cats candidate ON candidate.id = s.candidate_cat_id
             LEFT JOIN cats target ON target.id = s.cat_id
+            LEFT JOIN colonies c ON c.id = COALESCE(candidate.colony_id, target.colony_id)
             WHERE s.decided IS NULL
             ORDER BY s.id
             """
         ).fetchall()
+        result = []
+        for row in rows:
+            item = dict(row)
+            item["feature_verdicts"] = json.loads(item.pop("feature_verdicts_json"))
+            result.append(item)
+        return result
+
+    def list_volunteers(self) -> list[dict[str, Any]]:
+        rows = self.connection.execute(
+            "SELECT id, name, phone, role FROM volunteers ORDER BY name"
+        ).fetchall()
         return [dict(row) for row in rows]
+
+    def colony_detail(self, colony_id: str) -> dict[str, Any]:
+        self._require_colony(colony_id)
+        colony = self.connection.execute(
+            "SELECT id, name, lat, lng, notes FROM colonies WHERE id = ?", (colony_id,)
+        ).fetchone()
+        counts = next(item for item in self.colony_counts() if item["id"] == colony_id)
+        feeders = self.connection.execute(
+            """
+            SELECT v.id, v.name, v.phone, v.role
+            FROM colony_feeders cf JOIN volunteers v ON v.id = cf.volunteer_id
+            WHERE cf.colony_id = ? ORDER BY v.name
+            """,
+            (colony_id,),
+        ).fetchall()
+        feedings = self.connection.execute(
+            """
+            SELECT e.id, e.at, e.detail, v.id AS volunteer_id, v.name AS volunteer
+            FROM events e JOIN volunteers v ON v.id = e.volunteer_id
+            WHERE e.colony_id = ? AND e.kind = 'fed'
+            ORDER BY e.at DESC LIMIT 20
+            """,
+            (colony_id,),
+        ).fetchall()
+        cats = self.connection.execute(
+            """
+            SELECT cat.id, cat.display_name, cat.reported_name, cat.tnr_status, cat.health,
+                   cat.health_note, cat.pregnant, cat.status, cat.first_seen, cat.last_seen,
+                   (SELECT p.id FROM photos p WHERE p.cat_id = cat.id ORDER BY p.id LIMIT 1)
+                       AS photo_id,
+                   (SELECT COUNT(*) FROM suggestions s
+                    WHERE s.kind = 'same_cat' AND s.candidate_cat_id = cat.id
+                      AND s.decided IS NULL) AS unconfirmed_sightings
+            FROM cats cat
+            WHERE cat.colony_id = ? AND cat.status = 'active'
+              AND cat.merged_into_cat_id IS NULL
+            ORDER BY COALESCE(cat.reported_name, cat.display_name), cat.id
+            """,
+            (colony_id,),
+        ).fetchall()
+        return {
+            **dict(colony),
+            **counts,
+            "feeders": [dict(row) for row in feeders],
+            "feeding_log": [dict(row) for row in feedings],
+            "cats_list": [dict(row) for row in cats],
+        }
+
+    def cat_detail(self, cat_id: int) -> dict[str, Any]:
+        cat = self.connection.execute(
+            """
+            SELECT cat.*, c.name AS colony
+            FROM cats cat JOIN colonies c ON c.id = cat.colony_id
+            WHERE cat.id = ? AND cat.merged_into_cat_id IS NULL
+            """,
+            (cat_id,),
+        ).fetchone()
+        if cat is None:
+            raise ValueError(f"unknown cat: {cat_id}")
+        photos = self.connection.execute(
+            """
+            SELECT p.id, r.sent_at, v.name AS volunteer, 1 AS confirmed
+            FROM photos p JOIN reports r ON r.id = p.report_id
+            JOIN volunteers v ON v.id = r.volunteer_id
+            WHERE p.cat_id = ?
+            UNION ALL
+            SELECT p.id, r.sent_at, v.name AS volunteer, 0 AS confirmed
+            FROM suggestions s JOIN photos p ON p.id = s.photo_id
+            JOIN reports r ON r.id = p.report_id JOIN volunteers v ON v.id = r.volunteer_id
+            WHERE s.kind = 'same_cat' AND s.candidate_cat_id = ? AND s.decided IS NULL
+            ORDER BY sent_at DESC
+            """,
+            (cat_id, cat_id),
+        ).fetchall()
+        history = self.connection.execute(
+            """
+            SELECT e.id, e.kind, e.detail, e.at, v.name AS volunteer
+            FROM events e JOIN volunteers v ON v.id = e.volunteer_id
+            WHERE e.cat_id = ? ORDER BY e.at DESC, e.id DESC LIMIT 50
+            """,
+            (cat_id,),
+        ).fetchall()
+        item = dict(cat)
+        item["description"] = json.loads(item.pop("description_json"))
+        item["photos"] = [dict(row) for row in photos]
+        item["history"] = [dict(row) for row in history]
+        return item
+
+    def resolve_alert(self, alert_id: int, resolved_at: str) -> None:
+        row = self.connection.execute(
+            "SELECT id FROM alerts WHERE id = ? AND resolved_at IS NULL", (alert_id,)
+        ).fetchone()
+        if row is None:
+            raise ValueError(f"unknown open alert: {alert_id}")
+        with self.connection:
+            self.connection.execute(
+                "UPDATE alerts SET resolved_at = ? WHERE id = ?", (resolved_at, alert_id)
+            )
 
     def _insert_event(
         self,

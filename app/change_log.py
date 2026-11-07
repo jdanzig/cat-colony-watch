@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import os
 import time
+from base64 import b64decode, b64encode
 from pathlib import Path
 from typing import Any
 
@@ -12,6 +13,7 @@ import httpx
 
 
 REDIS_CHANGES_KEY = "ccw:changes"
+REDIS_PHOTO_PREFIX = "ccw:photo:"
 
 
 class ChangeLog:
@@ -62,6 +64,27 @@ class ChangeLog:
             return
         self._write_local([])
 
+    def store_photo(self, digest: str, content: bytes) -> None:
+        """Persist one already-resized live photo by its content hash."""
+        if self.url:
+            self._redis(["SET", f"{REDIS_PHOTO_PREFIX}{digest}", b64encode(content).decode()])
+            return
+        path = self._local_photo_path(digest)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        if not path.exists():
+            path.write_bytes(content)
+
+    def load_photo(self, digest: str) -> bytes:
+        if self.url:
+            encoded = self._redis(["GET", f"{REDIS_PHOTO_PREFIX}{digest}"])
+            if not encoded:
+                raise RuntimeError(f"live photo is missing from Upstash: {digest}")
+            return b64decode(encoded)
+        path = self._local_photo_path(digest)
+        if not path.exists():
+            raise RuntimeError(f"live photo is missing locally: {digest}")
+        return path.read_bytes()
+
     def _redis(self, command: list[Any]) -> Any:
         response = httpx.post(
             str(self.url),
@@ -80,3 +103,6 @@ class ChangeLog:
         temporary = self.local_path.with_suffix(self.local_path.suffix + ".tmp")
         temporary.write_text(json.dumps(changes, indent=2, sort_keys=True) + "\n")
         temporary.replace(self.local_path)
+
+    def _local_photo_path(self, digest: str) -> Path:
+        return self.local_path.parent / "live_photos" / f"{digest}.jpg"

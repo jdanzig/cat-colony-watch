@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#173f35">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Fraunces:opsz,wght@9..144,700;9..144,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQ3ynhZJOZB0t2u7ZbMZB7tsYJMQxyM=" crossorigin="">
+    <link rel="stylesheet" href="/static/app.css">
+    <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script defer src="/static/ui_text.js"></script>
+    <script defer src="/static/app.js"></script>
+  </head>
+  <body>
+    <div class="paper-noise" aria-hidden="true"></div>
+    <header class="topbar">
+      <a class="brand" href="#today" data-tab-link="today" aria-label="">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48"><path d="M10 22c0-8 6-15 14-15s14 7 14 15v7c0 8-6 13-14 13S10 37 10 29v-7Z"/><path d="m12 16-4-9 10 5M36 16l4-9-10 5"/><circle cx="19" cy="25" r="2"/><circle cx="29" cy="25" r="2"/><path d="m21 31 3 2 3-2"/></svg>
+        </span>
+        <span><strong id="brand-name"></strong><small id="brand-tagline"></small></span>
+      </a>
+      <label class="actor-control">
+        <span id="actor-label"></span>
+        <select id="actor-select"></select>
+      </label>
+    </header>
+
+    <main id="app" tabindex="-1">
+      <div class="loading-state" id="loading-state">
+        <span class="loading-paw" aria-hidden="true">● ● ●</span>
+        <p id="loading-copy"></p>
+      </div>
+    </main>
+
+    <nav class="bottom-nav" id="bottom-nav" aria-label="">
+      <button type="button" data-tab="today" class="active"><span aria-hidden="true">☀</span><b></b><i class="nav-count" id="alert-count"></i></button>
+      <button type="button" data-tab="colonies"><span aria-hidden="true">⌖</span><b></b></button>
+      <button type="button" data-tab="confirm"><span aria-hidden="true">✓</span><b></b><i class="nav-count" id="confirm-count"></i></button>
+      <button type="button" data-tab="report"><span aria-hidden="true">＋</span><b></b></button>
+    </nav>
+
+    <dialog id="detail-dialog" class="detail-dialog">
+      <div class="dialog-shell">
+        <button type="button" class="icon-button dialog-close" id="dialog-close" aria-label="">×</button>
+        <div id="dialog-content"></div>
+      </div>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

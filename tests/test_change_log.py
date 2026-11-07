@@ -7,6 +7,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from app.change_log import ChangeLog
+from app.ai_cache import AICache
 from app.database import Database
 from app.main import _apply_change
 
@@ -26,6 +27,8 @@ with tempfile.TemporaryDirectory() as directory:
     }
     log.append(change)
     assert ChangeLog(url="", token="", local_path=path).load() == [change]
+    log.store_photo("abc123", b"photo bytes")
+    assert log.load_photo("abc123") == b"photo bytes"
 
     db = Database()
     db.connection.execute(
@@ -37,8 +40,9 @@ with tempfile.TemporaryDirectory() as directory:
         VALUES('feeder', 'Demo Feeder', '305-555-0101', 'feeder')
         """
     )
+    cache = AICache(Path(directory) / "cache.json", "test-model")
     for item in log.load():
-        _apply_change(db, item)
+        _apply_change(db, cache, log, item)
     last_fed = db.colony_counts()[0]
     assert last_fed["last_fed_at"] == "2026-11-07T12:00:00+00:00"
     assert last_fed["last_fed_by"] == "Demo Feeder"
