@@ -48,7 +48,7 @@ It all has to be recorded: which cats are fixed, which still need **TNR** (trap,
 
 ## 3. The pitch in one line
 
-Volunteers keep texting the way they already do. Cat Colony Watch turns the chat export into a live record of every colony and every cat. It recognizes repeat sightings of the same cat from photos, flags urgent cases (pregnant, injured, kittens) the same day, and produces a sponsor report without exact locations.
+Volunteers keep texting the way they already do. Cat Colony Watch turns the chat export into a live record of every colony and every cat. It recognizes repeat sightings of the same cat from photos, flags urgent cases (pregnant, injured, kittens) the same day, and produces a sponsor report the numbers in which can be trusted.
 
 **Honesty principle:** the AI *suggests* matches and *explains* why. When it's unsure, a volunteer confirms with one tap. That keeps the census trustworthy, which is the challenge's own word, and it scores on feasibility.
 
@@ -86,7 +86,7 @@ WhatsApp chat export (.zip: _chat.txt + photos)
 - **SQLite** through the stdlib `sqlite3`. No ORM.
 - `openai` (vision and structured output) and `openai-agents` (the agent).
 - **Leaflet** from a CDN for the map.
-- **Pillow** for resizing and cropping images.
+- **Pillow** only for resizing and cropping images before they're sent. **All the AI runs on the OpenAI API:** no local models.
 - The model is set by the `OPENAI_MODEL` environment variable. Use a current vision-capable model and check the OpenAI docs for the current one.
 - Secrets live in `.env` (`OPENAI_API_KEY`), which is gitignored. Commit a `.env.example`.
 
@@ -112,7 +112,10 @@ Make one call per photo. The output schema:
 {
   "cat_count": 1,
   "cats": [{
+    "box": [0.12, 0.30, 0.55, 0.92],
+    "view": "side" | "front" | "back" | "face",
     "coat_color": "gray", "pattern": "tabby", "markings": ["white chest", "white left front paw"],
+    "eye_color": "yellow", "tail": "long, ringed",
     "ear_tip": "left" | "right" | "none" | "unclear",
     "apparent_health": ["limping right hind leg"],
     "looks_pregnant": true, "is_kitten": false
@@ -122,6 +125,8 @@ Make one call per photo. The output schema:
 }
 ```
 An ear tip (a clipped ear) is the standard sign that a cat is already fixed. Use it to set `tnr_status`.
+
+`box` is the cat's bounding box as fractions of the photo (left, top, right, bottom). Pillow crops each cat out with it, so matching compares **cats, not backgrounds**: two cats photographed against the same laundromat wall must not match because of the wall. A photo with three cats becomes three crops and three sightings.
 
 ### 6b. Message agent (Agents SDK)
 One `Agent` reads each message, with its photo descriptions and location attached, and records it using tools. It returns a structured summary of what it did.
@@ -139,15 +144,27 @@ The tools (`@function_tool`):
 Agent instructions, in short: never invent cats or facts that aren't in the message. When unsure, queue the case for review; don't guess.
 
 ### 6c. Same-cat matching
-The method below is the expected default. **`EVAL.md` decides the final method and threshold.** The likely winner is a hybrid: local re-ID embeddings pick a shortlist, and an OpenAI vision call confirms and explains.
+The method below is the expected default. **`EVAL.md` decides the final method and threshold.**
 
-1. **Narrow** with no AI call: compare only against cats in the same colony, or within about 300 m, and drop cats with a clearly different coat color.
-2. **Compare:** one vision call with the new photo plus the reference photos of the remaining candidates (usually 1–8). It returns the matching cat_id or "new", a confidence (`high` / `medium` / `low`), and the markings that decided it.
-3. **Decide:** a `high` match is applied automatically. `medium` or `low` goes to the review queue.
+**Principle: the model reads, a fixed rule decides.** The vision model reports what it sees, feature by feature. Plain code turns that into same / new / unsure. A model's own "I'm 90% sure" isn't trustworthy; a rule over specific observations can be tested and tuned.
+
+1. **Narrow,** with no AI call: compare only against cats in the same colony, or within about 300 m. Drop cats whose stored description has a clearly different coat color. Optional: rank the rest by text-embedding similarity of the descriptions (`text-embedding-3-small`, which is very cheap) and keep the top 3–5.
+2. **Compare:** one vision call with the new cat's crop and the candidates' reference crops (usually 1–5). For each candidate it returns a verdict per feature:
+   ```json
+   {"candidate": "cat_17", "features": {
+      "coat_color": "same", "pattern": "same", "markings": "same: white bib, torn left ear",
+      "ear_tip": "same", "eye_color": "not visible", "tail": "different"},
+    "contradictions": ["tail ringed in new photo, plain in reference"]}
+   ```
+3. **Decide, in code:**
+   - **Match** when the distinctive features agree (at least two specific markings agree) and nothing contradicts.
+   - **New** when there's a clear contradiction with every candidate.
+   - **Everything else goes to review.**
+   - Tune the thresholds on the `EVAL.md` results. **Any contradiction always blocks an automatic match.**
 
 **Do not** send all photos in one call. Accuracy drops and results vary between runs. See §9, step 0.
 
-**Check early:** whether the OpenAI API offers image embeddings. If it does, they could replace the narrowing step. If not, use the plan above. Don't build on it without checking.
+**Check early:** whether the OpenAI API offers image embeddings. If it does, they could replace the text-embedding ranking in step 1. As far as we know it doesn't. Don't build on it without checking.
 
 ## 7. Alert rules (plain code, no AI)
 
@@ -178,7 +195,7 @@ There's also an **Import** button to upload a chat export `.zip`, with a progres
 
 **Saturday (now → 9 PM)**
 
-0. **Cat re-identification test, about 2–2.5 h. Follow `EVAL.md`.** Collect photos with known repeats, compare the matching methods (OpenAI vision, local re-ID embeddings, a hybrid) and pick the method and auto-merge threshold. **This decides §6c and what accuracy the demo promises.** Reuse the test photos as demo photos where licenses allow.
+0. **Cat re-identification test, about 2–2.5 h. Follow `EVAL.md`.** Collect photos with known repeats, compare the OpenAI-based matching methods and pick the method and auto-merge threshold. **This decides §6c and what accuracy the demo promises.** Reuse the test photos as demo photos where licenses allow.
 1. **Mock data, about 1 h.** Write `data/demo/_chat.txt` in the WhatsApp iOS export format, with about 80 messages over 2 weeks across 5 detailed colonies (list all 18 by name and location). Use the photos from step 0. Plant the challenge's scenes:
    - two volunteers photograph the same calico on different days;
    - a gray cat behind the laundromat;
@@ -207,8 +224,8 @@ Cut order if time runs short: map (keep the list) → sponsor report → live ne
 3. **Today, 30 s:** "Pregnant calico at Laundromat colony: trap within days" is at the top, from a photo buried under 200 messages.
 4. **Colony page, 30 s:** 9 cats, 6 fixed, 3 need TNR. Open the calico's card: two volunteers' photos, one cat, with the reason "same torn left ear, same white bib."
 5. **Review, 20 s:** the AI wasn't sure about two black cats, so it asked. A volunteer taps once.
-6. **Sponsor report, 20 s:** "47 cats fixed this year." Locations are approximate.
-7. **How it's built, 20 s:** OpenAI vision for the photos, an Agents SDK agent for the messages, built with Codex. Mention the cost per 100 photos.
+6. **Sponsor report, 20 s:** "47 cats fixed this year," and every number traces back to a photo or message.
+7. **How it's built, 20 s:** OpenAI vision for the photos (the model reads, a rule decides), an Agents SDK agent for the messages, built with Codex. Mention the cost per 100 photos.
 
 ## 11. Open questions
 

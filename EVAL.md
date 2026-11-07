@@ -37,11 +37,14 @@ None of this is committed to the repo; it goes in a gitignored `eval_data/`. Rec
 | **B** | OpenAI vision, **per-colony gallery**: the new photo plus the colony's reference photos in one call → cat_id / new, confidence, deciding markings | API | 1 call per photo |
 | **C** | OpenAI vision, **pairwise**: the new photo against each candidate → same / different / unsure | API | 1 call per candidate |
 | **D** | **Describe, then compare text:** a vision call writes a structured description; text embeddings plus cosine similarity | API | 1 vision call + cheap embeddings |
-| **E** | **Local re-ID embeddings:** [MegaDescriptor](https://arxiv.org/abs/2311.09118), a wildlife re-identification model on Hugging Face, plus a DINOv2 baseline; cosine similarity | local, free | none |
-| **E-face** | E, but on a **cat-face crop** first (OpenCV `haarcascade_frontalcatface`, or a detector) | local | none |
-| **F** | **Hybrid:** E picks the top 3 candidates, then B or C confirms with OpenAI | both | 1 call per photo |
+| **E** | **Feature verdicts plus a rule:** like B, but the model returns a per-feature same / different / not visible for each candidate (`PLAN.md` §6c), and **code** decides | API | 1 call per photo |
+| **F** | **Hybrid:** D's text-embedding ranking keeps the top 3, then E confirms | API | 1 call + cheap embeddings |
 
-Expected outcome: A breaks once there are more than about 15 photos. **F** is the likely winner, giving local embeddings' recall plus the vision model's ability to reason about markings and explain them, with one API call per photo. The test should confirm or overturn that.
+**Everything runs on the OpenAI API;** no local models. Cropping is the only local image step.
+
+**Cropping applies to every method.** The description call returns each cat's bounding box, and Pillow crops it. Run B and E both **with and without cropping**, because a shared background (the same wall or dumpster) can make two different cats look like a match.
+
+Expected outcome: A breaks once there are more than about 15 photos. **E or F** is the likely winner: a rule over specific observations should be easier to trust than the model's own confidence, and each decision comes with its reason. The test should confirm or overturn that.
 
 The OpenAI API has text embeddings (`text-embedding-3-*`) but no documented image-embeddings endpoint, so D is the "OpenAI only" embedding option. Confirm this against the current docs.
 
@@ -51,7 +54,7 @@ The OpenAI API has text embeddings (`text-embedding-3-*`) but no documented imag
    - About **20% of queries come from cats not in the colony**, which tests "new cat."
    - Include **hard colonies**, where every cat is a solid black or gray cat.
    - Use fixed random seeds, so every method sees the same trials.
-2. **Run every method** on the same trials. Methods B, C and D return a confidence; E and F return a similarity score (and F also a confidence).
+2. **Run every method** on the same trials. B and C return the model's own confidence; D returns a similarity score; E and F return the rule's decision plus the feature verdicts behind it.
 3. **Record per query:** the true cat (or "new"), the predicted cat (or "new"), the confidence or score, and cost and time.
 4. Size: about 60 queries per method, which is enough to see differences without burning credits.
 
@@ -74,7 +77,7 @@ If no method reaches 95% even on distinctive cats, the product still works. Matc
 ## 7. Budget
 
 - Cap the API spend for this test at **$10** of the $50.
-- Order: E and E-face (free) → D → B → F → C only if needed → A once, as the baseline.
+- Order: D (cheapest) → B → E → F → C only if needed → A once, as the baseline. Run B and E with and without cropping.
 - Resize images to about 768 px. Store the result of every call, keyed by a hash of the image plus the prompt, so re-runs are free.
 
 ## 8. Output
