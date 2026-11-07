@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import re
 import sqlite3
+import threading
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -186,6 +187,7 @@ class Database:
         # Agents SDK executes synchronous function tools in a worker thread.
         # Imports are sequential, so one connection is safe to share here.
         self.connection = sqlite3.connect(self.path, check_same_thread=False)
+        self._photo_lock = threading.RLock()
         self.connection.row_factory = sqlite3.Row
         self.connection.execute("PRAGMA foreign_keys = ON")
         if reset:
@@ -305,13 +307,16 @@ class Database:
         return [dict(row) for row in rows]
 
     def photo(self, photo_id: int) -> dict[str, Any]:
-        row = self.connection.execute(
-            """
-            SELECT p.*, r.sent_at, r.volunteer_id
-            FROM photos p JOIN reports r ON r.id = p.report_id WHERE p.id = ?
-            """,
-            (photo_id,),
-        ).fetchone()
+        # Browsers load several protected images in parallel. The import agent
+        # also calls this method recursively, hence an RLock rather than Lock.
+        with self._photo_lock:
+            row = self.connection.execute(
+                """
+                SELECT p.*, r.sent_at, r.volunteer_id
+                FROM photos p JOIN reports r ON r.id = p.report_id WHERE p.id = ?
+                """,
+                (photo_id,),
+            ).fetchone()
         if row is None:
             raise ValueError(f"unknown photo: {photo_id}")
         return dict(row)
