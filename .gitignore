@@ -7,3 +7,4 @@ __pycache__/
 eval_data/
 eval/cache/
 costs.log
+data/demo/*.db

@@ -1,0 +1,5656 @@
+{
+  "build_cost_usd": 0.648968,
+  "descriptions": {
+    "00c0b50eb4443b2df1e8033782aae3da98a886afac4b058fec7e261398550b9d": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001596,
+        "input_tokens": 981,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 123,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.0,
+            0.139,
+            0.801,
+            1.0
+          ],
+          "coat_color": "mixed",
+          "ear_tip": "none",
+          "eye_color": "green",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "white nose blaze and muzzle",
+            "white chest patch",
+            "white paws",
+            "dark tabby stripes"
+          ],
+          "pattern": "tabby",
+          "tail": "Long, bushy, dark-tipped",
+          "view": "side"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "06131e4ce149578ad0e86555315ddc5780e4f9e2f88d221a5e97dd9871b9f3e2": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.00159,
+        "input_tokens": 1010,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 116,
+        "run_cost_usd": 0.00159
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.128,
+            0.034,
+            0.968,
+            0.971
+          ],
+          "coat_color": "mixed",
+          "ear_tip": "none",
+          "eye_color": "green",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "white nose blaze",
+            "dark forehead stripes",
+            "white muzzle and chest",
+            "orange cheek patch"
+          ],
+          "pattern": "calico",
+          "tail": "unclear",
+          "view": "face"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "0cc8d96b16e2de036d41ab1667518417ab6b151e0b6e175bf49cf26066b505d3": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001541,
+        "input_tokens": 981,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 112,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.359,
+            0.243,
+            0.981,
+            0.652
+          ],
+          "coat_color": "gray",
+          "ear_tip": "none",
+          "eye_color": "unclear",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "dark leg stripes",
+            "faint body stripes"
+          ],
+          "pattern": "tabby",
+          "tail": "visible, extended behind body",
+          "view": "side"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "0f6e23502d75053b20e83c9fbb1a2b23c41f13dd8973421ead0c6453ae10f1e0": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001528,
+        "input_tokens": 923,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 121,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.201,
+            0.069,
+            0.924,
+            0.93
+          ],
+          "coat_color": "mixed",
+          "ear_tip": "none",
+          "eye_color": "unclear",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "dark tabby stripes",
+            "white legs",
+            "white chest",
+            "ringed tail"
+          ],
+          "pattern": "tabby",
+          "tail": "Long, striped, and dark-tipped",
+          "view": "back"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "194792f565ac30b96d323f2c30472fc219a3c3ef9ae57f9e3b126371bd3b692e": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001473,
+        "input_tokens": 923,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 110,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.039,
+            0.399,
+            0.986,
+            0.971
+          ],
+          "coat_color": "mixed",
+          "ear_tip": "none",
+          "eye_color": "unclear",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "dark face mask",
+            "dark ears",
+            "dark paws"
+          ],
+          "pattern": "unclear",
+          "tail": "unclear",
+          "view": "side"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "2179d943f0cbbecd02117f73ea0577d25b92205df6c457ff41978b40015a0263": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001695,
+        "input_tokens": 1125,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 114,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.081,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "coat_color": "mixed",
+          "ear_tip": "none",
+          "eye_color": "green",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "Mottled black and orange coat",
+            "Orange patches on cheeks"
+          ],
+          "pattern": "tortoiseshell",
+          "tail": "unclear",
+          "view": "front"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "2518c3014cc9074a5c55bc8c82ef17d7a95187589abccbe4f96e29e242813ff3": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001526,
+        "input_tokens": 981,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 109,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.418,
+            0.372,
+            0.545,
+            0.507
+          ],
+          "coat_color": "gray",
+          "ear_tip": "unclear",
+          "eye_color": "unclear",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "dark facial stripes",
+            "dark leg stripes"
+          ],
+          "pattern": "tabby",
+          "tail": "unclear",
+          "view": "front"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "267d556ab17936c2c175eafa32dc818faa3b97761396907206b3b7b7d535568d": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001528,
+        "input_tokens": 923,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 121,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.064,
+            0.15,
+            0.944,
+            0.864
+          ],
+          "coat_color": "brown",
+          "ear_tip": "none",
+          "eye_color": "unclear",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "dark rosettes on body",
+            "dark facial stripes",
+            "ringed tail"
+          ],
+          "pattern": "spotted",
+          "tail": "long, ringed, with dark tip",
+          "view": "side"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "287d2464fa291b9e9f497d38fdf00398c2b0a04eca85b52f3ffd451408f33aa3": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001512,
+        "input_tokens": 952,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 112,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.247,
+            0.014,
+            0.74,
+            1.0
+          ],
+          "coat_color": "gray",
+          "ear_tip": "none",
+          "eye_color": "green",
+          "is_kitten": true,
+          "looks_pregnant": false,
+          "markings": [
+            "dark forehead stripes",
+            "dark leg stripes",
+            "white chest and belly"
+          ],
+          "pattern": "tabby",
+          "tail": "unclear",
+          "view": "front"
+        }
+      ],
+      "kittens_present": true,
+      "photo_quality": "good"
+    },
+    "2abe69ad8203435405aed0c851680dbccf8967b712cc477228a524c7adc8a3a1": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001709,
+        "input_tokens": 1154,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 111,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.179,
+            0.145,
+            0.929,
+            0.928
+          ],
+          "coat_color": "orange",
+          "ear_tip": "none",
+          "eye_color": "amber",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "white muzzle",
+            "white chest patch",
+            "orange forehead stripes"
+          ],
+          "pattern": "tabby",
+          "tail": "partially visible",
+          "view": "front"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "32dd8e48c1fa31b6a125a4b2e89bbbfb419832f3f699925ac35dc4f9a33b6e52": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001502,
+        "input_tokens": 952,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 110,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.0,
+            0.014,
+            0.9,
+            0.693
+          ],
+          "coat_color": "cream",
+          "ear_tip": "none",
+          "eye_color": "blue",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "dark face mask",
+            "dark ears",
+            "dark forehead stripes"
+          ],
+          "pattern": "colorpoint",
+          "tail": "unclear",
+          "view": "front"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "3bb4c09bb47358cf2ad0e88dc5a962958b2cf1a0a6c6fae0ef5f78fc0743011d": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001571,
+        "input_tokens": 981,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 118,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.038,
+            0.175,
+            0.94,
+            1.0
+          ],
+          "coat_color": "orange",
+          "ear_tip": "none",
+          "eye_color": "unclear",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "orange tabby facial stripes",
+            "white muzzle and chin"
+          ],
+          "pattern": "tabby",
+          "tail": "Long and fluffy; tip extends beyond the image",
+          "view": "side"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "46f8a42fd92f5a5fc30fc4ecb85a720a5c425b8adf3c1d9fc484503891f05617": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001517,
+        "input_tokens": 952,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 113,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.014,
+            0.051,
+            0.958,
+            0.975
+          ],
+          "coat_color": "mixed",
+          "ear_tip": "none",
+          "eye_color": "unclear",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "white muzzle and cheeks",
+            "orange facial patch",
+            "dark forehead stripes"
+          ],
+          "pattern": "calico",
+          "tail": "unclear",
+          "view": "face"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "54c368bd49a0d4f707b2266914a89a6860f3a7abca87933f87322652bbb2393c": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001556,
+        "input_tokens": 981,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 115,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.167,
+            0.229,
+            0.731,
+            0.723
+          ],
+          "coat_color": "gray",
+          "ear_tip": "unclear",
+          "eye_color": "unclear",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "dark stripes on legs and face",
+            "pale underside"
+          ],
+          "pattern": "tabby",
+          "tail": "Visible, extended behind body",
+          "view": "side"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "63d6accfe9bda94749a2451286905783adb814e1cae034809b58252982447830": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001655,
+        "input_tokens": 1125,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 106,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.0,
+            0.14,
+            0.81,
+            1.0
+          ],
+          "coat_color": "mixed",
+          "ear_tip": "unclear",
+          "eye_color": "blue",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "gray facial stripes",
+            "white muzzle",
+            "white chin"
+          ],
+          "pattern": "tabby",
+          "tail": "unclear",
+          "view": "face"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "66903057bfba678ba013634becf786836020214046f6f999396ceab18c02924f": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001471,
+        "input_tokens": 981,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 98,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.157,
+            0.219,
+            0.776,
+            1.0
+          ],
+          "coat_color": "black",
+          "ear_tip": "none",
+          "eye_color": "amber",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [],
+          "pattern": "solid",
+          "tail": "unclear",
+          "view": "front"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "80561bf0a1864e5d378eb3bcffd153f8edd515c42b2595b99ae7c57b8ee3cf6e": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001644,
+        "input_tokens": 1154,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 98,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.165,
+            0.025,
+            0.816,
+            1.0
+          ],
+          "coat_color": "black",
+          "ear_tip": "none",
+          "eye_color": "amber",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [],
+          "pattern": "solid",
+          "tail": "unclear",
+          "view": "front"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "846ca83643d326a12594eead5fda93be46f0307cccff320e785d35512cdf7ab4": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001596,
+        "input_tokens": 981,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 123,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.438,
+            0.326,
+            1.0,
+            0.778
+          ],
+          "coat_color": "brown",
+          "ear_tip": "none",
+          "eye_color": "green",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "white muzzle and nose blaze",
+            "white chest",
+            "white front paw",
+            "dark tabby stripes"
+          ],
+          "pattern": "tabby",
+          "tail": "Long and bushy, partly obscured",
+          "view": "side"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "93766a49a817e11eca7876c305424bee19f4192cb43949e92e65749e740a9b20": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001657,
+        "input_tokens": 1067,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 118,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.387,
+            0.159,
+            0.721,
+            0.872
+          ],
+          "coat_color": "mixed",
+          "ear_tip": "none",
+          "eye_color": "green",
+          "is_kitten": true,
+          "looks_pregnant": false,
+          "markings": [
+            "white muzzle and chest",
+            "white legs",
+            "dark tabby forehead stripes",
+            "dark patch beside nose"
+          ],
+          "pattern": "tabby",
+          "tail": "unclear",
+          "view": "front"
+        }
+      ],
+      "kittens_present": true,
+      "photo_quality": "good"
+    },
+    "96be334f7cb5236115d6dafa95c42eecae5c9a868aee37cb00d47fe0a2e41143": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001642,
+        "input_tokens": 1067,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 115,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.204,
+            0.0,
+            0.908,
+            1.0
+          ],
+          "coat_color": "mixed",
+          "ear_tip": "none",
+          "eye_color": "unclear",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "white nose blaze",
+            "white muzzle",
+            "white chest patch",
+            "dark facial stripes"
+          ],
+          "pattern": "tabby",
+          "tail": "unclear",
+          "view": "front"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "9998c74f588c656a8c359bb4e82d10fc83abc64202c0cf473c70d032606e8997": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001699,
+        "input_tokens": 1154,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 109,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.082,
+            0.078,
+            0.939,
+            0.914
+          ],
+          "coat_color": "orange",
+          "ear_tip": "none",
+          "eye_color": "yellow",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "darker orange forehead stripes",
+            "pale chin"
+          ],
+          "pattern": "tabby",
+          "tail": "unclear",
+          "view": "front"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "9a5d16a7b9c988fd84cd78af87f68d30dc745f8ce52e4b6683c4b32cf0115fca": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001526,
+        "input_tokens": 981,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 109,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.0,
+            0.025,
+            0.667,
+            1.0
+          ],
+          "coat_color": "orange",
+          "ear_tip": "none",
+          "eye_color": "unclear",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "white chin and chest",
+            "orange facial stripes"
+          ],
+          "pattern": "tabby",
+          "tail": "unclear",
+          "view": "side"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "9dc0f9464bf6f3f9bc57c01b7c5cc5eb3b45aae8cfec807a447676ba4b80fd88": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001463,
+        "input_tokens": 923,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 108,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.176,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "coat_color": "orange",
+          "ear_tip": "none",
+          "eye_color": "amber",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "pale muzzle",
+            "faint forehead stripes"
+          ],
+          "pattern": "tabby",
+          "tail": "unclear",
+          "view": "front"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "a8ca427e1b288dc649191ee9bf362e351690e7a9598dea27f0daeb4a94817c1c": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001552,
+        "input_tokens": 952,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 120,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.197,
+            0.169,
+            1.0,
+            0.977
+          ],
+          "coat_color": "gray",
+          "ear_tip": "none",
+          "eye_color": "yellow",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "dark forehead stripes",
+            "dark leg stripes",
+            "pale chin and throat"
+          ],
+          "pattern": "tabby",
+          "tail": "Partially visible, extending to the right edge",
+          "view": "side"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "aaf2fa44a6e50b631f68e097dcbea91d5840aed1c5db2820730011170728d5b0": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001483,
+        "input_tokens": 923,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 112,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.046,
+            0.042,
+            1.0,
+            0.99
+          ],
+          "coat_color": "mixed",
+          "ear_tip": "none",
+          "eye_color": "blue",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "dark facial stripes",
+            "dark leg stripes",
+            "white muzzle and chest"
+          ],
+          "pattern": "tabby",
+          "tail": "unclear",
+          "view": "side"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "ca766d9cbd346726b008884332b25101202a459540091ecfe788a484d91cf748": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001511,
+        "input_tokens": 981,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 106,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.127,
+            0.194,
+            0.728,
+            0.913
+          ],
+          "coat_color": "orange",
+          "ear_tip": "none",
+          "eye_color": "amber",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "faint darker orange forehead stripes"
+          ],
+          "pattern": "unclear",
+          "tail": "unclear",
+          "view": "front"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "cf477206b9df8a932848a57fdda43e83641731cd97682d0c0cb5de32bc04b85b": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.00167,
+        "input_tokens": 1010,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 132,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.105,
+            0.042,
+            0.923,
+            0.96
+          ],
+          "coat_color": "mixed",
+          "ear_tip": "none",
+          "eye_color": "unclear",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "dark tabby stripes",
+            "white muzzle and chest",
+            "white front legs and paws",
+            "white hind paw",
+            "ringed tail"
+          ],
+          "pattern": "tabby",
+          "tail": "Long, dark-ringed, with a dark tip",
+          "view": "side"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "d656904c164ee95af0c2e324171d21e50e29302a35ad0ea73188c4944c0c4056": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001487,
+        "input_tokens": 952,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 107,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.0,
+            0.079,
+            0.871,
+            1.0
+          ],
+          "coat_color": "cream",
+          "ear_tip": "unclear",
+          "eye_color": "blue",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "dark facial mask",
+            "dark ears"
+          ],
+          "pattern": "colorpoint",
+          "tail": "unclear",
+          "view": "face"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "dbc0cca077481a77b4c62314a08e28281e3f46f5144b9a9499ff2c4a9f14fc68": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001476,
+        "input_tokens": 981,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 99,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.0,
+            0.0,
+            1.0,
+            0.977
+          ],
+          "coat_color": "black",
+          "ear_tip": "unclear",
+          "eye_color": "amber",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [],
+          "pattern": "solid",
+          "tail": "unclear",
+          "view": "face"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "e04b05843d1ae95e1cc35741f2c31980288a343d038dd8def40e7c08c4b1253d": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.00159,
+        "input_tokens": 1010,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 116,
+        "run_cost_usd": 0.00159
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.035,
+            0.042,
+            0.962,
+            0.844
+          ],
+          "coat_color": "mixed",
+          "ear_tip": "none",
+          "eye_color": "green",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "white muzzle and chest",
+            "orange cheek patches",
+            "dark forehead stripes",
+            "white nose blaze"
+          ],
+          "pattern": "unclear",
+          "tail": "unclear",
+          "view": "face"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "e292ab171b684408c457d12c3d9d196a9168532282f517ecb3cba5ee78da1699": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001632,
+        "input_tokens": 1067,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 113,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.183,
+            0.053,
+            0.839,
+            0.952
+          ],
+          "coat_color": "brown",
+          "ear_tip": "none",
+          "eye_color": "green",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "dark rosette-shaped flank markings",
+            "dark facial stripes",
+            "light muzzle"
+          ],
+          "pattern": "tabby",
+          "tail": "unclear",
+          "view": "back"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "e3086d5ab9808f824cbd98d229fa3b1cdbf35e24896bf91bcbe5f71276233903": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001517,
+        "input_tokens": 952,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 113,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.036,
+            0.052,
+            0.991,
+            0.913
+          ],
+          "coat_color": "brown",
+          "ear_tip": "none",
+          "eye_color": "green",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "dark forehead stripes",
+            "dark body stripes",
+            "pale muzzle and chin"
+          ],
+          "pattern": "tabby",
+          "tail": "unclear",
+          "view": "front"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "ead04712a017f17b26c3aaaaf863ccf7af208abbd361256afd6f2ee5d575c0c5": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001606,
+        "input_tokens": 981,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 125,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.02,
+            0.016,
+            0.849,
+            0.889
+          ],
+          "coat_color": "mixed",
+          "ear_tip": "none",
+          "eye_color": "yellow",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "mottled black and brown coat",
+            "tan flecks on muzzle and around eyes"
+          ],
+          "pattern": "tortoiseshell",
+          "tail": "Dark, bushy tail visible on the left",
+          "view": "front"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "edb4186cb030fbb5a725adad6179fff9cd75657a31686a464f902b85590baffd": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001651,
+        "input_tokens": 1096,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 111,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.0,
+            0.047,
+            0.781,
+            1.0
+          ],
+          "coat_color": "cream",
+          "ear_tip": "none",
+          "eye_color": "blue",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "dark forehead stripes",
+            "dark cheek stripes",
+            "dark nose outline"
+          ],
+          "pattern": "tabby",
+          "tail": "unclear",
+          "view": "front"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "ef2310fd2abbbf0a1674fb55dfce9b20f71706d765a97b714d38fcc433c1c02c": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001536,
+        "input_tokens": 981,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 111,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.0,
+            0.076,
+            0.832,
+            1.0
+          ],
+          "coat_color": "gray",
+          "ear_tip": "none",
+          "eye_color": "green",
+          "is_kitten": true,
+          "looks_pregnant": false,
+          "markings": [
+            "dark forehead stripes",
+            "pale muzzle",
+            "dark eye outlines"
+          ],
+          "pattern": "tabby",
+          "tail": "unclear",
+          "view": "front"
+        }
+      ],
+      "kittens_present": true,
+      "photo_quality": "good"
+    },
+    "f2fa1bf1352840b7f93271010253f27842b2816d73b0bdf8b772354906042d37": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001714,
+        "input_tokens": 1154,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 112,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.023,
+            0.033,
+            0.859,
+            1.0
+          ],
+          "coat_color": "mixed",
+          "ear_tip": "none",
+          "eye_color": "green",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "orange mottling on face",
+            "orange patch beside nose"
+          ],
+          "pattern": "tortoiseshell",
+          "tail": "unclear",
+          "view": "front"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    }
+  },
+  "failed_call_reserve_usd": 0.01,
+  "matches": {
+    "08cc54c78690dafa188c3a8239034e85079726fba330b6b0cd6ae2ff9e1c9a83": {
+      "_meta": {
+        "cache_hit": true,
+        "run_cost_usd": 0.0
+      },
+      "candidate_id": null,
+      "comparisons": [],
+      "reason": "no candidates after conservative coat-color filtering",
+      "suggestion": "new"
+    },
+    "10891bf3929fa07030d8030b0660ef74fbf3c612a76b281e346443c1ce4b3651": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.003784,
+        "input_tokens": 2389,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 279,
+        "run_cost_usd": 0.003784
+      },
+      "candidate_id": "3",
+      "comparisons": [
+        {
+          "candidate": "3",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "not_visible",
+            "face_markings": "same",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": [
+            "Dark forehead stripes converging toward a lighter gray nose bridge"
+          ]
+        },
+        {
+          "candidate": "9",
+          "contradictions": [
+            "Candidate has a reddish-brown coat with dark body spots and stripes, unlike the query's pale colorpoint coat.",
+            "Candidate has a reddish tabby face with a pale muzzle rather than the query's dark gray mask."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "not_visible",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "12",
+          "contradictions": [
+            "Candidate's forehead mask appears solid, while the query shows distinct dark forehead stripes."
+          ],
+          "features": {
+            "body_markings": "not_visible",
+            "coat_color": "same",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "not_visible",
+            "eye_color": "not_visible",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
+    "1883f8e9cd89280c9fde386e99a1fb7e00e2c40b9b60155accc56a1e822c7245": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.002137,
+        "input_tokens": 1647,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 98,
+        "run_cost_usd": 0.002137
+      },
+      "candidate_id": null,
+      "comparisons": [
+        {
+          "candidate": "3",
+          "contradictions": [
+            "The candidate has prominent dark forehead stripes, while the query's forehead is largely unstriped."
+          ],
+          "features": {
+            "body_markings": "not_visible",
+            "coat_color": "same",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "same",
+            "face_markings": "different",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "every candidate has a visible contradiction",
+      "suggestion": "new"
+    },
+    "1b9864a8988e2600fbcbb63423cf2c203d17cefc9b0317a41abc394d1d0aaa17": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.002984,
+        "input_tokens": 2089,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 179,
+        "run_cost_usd": 0.002984
+      },
+      "candidate_id": "4",
+      "comparisons": [
+        {
+          "candidate": "4",
+          "contradictions": [],
+          "features": {
+            "body_markings": "not_visible",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "same",
+            "face_markings": "unclear",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "10",
+          "contradictions": [
+            "Candidate 10 has orange and dark patches with a white facial blaze, unlike the query's gray-striped face and darker nose bridge.",
+            "Candidate 10 has green eyes; the query has blue eyes."
+          ],
+          "features": {
+            "body_markings": "not_visible",
+            "coat_color": "different",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
+    "1c0072f25720f20b78eeb98f4c03ebd8b32d3766b44f86d462d3b557089decc0": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.003,
+        "input_tokens": 1945,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 211,
+        "run_cost_usd": 0.003
+      },
+      "candidate_id": "10",
+      "comparisons": [
+        {
+          "candidate": "4",
+          "contradictions": [
+            "The candidate has a gray tabby face, whereas the query has orange and dark tabby patches.",
+            "The candidate's visible eye is blue, while the query's visible iris appears green."
+          ],
+          "features": {
+            "body_markings": "not_visible",
+            "coat_color": "different",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "10",
+          "contradictions": [],
+          "features": {
+            "body_markings": "not_visible",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "same",
+            "face_markings": "same",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": [
+            "Dark tabby forehead patch bordering an orange cheek, with a white blaze running down beside the nose.",
+            "Orange-brown patch beside the pink nose on an otherwise white muzzle. "
+          ]
+        }
+      ],
+      "reason": "Dark tabby forehead patch bordering an orange cheek, with a white blaze running down beside the nose.; Orange-brown patch beside the pink nose on an otherwise white muzzle. ",
+      "suggestion": "strong"
+    },
+    "1df914e91362630bee107783d9e1c97ca2c10f6115e2543b4b93613c6498324e": {
+      "_meta": {
+        "cache_hit": true,
+        "run_cost_usd": 0.0
+      },
+      "candidate_id": null,
+      "comparisons": [],
+      "reason": "no candidates after conservative coat-color filtering",
+      "suggestion": "new"
+    },
+    "36b800e05936b1f4c95e0bfcc449aace5481573c4db875d8ae32e65e7fdb7f7e": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.003304,
+        "input_tokens": 1914,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 278,
+        "run_cost_usd": 0.003304
+      },
+      "candidate_id": "8",
+      "comparisons": [
+        {
+          "candidate": "1",
+          "contradictions": [
+            "The candidate is predominantly orange, while the query is a dark brown-gray tabby with substantial white.",
+            "The query has extensive white on the hind legs and underside, unlike the candidate's visible orange body."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "not_visible",
+            "face_markings": "unclear",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "8",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "not_visible",
+            "face_markings": "unclear",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "11",
+          "contradictions": [
+            "The candidate's visible coat is orange, whereas the query's visible coat is predominantly dark brown-gray tabby and white."
+          ],
+          "features": {
+            "body_markings": "not_visible",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "not_visible",
+            "face_markings": "unclear",
+            "pattern": "unclear",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
+    "4ce8d291fc58addddbac6a1f54424d14eedde06e635e03551303e266aed6ed31": {
+      "_meta": {
+        "cache_hit": true,
+        "run_cost_usd": 0.0
+      },
+      "candidate_id": null,
+      "comparisons": [],
+      "reason": "no candidates after conservative coat-color filtering",
+      "suggestion": "new"
+    },
+    "4d2b6838141fccbc15233cb90732256c6de960a18373585836a2315984d4cf5a": {
+      "_meta": {
+        "cache_hit": true,
+        "run_cost_usd": 0.0
+      },
+      "candidate_id": null,
+      "comparisons": [],
+      "reason": "no candidates after conservative coat-color filtering",
+      "suggestion": "new"
+    },
+    "4e1c9d662fbd817b93fec7563237139bf1e9433ecf1f592da73ded7739b358ab": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.001745,
+        "input_tokens": 1360,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 77,
+        "run_cost_usd": 0.001745
+      },
+      "candidate_id": "9",
+      "comparisons": [
+        {
+          "candidate": "9",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "same",
+            "face_markings": "unclear",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
+    "558e3543397c4a466a60f57b489dd97fcdea1e53a7b36e9fa5c504ceeb3fe66f": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.003475,
+        "input_tokens": 2115,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 272,
+        "run_cost_usd": 0.003475
+      },
+      "candidate_id": "8",
+      "comparisons": [
+        {
+          "candidate": "1",
+          "contradictions": [
+            "The candidate is orange, whereas the query is brown-gray tabby and white.",
+            "The candidate lacks the query's prominent white muzzle, chest, and legs."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "unclear",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "8",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "same",
+            "face_markings": "unclear",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "11",
+          "contradictions": [
+            "The candidate's visible face is orange, unlike the query's brown-gray tabby face.",
+            "The candidate lacks the query's prominent white cheek and muzzle markings."
+          ],
+          "features": {
+            "body_markings": "not_visible",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "unclear",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
+    "5740b67aaab6ee7402a0ecfa791810f66a689b2c965a8bd6d3ff533916d806a0": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.00252,
+        "input_tokens": 1500,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 204,
+        "run_cost_usd": 0.00252
+      },
+      "candidate_id": null,
+      "comparisons": [
+        {
+          "candidate": "1",
+          "contradictions": [
+            "The query has a prominent white chest patch; candidate 1's visible chest is orange."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "same",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "unclear",
+            "face_markings": "unclear",
+            "pattern": "unclear",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "8",
+          "contradictions": [
+            "The query has an orange coat, while candidate 8 has a dark tabby and white coat.",
+            "Candidate 8 has a broad white facial blaze and white cheeks, unlike the query's orange face."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "unclear",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "every candidate has a visible contradiction",
+      "suggestion": "new"
+    },
+    "64b3d1376aee411748aef71a0192b19f04001c5088c8bccff20a157d7968dc59": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.002454,
+        "input_tokens": 1519,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 187,
+        "run_cost_usd": 0.002454
+      },
+      "candidate_id": "7",
+      "comparisons": [
+        {
+          "candidate": "5",
+          "contradictions": [
+            "Candidate 5 has a prominent white nose blaze and white muzzle; the query has a striped face without that blaze.",
+            "Candidate 5 has a long, fluffy coat, while the query has a short coat."
+          ],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "unclear",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "7",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "unclear",
+            "face_markings": "unclear",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
+    "6d4e0e6fab4b1b8c7646467088decbfc823ed18a502a1f1ccef286ab52b62206": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.001687,
+        "input_tokens": 1302,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 77,
+        "run_cost_usd": 0.001687
+      },
+      "candidate_id": "9",
+      "comparisons": [
+        {
+          "candidate": "9",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "same",
+            "face_markings": "unclear",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
+    "76cddfa1d64418fb1d8b1c079908cf06169bb2e5d90e1be50435d1ff6a3754c5": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.00172,
+        "input_tokens": 1100,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 124,
+        "run_cost_usd": 0.00172
+      },
+      "candidate_id": null,
+      "comparisons": [
+        {
+          "candidate": "5",
+          "contradictions": [
+            "Candidate has a prominent white nose blaze and white muzzle; the query does not.",
+            "Candidate has a large white chest patch, unlike the visibly gray chest of the query.",
+            "Candidate has long fur, while the query has short fur."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "unclear",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "every candidate has a visible contradiction",
+      "suggestion": "new"
+    },
+    "77ca85fc9f671c136ce6ff36a67f2bcf459c8a0bc96861a92f22c082cbec9702": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.004038,
+        "input_tokens": 2648,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 278,
+        "run_cost_usd": 0.004038
+      },
+      "candidate_id": "2",
+      "comparisons": [
+        {
+          "candidate": "2",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "not_visible",
+            "ear_tip": "not_visible",
+            "eye_color": "same",
+            "face_markings": "same",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "6",
+          "contradictions": [
+            "The query has a black face, while candidate 6 has a pale gray striped face.",
+            "The query has amber eyes, while candidate 6 has greenish eyes."
+          ],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "different",
+            "ear_shape_or_damage": "not_visible",
+            "ear_tip": "not_visible",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "13",
+          "contradictions": [
+            "Candidate 13 has orange tortoiseshell patches across the face, absent from the query's black face.",
+            "The query has amber eyes, while candidate 13 has yellow-green eyes."
+          ],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "different",
+            "ear_shape_or_damage": "not_visible",
+            "ear_tip": "not_visible",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
+    "97c6618ea0bc5978f1f7552a9a7003adf31eea3ba1ce4aa05b9156a4c14d928c": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.003314,
+        "input_tokens": 2119,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 239,
+        "run_cost_usd": 0.003314
+      },
+      "candidate_id": null,
+      "comparisons": [
+        {
+          "candidate": "2",
+          "contradictions": [
+            "The query has orange tortoiseshell patches on its face and body; the candidate appears solid black.",
+            "The query's eyes are yellow-green; the candidate's are orange-amber."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "same",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "6",
+          "contradictions": [
+            "The query is predominantly black with orange tortoiseshell patches; the candidate is pale gray and cream with tabby markings.",
+            "The query has a predominantly black face with asymmetric orange patches; the candidate has a pale, striped face.",
+            "The query's eyes are yellow-green; the candidate's appear muted gray-green."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "same",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "every candidate has a visible contradiction",
+      "suggestion": "new"
+    },
+    "992eb2440b4fb80b47a7c9626557799f38859813918bd809d76f6deeda233bf9": {
+      "_meta": {
+        "cache_hit": true,
+        "run_cost_usd": 0.0
+      },
+      "candidate_id": null,
+      "comparisons": [],
+      "reason": "no candidates after conservative coat-color filtering",
+      "suggestion": "new"
+    },
+    "9a0e4d889dfbe023f133c106caf613ef8345b42c334e84518f292ba4607e2777": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.003022,
+        "input_tokens": 2147,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 175,
+        "run_cost_usd": 0.003022
+      },
+      "candidate_id": "4",
+      "comparisons": [
+        {
+          "candidate": "4",
+          "contradictions": [],
+          "features": {
+            "body_markings": "not_visible",
+            "coat_color": "same",
+            "ear_shape_or_damage": "not_visible",
+            "ear_tip": "not_visible",
+            "eye_color": "same",
+            "face_markings": "unclear",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "10",
+          "contradictions": [
+            "Candidate has orange and dark patches on the face, whereas the query has gray facial markings.",
+            "Candidate has green eyes, whereas the query has a blue eye."
+          ],
+          "features": {
+            "body_markings": "not_visible",
+            "coat_color": "different",
+            "ear_shape_or_damage": "not_visible",
+            "ear_tip": "not_visible",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
+    "a2e8f5a4dad925011f6069bcac3e98ba4843fc4e250587cc9d3ac4c66ab4409d": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.001671,
+        "input_tokens": 1286,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 77,
+        "run_cost_usd": 0.001671
+      },
+      "candidate_id": "1",
+      "comparisons": [
+        {
+          "candidate": "1",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "same",
+            "face_markings": "unclear",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
+    "a7a8b69c164ccb6aa7a31e75d378a0f4e8d2bf7615e5fa19b6276d6d5ac3b3ce": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.002802,
+        "input_tokens": 1917,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 177,
+        "run_cost_usd": 0.002802
+      },
+      "candidate_id": "2",
+      "comparisons": [
+        {
+          "candidate": "2",
+          "contradictions": [],
+          "features": {
+            "body_markings": "same",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "same",
+            "face_markings": "same",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "6",
+          "contradictions": [
+            "The query has a solid black coat and face; candidate 6 has a light gray tabby coat with facial and body stripes.",
+            "The query has amber eyes; candidate 6 has greenish eyes."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
+    "accfe67cb28fe8b696fedd5e088e682cb9ab1d8e8c3c53f4fa398e1af1258e57": {
+      "_meta": {
+        "cache_hit": true,
+        "run_cost_usd": 0.0
+      },
+      "candidate_id": null,
+      "comparisons": [],
+      "reason": "no candidates after conservative coat-color filtering",
+      "suggestion": "new"
+    },
+    "b23b87235a96cd472e858e33572edf8f41767047d76868d111c0120214e3baa0": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.003518,
+        "input_tokens": 2173,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 269,
+        "run_cost_usd": 0.003518
+      },
+      "candidate_id": "11",
+      "comparisons": [
+        {
+          "candidate": "1",
+          "contradictions": [
+            "The candidate lacks the query's prominent white muzzle and chest patch."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "unclear",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "8",
+          "contradictions": [
+            "The candidate has a dark gray-brown tabby coat rather than orange.",
+            "The candidate has a dark nose and a white facial blaze, unlike the query's pink nose and orange nose bridge.",
+            "The candidate's eyes are green, while the query's are amber."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "11",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "unclear",
+            "face_markings": "unclear",
+            "pattern": "unclear",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
+    "b48ad066248af205d5af8ce946307f13a707e8c9555af8f50f6516321b126c57": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.001835,
+        "input_tokens": 1115,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 144,
+        "run_cost_usd": 0.001835
+      },
+      "candidate_id": null,
+      "comparisons": [
+        {
+          "candidate": "1",
+          "contradictions": [
+            "The query has a dark tabby-and-white coat, while the candidate is orange.",
+            "The query has a white muzzle and cheeks with a dark-edged brown nose; the candidate has an orange face and pink nose.",
+            "The query has a large white chest and white front legs; the candidate's chest and visible front legs are orange."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "every candidate has a visible contradiction",
+      "suggestion": "new"
+    },
+    "b4afbe9d6289fd1ecf43553ed5cf01571c8468667cf350cf08b401ef9e5082cf": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.003989,
+        "input_tokens": 2619,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 274,
+        "run_cost_usd": 0.003989
+      },
+      "candidate_id": "6",
+      "comparisons": [
+        {
+          "candidate": "2",
+          "contradictions": [
+            "The candidate has a solid black coat and face; the query has a gray ticked coat with facial and leg stripes.",
+            "The candidate's eyes are orange; the query's are yellow-green."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "6",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "same",
+            "face_markings": "unclear",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "13",
+          "contradictions": [
+            "The candidate has a black-and-orange tortoiseshell coat and a mottled dark face; the query has a gray ticked coat and a lighter striped face."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "same",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
+    "c7b54102588b5797a6845047938a904126ace526c8d53a82397facc9f81b6fe3": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.003422,
+        "input_tokens": 2202,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 244,
+        "run_cost_usd": 0.003422
+      },
+      "candidate_id": "1",
+      "comparisons": [
+        {
+          "candidate": "1",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "same",
+            "face_markings": "unclear",
+            "pattern": "unclear",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "8",
+          "contradictions": [
+            "Candidate has a dark tabby-and-white coat, while the query has an orange coat.",
+            "Candidate has a white muzzle, chest and legs, unlike the query's orange face and chest."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "11",
+          "contradictions": [],
+          "features": {
+            "body_markings": "not_visible",
+            "coat_color": "unclear",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "same",
+            "eye_color": "unclear",
+            "face_markings": "unclear",
+            "pattern": "unclear",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
+    "cee956b8a268bb5891a751d1774626cc5a71929439b5b4614f0581eb2a6cce3a": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.003144,
+        "input_tokens": 2089,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 211,
+        "run_cost_usd": 0.003144
+      },
+      "candidate_id": "10",
+      "comparisons": [
+        {
+          "candidate": "4",
+          "contradictions": [
+            "The candidate has a gray tabby face without the query's orange facial patches.",
+            "The candidate's visible eye is blue, while the query's visible eye is green."
+          ],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "10",
+          "contradictions": [],
+          "features": {
+            "body_markings": "not_visible",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "same",
+            "face_markings": "same",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": [
+            "Dark tapered marking extending down from the inner corner of the prominently visible eye.",
+            "Orange patch on the white muzzle beside the pink nose.",
+            "Dark forehead stripes bordered by orange above the eye."
+          ]
+        }
+      ],
+      "reason": "Dark tapered marking extending down from the inner corner of the prominently visible eye.; Orange patch on the white muzzle beside the pink nose.; Dark forehead stripes bordered by orange above the eye.",
+      "suggestion": "strong"
+    },
+    "d94ae663e0cff9394998fa6604a50b82a8af806b076e243ae33c0616deef01a1": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.001967,
+        "input_tokens": 1417,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 110,
+        "run_cost_usd": 0.001967
+      },
+      "candidate_id": null,
+      "comparisons": [
+        {
+          "candidate": "2",
+          "contradictions": [
+            "The query has a pale gray coat with darker markings; the candidate has a solid black coat.",
+            "The query has greenish eyes; the candidate has orange eyes."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "every candidate has a visible contradiction",
+      "suggestion": "new"
+    },
+    "dabb3c56b6788a4a21061b09d6f7b267bf90396a0e7a7c2c164b1d3de1792570": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.004294,
+        "input_tokens": 2734,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 312,
+        "run_cost_usd": 0.004294
+      },
+      "candidate_id": "13",
+      "comparisons": [
+        {
+          "candidate": "2",
+          "contradictions": [
+            "The query has tan tortoiseshell patches on the face, while the candidate's face is uniformly black.",
+            "The query's eyes are yellow-green; the candidate's are orange-amber."
+          ],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "6",
+          "contradictions": [
+            "The query has a predominantly black tortoiseshell coat; the candidate has a pale gray and cream coat.",
+            "The candidate has a pale, striped face rather than the query's dark face with asymmetric tan patches."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "unclear",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "13",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "same",
+            "face_markings": "same",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": [
+            "Tan flecking on the viewer-left side of the nose and muzzle.",
+            "Broad tan patch on the viewer-right cheek."
+          ]
+        }
+      ],
+      "reason": "Tan flecking on the viewer-left side of the nose and muzzle.; Broad tan patch on the viewer-right cheek.",
+      "suggestion": "strong"
+    },
+    "db3fd1971107ef115516933a074d18e4b442fe6de6c17ed493a3f819b61e0456": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.00397,
+        "input_tokens": 2490,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 296,
+        "run_cost_usd": 0.00397
+      },
+      "candidate_id": "6",
+      "comparisons": [
+        {
+          "candidate": "2",
+          "contradictions": [
+            "The candidate has a solid black coat and face, unlike the query's silver-gray tabby markings.",
+            "The candidate's eyes are amber, while the query's are green."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "6",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "same",
+            "face_markings": "same",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": [
+            "Both have a dark-edged pink nose with a dark line descending toward the mouth."
+          ]
+        },
+        {
+          "candidate": "13",
+          "contradictions": [
+            "The candidate has a dark tortoiseshell coat with orange patches, unlike the query's silver-gray tabby coat.",
+            "The candidate has an asymmetric orange facial patch absent from the query."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "unclear",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
+    "e211bcc6b9f91fbdaed38b67d1255cec58076d74037d2fecd47c22947d44325e": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.002722,
+        "input_tokens": 1687,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 207,
+        "run_cost_usd": 0.002722
+      },
+      "candidate_id": "5",
+      "comparisons": [
+        {
+          "candidate": "5",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "unclear",
+            "eye_color": "unclear",
+            "face_markings": "same",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": [
+            "Narrow white blaze rising between the eyes and widening over the nose into a white muzzle"
+          ]
+        },
+        {
+          "candidate": "7",
+          "contradictions": [
+            "Candidate has a pale gray tabby coat rather than the query's brown tabby and white coat.",
+            "Candidate lacks the query's prominent white nose blaze, muzzle, and chest.",
+            "Candidate's visible front feet are gray rather than white."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "unclear",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
+    "e6db7654df5b1f71c7a70bec63c1cd357ed0392eacd2dd3f0f28d28ccedb2008": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.00327,
+        "input_tokens": 2000,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 254,
+        "run_cost_usd": 0.00327
+      },
+      "candidate_id": "1",
+      "comparisons": [
+        {
+          "candidate": "1",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "same",
+            "face_markings": "unclear",
+            "pattern": "unclear",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "8",
+          "contradictions": [
+            "The candidate is dark tabby and white, while the query is orange.",
+            "The candidate has a broad white chest and white legs, unlike the visible orange areas of the query.",
+            "The candidate has green eyes, while the query's eyes appear amber."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "11",
+          "contradictions": [],
+          "features": {
+            "body_markings": "not_visible",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "unclear",
+            "face_markings": "unclear",
+            "pattern": "unclear",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
+    "eb89e17d923776b00724d7dbd792b0b6ae7ddc0039c79055258e1b4a478123f8": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.00216,
+        "input_tokens": 1445,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 143,
+        "run_cost_usd": 0.00216
+      },
+      "candidate_id": null,
+      "comparisons": [
+        {
+          "candidate": "4",
+          "contradictions": [
+            "The query has orange, dark tabby and white facial coloring; candidate 4 has gray tabby and white facial coloring.",
+            "The query has a white blaze down the nose and a pink nose; candidate 4 has a dark-colored nose bridge.",
+            "The query's visible eye is green; candidate 4's is blue."
+          ],
+          "features": {
+            "body_markings": "not_visible",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "every candidate has a visible contradiction",
+      "suggestion": "new"
+    },
+    "edce8972cffebf5552da89fe79fa7887fdc8565e0d6afcbc6301131fe0294ee9": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.001746,
+        "input_tokens": 1296,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 90,
+        "run_cost_usd": 0.001746
+      },
+      "candidate_id": "5",
+      "comparisons": [
+        {
+          "candidate": "5",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "unclear",
+            "eye_color": "unclear",
+            "face_markings": "same",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": [
+            "White muzzle with a narrow blaze extending upward along the nose"
+          ]
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
+    "f36433e9c98383d5ad3734df848a49316fa71c5a00ef85febb2178d306b85610": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.002463,
+        "input_tokens": 1498,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 193,
+        "run_cost_usd": 0.002463
+      },
+      "candidate_id": "7",
+      "comparisons": [
+        {
+          "candidate": "5",
+          "contradictions": [
+            "Candidate has a prominent white facial blaze and white muzzle, unlike the query's gray face.",
+            "Candidate has a large white chest patch absent from the query.",
+            "Candidate has a long, fluffy coat, while the query has a short coat."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "not_visible",
+            "face_markings": "different",
+            "pattern": "unclear",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "7",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "not_visible",
+            "face_markings": "unclear",
+            "pattern": "unclear",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
+    "fae675b1e1a9a906b86be7ddf2c7c04d7f63040f4cffc90eb4879fc4f4732c95": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.004442,
+        "input_tokens": 2677,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 353,
+        "run_cost_usd": 0.004442
+      },
+      "candidate_id": "13",
+      "comparisons": [
+        {
+          "candidate": "2",
+          "contradictions": [
+            "The candidate has a solid black short coat, while the query has a long black-and-rust tortoiseshell coat.",
+            "The candidate lacks the query's visible rust-colored facial patches.",
+            "The candidate's eyes are orange, while the query's are yellow."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "6",
+          "contradictions": [
+            "The candidate has a pale gray-and-cream striped coat, unlike the query's dark tortoiseshell coat.",
+            "The candidate has a pale face with a pinkish nose, unlike the query's dark, rust-marked face and black nose.",
+            "The candidate's eyes are greenish, while the query's are yellow."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "13",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "same",
+            "face_markings": "same",
+            "pattern": "same",
+            "tail": "unclear"
+          },
+          "matching_specific_markings": [
+            "Rust-colored flecking along the viewer-left side of the nose and muzzle.",
+            "A broad rust-colored patch on the viewer-right cheek.",
+            "A small rust-colored marking above the viewer-left eye."
+          ]
+        }
+      ],
+      "reason": "Rust-colored flecking along the viewer-left side of the nose and muzzle.; A broad rust-colored patch on the viewer-right cheek.; A small rust-colored marking above the viewer-left eye.",
+      "suggestion": "strong"
+    }
+  },
+  "messages": {
+    "0131993316d968ec02c8fb131ba911ccb97a3f2b841fb5bde200ca0db8e1f9bc": {
+      "_meta": {
+        "run_cost_usd": 0.005821
+      },
+      "final_output": "{\"summary\":\"Recorded supply and feeding coverage need; raised urgent alert. Human follow-up needed to arrange coverage.\",\"colony_ids\":[\"church-lot\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "detail": "Coverage and supplies needed today; volunteer reports the colony was not fed yesterday and cannot get there with supplies today.",
+            "kind": "need"
+          },
+          "tool": "record_event"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "kind": "feeding_coverage",
+            "severity": "urgent",
+            "text": "Urgent: Church Lot was not fed yesterday; Diego cannot get there with supplies today. Feeding coverage and supplies are needed."
+          },
+          "tool": "raise_alert"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4861,
+        "output_tokens": 192,
+        "requests": 4,
+        "total_tokens": 5053
+      }
+    },
+    "07140ea90f3bc285d83d79bb27b96466b56508f7b5b7b6b60fc5ce4c101e5093": {
+      "_meta": {
+        "run_cost_usd": 0.008023
+      },
+      "final_output": "{\"summary\":\"Feeding and sighting recorded. Photo 30 has a weak match requiring review.\",\"colony_ids\":[\"marina-dumpsters\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-02T07:54:00",
+            "colony_id": "marina-dumpsters",
+            "volunteer_id": "luis-vega"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "marina-dumpsters",
+            "photo_id": 30
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "marina-dumpsters",
+            "detail": "Long-haired cat came close enough for a clear face photo (photo 30); identity unconfirmed.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6978,
+        "output_tokens": 209,
+        "requests": 5,
+        "total_tokens": 7187
+      }
+    },
+    "0c1f53d87ffc8a7629f85a7ba5d38419717f418490e26298349ce6db8693b464": {
+      "_meta": {
+        "run_cost_usd": 0.007718
+      },
+      "final_output": "{\"summary\":\"Logged feeding and an orange tabby sighting. A new cat record was created; its identity needs review.\",\"colony_ids\":[\"laundromat\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-28T06:55:00",
+            "colony_id": "laundromat",
+            "volunteer_id": "marta-ruiz"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "laundromat",
+            "photo_id": 12
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": 11,
+            "colony_id": "laundromat",
+            "detail": "Orange tabby came today; volunteer is unsure whether it is the same orange cat. Photo 12.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6653,
+        "output_tokens": 213,
+        "requests": 5,
+        "total_tokens": 6866
+      }
+    },
+    "0e4e765ff5dff0e46fcc1f6b23d78eb6209cc73bc32bfdd324405e054182d813": {
+      "_meta": {
+        "run_cost_usd": 0.003825
+      },
+      "final_output": "{\"summary\":\"Logged Laundromat feeding; all bowls filled. No review needed.\",\"colony_ids\":[\"laundromat\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-26T06:58:00",
+            "colony_id": "laundromat",
+            "volunteer_id": "marta-ruiz"
+          },
+          "tool": "log_feeding"
+        }
+      ],
+      "usage": {
+        "input_tokens": 3215,
+        "output_tokens": 122,
+        "requests": 3,
+        "total_tokens": 3337
+      }
+    },
+    "10c1ea74e634198975f3d40c6f7c538119b834da22bd7625211162573272bf39": {
+      "_meta": {
+        "run_cost_usd": 0.008931
+      },
+      "final_output": "{\"summary\":\"Feeding and stable kittens recorded. Vet alert raised for Mosaic; identity and appointment need review.\",\"colony_ids\":[\"courtyard\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-07T08:16:00",
+            "colony_id": "courtyard",
+            "volunteer_id": "ana-torres"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "courtyard",
+            "detail": "Mosaic needs a vet appointment; identity requires confirmation.",
+            "kind": "health"
+          },
+          "tool": "record_event"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "courtyard",
+            "detail": "The kittens look stable.",
+            "kind": "kittens"
+          },
+          "tool": "record_event"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "courtyard",
+            "kind": "health",
+            "severity": "high",
+            "text": "Mosaic needs a vet appointment; confirm cat identity."
+          },
+          "tool": "raise_alert"
+        }
+      ],
+      "usage": {
+        "input_tokens": 7701,
+        "output_tokens": 246,
+        "requests": 6,
+        "total_tokens": 7947
+      }
+    },
+    "1682655be6a99cc66f88837c83c787064745f07e139293f725d8cbb3401c2371": {
+      "_meta": {
+        "run_cost_usd": 0.009438
+      },
+      "final_output": "{\"summary\":\"Recorded feeding, the reported sighting, and a kitten from the photo. A new cat record was created; its identity needs review.\",\"colony_ids\":[\"church-lot\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-26T07:42:00",
+            "colony_id": "church-lot",
+            "volunteer_id": "ana-torres"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "church-lot",
+            "photo_id": 7
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": 6,
+            "colony_id": "church-lot",
+            "detail": "Photo 7 shows one kitten: gray tabby with dark forehead stripes and a pale muzzle.",
+            "kind": "kittens"
+          },
+          "tool": "record_event"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "detail": "Cinder ate after Sombra left; names are unconfirmed identity hints.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 8153,
+        "output_tokens": 257,
+        "requests": 6,
+        "total_tokens": 8410
+      }
+    },
+    "1a05b49214c98b37d1d6bf951db36d6907125473025725265245a27e894a2bc2": {
+      "_meta": {
+        "run_cost_usd": 0.005689
+      },
+      "final_output": "{\"summary\":\"Feeding and a sighting of a cat reported as Flora recorded. Flora’s identity needs confirmation.\",\"colony_ids\":[\"grove-loading-dock\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-04T09:08:00",
+            "colony_id": "grove-loading-dock",
+            "volunteer_id": "camila-ortiz"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "grove-loading-dock",
+            "detail": "Volunteer reported Flora watched from under the pallet; identity not visually confirmed.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4799,
+        "output_tokens": 178,
+        "requests": 4,
+        "total_tokens": 4977
+      }
+    },
+    "1d80b983dd35311bc331d46acbb49b73bdfdbc69c2701341ae9cf670f513fb3c": {
+      "_meta": {
+        "run_cost_usd": 0.005753
+      },
+      "final_output": "{\"summary\":\"Recorded three days without feeding and raised an urgent feeding alert. Human follow-up needed.\",\"colony_ids\":[\"church-lot\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "detail": "Church Lot has not been fed for 3 days; last confirmed feeding was Tuesday morning.",
+            "kind": "need"
+          },
+          "tool": "record_event"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "kind": "feeding",
+            "severity": "urgent",
+            "text": "Church Lot has not been fed for 3 days; last confirmed feeding was Tuesday morning. Feeding needed as soon as possible."
+          },
+          "tool": "raise_alert"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4833,
+        "output_tokens": 184,
+        "requests": 4,
+        "total_tokens": 5017
+      }
+    },
+    "1ffe1355bec5e207374aaf17d73d2e17d1719b83e07013089243e6d7d1e67f5f": {
+      "_meta": {
+        "run_cost_usd": 0.00981
+      },
+      "final_output": "{\"summary\":\"Feeding, gray tabby sighting, and kitten observation recorded. Weak photo match needs review.\",\"colony_ids\":[\"church-lot\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-03T07:19:00",
+            "colony_id": "church-lot",
+            "volunteer_id": "ana-torres"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "church-lot",
+            "photo_id": 33
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "detail": "Gray tabby seen near the back wall; photo 33 has a weak pending match.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "detail": "Photo 33 shows one gray tabby kitten.",
+            "kind": "kittens"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 8590,
+        "output_tokens": 244,
+        "requests": 6,
+        "total_tokens": 8834
+      }
+    },
+    "2672793acfd19ebba2b8c879b0b5b8e344e5c1abbbfd894086abd82a0deee22c": {
+      "_meta": {
+        "run_cost_usd": 0.004023
+      },
+      "final_output": "{\"summary\":\"Logged Luis Vega’s feeding report for Marina Dumpsters. No review needed.\",\"colony_ids\":[\"marina-dumpsters\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-05T07:46:00",
+            "colony_id": "marina-dumpsters",
+            "volunteer_id": "luis-vega"
+          },
+          "tool": "log_feeding"
+        }
+      ],
+      "usage": {
+        "input_tokens": 3413,
+        "output_tokens": 122,
+        "requests": 3,
+        "total_tokens": 3535
+      }
+    },
+    "27dd65c248ef5fd754ab226d88534e5abb6b14564774642014a87e9664cc8327": {
+      "_meta": {
+        "run_cost_usd": 0.007717
+      },
+      "final_output": "{\"summary\":\"Feeding and spotted-cat sighting recorded. Photo match is weak and needs review.\",\"colony_ids\":[\"marina-dumpsters\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-29T08:04:00",
+            "colony_id": "marina-dumpsters",
+            "volunteer_id": "luis-vega"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "marina-dumpsters",
+            "photo_id": 19
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "marina-dumpsters",
+            "detail": "A spotted cat followed the volunteer to the bowls; photo 19 has a weak, unconfirmed identity suggestion.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6662,
+        "output_tokens": 211,
+        "requests": 5,
+        "total_tokens": 6873
+      }
+    },
+    "3b9890b08f46ea979216475c29fd0bfd656d8e540dd1887e2eb3ccc8520d0f53": {
+      "_meta": {
+        "run_cost_usd": 0.00372
+      },
+      "final_output": "{\"summary\":\"Feeding logged for Courtyard. All calm.\",\"colony_ids\":[\"courtyard\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-26T08:37:00",
+            "colony_id": "courtyard",
+            "volunteer_id": "ana-torres"
+          },
+          "tool": "log_feeding"
+        }
+      ],
+      "usage": {
+        "input_tokens": 3175,
+        "output_tokens": 109,
+        "requests": 3,
+        "total_tokens": 3284
+      }
+    },
+    "3cbccd1f383efc53c36f6b3986f3e49da4c1971d0a702a38750ff932728bee34": {
+      "_meta": {
+        "run_cost_usd": 0.007601
+      },
+      "final_output": "{\"summary\":\"Recorded feeding and orange-cat sighting. Photo match is weak and pending review.\",\"colony_ids\":[\"laundromat\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-29T07:01:00",
+            "colony_id": "laundromat",
+            "volunteer_id": "marta-ruiz"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "laundromat",
+            "photo_id": 17
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "laundromat",
+            "detail": "Orange cat waited beside the door; photo 17 has a weak pending match.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6591,
+        "output_tokens": 202,
+        "requests": 5,
+        "total_tokens": 6793
+      }
+    },
+    "3fea891ba45cf054ab40142b6c6b94e30f85d1f1b41a5aff6bb904fa70c1fa49": {
+      "_meta": {
+        "run_cost_usd": 0.007564
+      },
+      "final_output": "{\"summary\":\"Logged feeding and sighting. Photo created a new cat record; the Mosaic identity needs review.\",\"colony_ids\":[\"courtyard\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-27T08:29:00",
+            "colony_id": "courtyard",
+            "volunteer_id": "ana-torres"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "courtyard",
+            "photo_id": 11
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": 10,
+            "colony_id": "courtyard",
+            "detail": "Mosaic was near the blue planter; photo 11 shows one cat. The name is an unconfirmed identity hint.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6559,
+        "output_tokens": 201,
+        "requests": 5,
+        "total_tokens": 6760
+      }
+    },
+    "402718267bb945d749f052a046436899fb79269b5bf2e3e5e25a413b799873ba": {
+      "_meta": {
+        "run_cost_usd": 0.005546
+      },
+      "final_output": "{\"summary\":\"Logged feeding and water bowl replacement. No review needed.\",\"colony_ids\":[\"laundromat\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-05T06:59:00",
+            "colony_id": "laundromat",
+            "volunteer_id": "marta-ruiz"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "laundromat",
+            "detail": "Water bowl replaced.",
+            "kind": "status"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4766,
+        "output_tokens": 156,
+        "requests": 4,
+        "total_tokens": 4922
+      }
+    },
+    "4520b5d16d7fc9b26d5425416368834d9abb7149bbe2e7a8087eea3c4d154619": {
+      "_meta": {
+        "run_cost_usd": 0.005169
+      },
+      "final_output": "{\"summary\":\"Recorded feeding and sighting of five cats. No review needed.\",\"colony_ids\":[\"courtyard\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-29T08:34:00",
+            "colony_id": "courtyard",
+            "volunteer_id": "ana-torres"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "courtyard",
+            "detail": "Five cats seen.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4424,
+        "output_tokens": 149,
+        "requests": 4,
+        "total_tokens": 4573
+      }
+    },
+    "57b77bc396b5477fd944775bb18c84aebc6c6da7bd95d9d6b6b7de67ab025a3f": {
+      "_meta": {
+        "run_cost_usd": 0.00755
+      },
+      "final_output": "{\"summary\":\"Alimentación registrada. Foto: gato nuevo; identidad como Misty pendiente de revisión.\",\"colony_ids\":[\"courtyard\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-25T08:31:00",
+            "colony_id": "courtyard",
+            "volunteer_id": "ana-torres"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "courtyard",
+            "photo_id": 4
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "courtyard",
+            "detail": "La voluntaria informa que Misty comió bien; la foto muestra un gato, pero su identidad no está confirmada.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6545,
+        "output_tokens": 201,
+        "requests": 5,
+        "total_tokens": 6746
+      }
+    },
+    "59dded888472ade73e5b9d510bb570589b2d963aff9d28bc71ac3926f94cbcb1": {
+      "_meta": {
+        "run_cost_usd": 0.007627
+      },
+      "final_output": "{\"summary\":\"Logged feeding and Mango sighting; photo created a new cat record. Mango’s identity needs review.\",\"colony_ids\":[\"laundromat\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-25T07:06:00",
+            "colony_id": "laundromat",
+            "volunteer_id": "marta-ruiz"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "laundromat",
+            "photo_id": 1
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "laundromat",
+            "detail": "Mango came right up to the bowls; identity with the photographed cat is not confirmed.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6587,
+        "output_tokens": 208,
+        "requests": 5,
+        "total_tokens": 6795
+      }
+    },
+    "59f37edd70b016513149deac10848043ed1ebb3ef5d32ab9facdeab7ed7d35be": {
+      "_meta": {
+        "run_cost_usd": 0.008049
+      },
+      "final_output": "{\"summary\":\"Logged feeding and orange tabby sighting. Photo match is weak and pending review.\",\"colony_ids\":[\"laundromat\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-03T06:54:00",
+            "colony_id": "laundromat",
+            "volunteer_id": "marta-ruiz"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "laundromat",
+            "photo_id": 32
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "laundromat",
+            "detail": "One orange tabby was first at the bowls; photo 32 has a weak, unconfirmed match to cat 11.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6989,
+        "output_tokens": 212,
+        "requests": 5,
+        "total_tokens": 7201
+      }
+    },
+    "5e3c5d0ff526732f1bbdf7b30fd5331f66c7a2ebe6b731e9293d0a113d3ceacb": {
+      "_meta": {
+        "run_cost_usd": 0.005673
+      },
+      "final_output": "{\"summary\":\"Feeding and reported sightings recorded. Cat identities need verification.\",\"colony_ids\":[\"laundromat\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-07T07:05:00",
+            "colony_id": "laundromat",
+            "volunteer_id": "marta-ruiz"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "laundromat",
+            "detail": "Mango, Papaya and Pebble all reported present; identities not visually verified.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4818,
+        "output_tokens": 171,
+        "requests": 4,
+        "total_tokens": 4989
+      }
+    },
+    "5e4fc80a5d73b2bf1ef031aaf8aa85c8ff6a63c0dd2798e04b8a7b04efa76900": {
+      "_meta": {
+        "run_cost_usd": 0.011879
+      },
+      "final_output": "{\"summary\":\"Logged feeding and Canela’s clinic sterilization. Photo match to cat 9 is weak and needs review before updating its TNR status.\",\"colony_ids\":[\"marina-dumpsters\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-01T08:15:00",
+            "colony_id": "marina-dumpsters",
+            "volunteer_id": "luis-vega"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "marina-dumpsters",
+            "photo_id": 27
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "marina-dumpsters",
+            "detail": "Canela was fixed today at the clinic. Photo match to cat 9 is weak and pending review.",
+            "kind": "tnr_done"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 10644,
+        "output_tokens": 247,
+        "requests": 6,
+        "total_tokens": 10891
+      }
+    },
+    "5ed6677029e89090b4f692e6fb8aacb953cf4d40a038519efa3f28f9b7416d25": {
+      "_meta": {
+        "run_cost_usd": 0.007691
+      },
+      "final_output": "{\"summary\":\"Feeding and sighting recorded. Weak photo match needs review.\",\"colony_ids\":[\"grove-loading-dock\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-28T09:02:00",
+            "colony_id": "grove-loading-dock",
+            "volunteer_id": "camila-ortiz"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "grove-loading-dock",
+            "photo_id": 16
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "grove-loading-dock",
+            "detail": "Long-haired cat seen again; photo 16 has a weak, unconfirmed match suggestion.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6671,
+        "output_tokens": 204,
+        "requests": 5,
+        "total_tokens": 6875
+      }
+    },
+    "65ce8a0e85f201c0d332d22a5ad962e8086980d6616b64f279f1edf21f4b2013": {
+      "_meta": {
+        "run_cost_usd": 0.00402
+      },
+      "final_output": "{\"summary\":\"Feeding logged. No urgent issues or review needed.\",\"colony_ids\":[\"grove-loading-dock\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-05T09:05:00",
+            "colony_id": "grove-loading-dock",
+            "volunteer_id": "camila-ortiz"
+          },
+          "tool": "log_feeding"
+        }
+      ],
+      "usage": {
+        "input_tokens": 3425,
+        "output_tokens": 119,
+        "requests": 3,
+        "total_tokens": 3544
+      }
+    },
+    "6a00bc024072dce41e5f99c6c00cebdfbe16c3616bf77de5422f282ce06cf515": {
+      "_meta": {
+        "run_cost_usd": 0.005874
+      },
+      "final_output": "{\"summary\":\"Recorded an orange cat sighting. Weak photo match requires human review.\",\"colony_ids\":[\"laundromat\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "colony_id": "laundromat",
+            "photo_id": 6
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "laundromat",
+            "detail": "Orange cat sighted at the Laundromat; photo 6. Different day and different phone. Photo match is a weak pending suggestion.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 5054,
+        "output_tokens": 164,
+        "requests": 4,
+        "total_tokens": 5218
+      }
+    },
+    "6c03396838d557cc310290de69463774aef43be40f012f1600c737fb72867ef1": {
+      "_meta": {
+        "run_cost_usd": 0.005858
+      },
+      "final_output": "{\"summary\":\"Recorded four kittens found in a box and raised an alert. Check for their mother today.\",\"colony_ids\":[\"courtyard\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "courtyard",
+            "detail": "Found 4 kittens in a box by the Courtyard. Please check for the mother.",
+            "kind": "kittens"
+          },
+          "tool": "record_event"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "courtyard",
+            "kind": "kittens",
+            "severity": "high",
+            "text": "Four kittens found in a box by the Courtyard; check for their mother today."
+          },
+          "tool": "raise_alert"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4943,
+        "output_tokens": 183,
+        "requests": 4,
+        "total_tokens": 5126
+      }
+    },
+    "6cdd64b90a44a3d8447f53b588f655e9c035f3222d554e1563488d7106e1ffdd": {
+      "_meta": {
+        "run_cost_usd": 0.003818
+      },
+      "final_output": "{\"summary\":\"Alimentación registrada en Marina Dumpsters; hora del reporte usada como referencia.\",\"colony_ids\":[\"marina-dumpsters\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-26T08:11:00",
+            "colony_id": "marina-dumpsters",
+            "volunteer_id": "luis-vega"
+          },
+          "tool": "log_feeding"
+        }
+      ],
+      "usage": {
+        "input_tokens": 3203,
+        "output_tokens": 123,
+        "requests": 3,
+        "total_tokens": 3326
+      }
+    },
+    "72becaef2513026a2bf12754c9eae7979110804340393fc0a4c2df96c5038396": {
+      "_meta": {
+        "run_cost_usd": 0.008534
+      },
+      "final_output": "{\"summary\":\"Logged feeding and Canela’s post-clinic report. Cat identity needs review.\",\"colony_ids\":[\"marina-dumpsters\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-06T07:44:00",
+            "colony_id": "marina-dumpsters",
+            "volunteer_id": "luis-vega"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "marina-dumpsters",
+            "detail": "Canela is doing well after the clinic; cat identity not confirmed.",
+            "kind": "health"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 7549,
+        "output_tokens": 197,
+        "requests": 5,
+        "total_tokens": 7746
+      }
+    },
+    "73074dc6cc5080046a57198d1b20f9d50563e01b6f35c73962a8a7b2a1348682": {
+      "_meta": {
+        "run_cost_usd": 0.005685
+      },
+      "final_output": "{\"summary\":\"Logged feeding and sightings of Flora and Chispa. Cat identities remain unverified.\",\"colony_ids\":[\"grove-loading-dock\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-03T09:01:00",
+            "colony_id": "grove-loading-dock",
+            "volunteer_id": "camila-ortiz"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "grove-loading-dock",
+            "detail": "Flora and Chispa both seen; names are unverified hints.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4805,
+        "output_tokens": 176,
+        "requests": 4,
+        "total_tokens": 4981
+      }
+    },
+    "73edd29653e68acb73ed77e56dd2a257622918cf736331c21748b46b1c71beef": {
+      "_meta": {
+        "run_cost_usd": 0.004037
+      },
+      "final_output": "{\"summary\":\"Recorded request to keep the alert open. Human review: confirm a new regular feeder’s visit.\",\"colony_ids\":[\"church-lot\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "detail": "Please keep the Church Lot alert open until a new regular feeder confirms a visit.",
+            "kind": "status"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 3427,
+        "output_tokens": 122,
+        "requests": 3,
+        "total_tokens": 3549
+      }
+    },
+    "76ed7b0ff81d894fac4e6e34f743d4baf357f7a855d9bf51a0014b3dd66426c6": {
+      "_meta": {
+        "run_cost_usd": 0.005491
+      },
+      "final_output": "{\"summary\":\"Logged feeding and recorded four kittens together with their mother.\",\"colony_ids\":[\"courtyard\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-06T08:18:00",
+            "colony_id": "courtyard",
+            "volunteer_id": "ana-torres"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "courtyard",
+            "detail": "Four kittens and their mother are together.",
+            "kind": "kittens"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4736,
+        "output_tokens": 151,
+        "requests": 4,
+        "total_tokens": 4887
+      }
+    },
+    "790ffd7d68d5890fe696cf9d94616d938123e4183ae7e574d4aa71553b9b5a44": {
+      "_meta": {
+        "run_cost_usd": 0.007678
+      },
+      "final_output": "{\"summary\":\"Feeding and sighting recorded; photo created a new cat. Nube’s identity needs review.\",\"colony_ids\":[\"marina-dumpsters\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-25T08:03:00",
+            "colony_id": "marina-dumpsters",
+            "volunteer_id": "luis-vega"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "marina-dumpsters",
+            "photo_id": 3
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": 3,
+            "colony_id": "marina-dumpsters",
+            "detail": "Nube stayed close today. Photo 3 shows a cream colorpoint cat; the name is an unconfirmed identity hint.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6593,
+        "output_tokens": 217,
+        "requests": 5,
+        "total_tokens": 6810
+      }
+    },
+    "7aebdd56719d161bee30deeea05b2164d781e964c795643092d0eef1d46426bf": {
+      "_meta": {
+        "run_cost_usd": 0.003753
+      },
+      "final_output": "{\"summary\":\"Feeding logged for Wynwood Alley.\",\"colony_ids\":[\"wynwood-alley\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-27T18:41:00",
+            "colony_id": "wynwood-alley",
+            "volunteer_id": "javier-santos"
+          },
+          "tool": "log_feeding"
+        }
+      ],
+      "usage": {
+        "input_tokens": 3188,
+        "output_tokens": 113,
+        "requests": 3,
+        "total_tokens": 3301
+      }
+    },
+    "80070d0945c25f47af73a81c1611a5fc80e9ec6f240876bd3f2501a4397b1a43": {
+      "_meta": {
+        "run_cost_usd": 0.004003
+      },
+      "final_output": "{\"summary\":\"Feeding logged; no changes reported.\",\"colony_ids\":[\"laundromat\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-04T07:03:00",
+            "colony_id": "laundromat",
+            "volunteer_id": "marta-ruiz"
+          },
+          "tool": "log_feeding"
+        }
+      ],
+      "usage": {
+        "input_tokens": 3428,
+        "output_tokens": 115,
+        "requests": 3,
+        "total_tokens": 3543
+      }
+    },
+    "81cc2e5b06262c8bc21788d276177601cfe00c3781846ca0a21c3e2f708cbc46": {
+      "_meta": {
+        "run_cost_usd": 0.009927
+      },
+      "final_output": "{\"summary\":\"Logged feeding and Mosaic’s persistent limp; raised a health alert. Photo match requires human review.\",\"colony_ids\":[\"courtyard\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-05T08:21:00",
+            "colony_id": "courtyard",
+            "volunteer_id": "ana-torres"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "courtyard",
+            "photo_id": 34
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "courtyard",
+            "detail": "Mosaic is still limping on a back leg; photo match to cat 10 is pending confirmation.",
+            "kind": "health"
+          },
+          "tool": "record_event"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "courtyard",
+            "kind": "health",
+            "severity": "high",
+            "text": "Mosaic is still limping on a back leg; veterinary assessment needed. Photo match to cat 10 awaits confirmation."
+          },
+          "tool": "raise_alert"
+        }
+      ],
+      "usage": {
+        "input_tokens": 8642,
+        "output_tokens": 257,
+        "requests": 6,
+        "total_tokens": 8899
+      }
+    },
+    "8315e23ce272c3c59ab8adf15c93892e9974c2582470430b05bde3b568e00653": {
+      "_meta": {
+        "run_cost_usd": 0.007583
+      },
+      "final_output": "{\"summary\":\"Recorded feeding and gray tabby sighting. Photo match is weak and pending review.\",\"colony_ids\":[\"church-lot\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-30T07:16:00",
+            "colony_id": "church-lot",
+            "volunteer_id": "ana-torres"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "church-lot",
+            "photo_id": 22
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "detail": "Gray tabby seen in the sun; photo 22 has a weak, pending cat match.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6593,
+        "output_tokens": 198,
+        "requests": 5,
+        "total_tokens": 6791
+      }
+    },
+    "85f429754b2a61fc87c1817a357fc3a0189ec730fa60393e5d5f89ba28f3f6e9": {
+      "_meta": {
+        "run_cost_usd": 0.005188
+      },
+      "final_output": "{\"summary\":\"Logged feeding and sighting of three cats at Church Lot.\",\"colony_ids\":[\"church-lot\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-27T07:28:00",
+            "colony_id": "church-lot",
+            "volunteer_id": "ana-torres"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "detail": "Three cats present.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4433,
+        "output_tokens": 151,
+        "requests": 4,
+        "total_tokens": 4584
+      }
+    },
+    "8c67a4e7865169275f1f817b01d42d0eaa95f7b9725475295548841163049549": {
+      "_meta": {
+        "run_cost_usd": 0.007452
+      },
+      "final_output": "{\"summary\":\"Logged feeding and Sombra sighting. Photo created a new cat record; identity needs review.\",\"colony_ids\":[\"church-lot\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-25T07:24:00",
+            "colony_id": "church-lot",
+            "volunteer_id": "ana-torres"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "church-lot",
+            "photo_id": 2
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "detail": "Report says Sombra was waiting by the fence; identity of the photographed cat is not confirmed.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6452,
+        "output_tokens": 200,
+        "requests": 5,
+        "total_tokens": 6652
+      }
+    },
+    "90f802a65ae5b4cc3a22f865759d50146df995f241ec5dc6c23b4372c008eaa4": {
+      "_meta": {
+        "run_cost_usd": 0.005158
+      },
+      "final_output": "{\"summary\":\"Recorded feeding and clean water. No review needed.\",\"colony_ids\":[\"courtyard\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-31T08:28:00",
+            "colony_id": "courtyard",
+            "volunteer_id": "ana-torres"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "courtyard",
+            "detail": "Volunteer left clean water.",
+            "kind": "status"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4428,
+        "output_tokens": 146,
+        "requests": 4,
+        "total_tokens": 4574
+      }
+    },
+    "96ca186a429b673d189ce9539afd9b17e282b3e948cac5abcd06441c3d6c17b8": {
+      "_meta": {
+        "run_cost_usd": 0.003789
+      },
+      "final_output": "{\"summary\":\"Feeding logged; no new cats reported.\",\"colony_ids\":[\"marina-dumpsters\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-31T08:01:00",
+            "colony_id": "marina-dumpsters",
+            "volunteer_id": "luis-vega"
+          },
+          "tool": "log_feeding"
+        }
+      ],
+      "usage": {
+        "input_tokens": 3209,
+        "output_tokens": 116,
+        "requests": 3,
+        "total_tokens": 3325
+      }
+    },
+    "97081d22f7486d0ddb9df95a9e797378ac41f0c20023adc28faaef41473a98c7": {
+      "_meta": {
+        "run_cost_usd": 0.005541
+      },
+      "final_output": "{\"summary\":\"Logged feeding and water top-up. No review needed.\",\"colony_ids\":[\"marina-dumpsters\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-03T07:51:00",
+            "colony_id": "marina-dumpsters",
+            "volunteer_id": "luis-vega"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "marina-dumpsters",
+            "detail": "Water topped up.",
+            "kind": "status"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4756,
+        "output_tokens": 157,
+        "requests": 4,
+        "total_tokens": 4913
+      }
+    },
+    "98733c9171f068c11daf94b027ff8f59f87c371341ebe183c0be7f4a2b9845e7": {
+      "_meta": {
+        "run_cost_usd": 0.005735
+      },
+      "final_output": "{\"summary\":\"Recorded urgent need for a replacement feeder starting today; human follow-up needed.\",\"colony_ids\":[\"church-lot\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "detail": "Ana Torres is moving away this weekend and cannot continue feeding; another feeder is needed starting today.",
+            "kind": "need"
+          },
+          "tool": "record_event"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "kind": "feeder needed",
+            "severity": "urgent",
+            "text": "Ana Torres is moving away this weekend and cannot continue feeding. A replacement feeder is needed starting today."
+          },
+          "tool": "raise_alert"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4835,
+        "output_tokens": 180,
+        "requests": 4,
+        "total_tokens": 5015
+      }
+    },
+    "98a6e86c86c3a5f1f35e9b948385e29b50ffbe707823d923bff7e43ec4597fd9": {
+      "_meta": {
+        "run_cost_usd": 0.005245
+      },
+      "final_output": "{\"summary\":\"Recorded feeding and water replacement. No review needed.\",\"colony_ids\":[\"marina-dumpsters\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-30T07:49:00",
+            "colony_id": "marina-dumpsters",
+            "volunteer_id": "luis-vega"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "marina-dumpsters",
+            "detail": "Water replaced.",
+            "kind": "status"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4470,
+        "output_tokens": 155,
+        "requests": 4,
+        "total_tokens": 4625
+      }
+    },
+    "9902fd4581972ca3e38bd1d5e00f40cb1d27dbcc4cca1725ca173abe8ae8b744": {
+      "_meta": {
+        "run_cost_usd": 0.005595
+      },
+      "final_output": "{\"summary\":\"Feeding and all cats counted recorded. No review needed.\",\"colony_ids\":[\"marina-dumpsters\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-07T07:47:00",
+            "colony_id": "marina-dumpsters",
+            "volunteer_id": "luis-vega"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "marina-dumpsters",
+            "detail": "Volunteer reported all cats counted; no number specified.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4770,
+        "output_tokens": 165,
+        "requests": 4,
+        "total_tokens": 4935
+      }
+    },
+    "9a2c3ac6a74a7ff2d4f3baad40bda209a1c3a9e0d097baad31edbdc219ecbcb2": {
+      "_meta": {
+        "run_cost_usd": 0.007755
+      },
+      "final_output": "{\"summary\":\"Recorded feeding and a gray cat sighting. Photo match is weak and needs review.\",\"colony_ids\":[\"courtyard\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-01T08:43:00",
+            "colony_id": "courtyard",
+            "volunteer_id": "ana-torres"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "courtyard",
+            "photo_id": 28
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "courtyard",
+            "detail": "A gray female cat was waiting.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6845,
+        "output_tokens": 182,
+        "requests": 5,
+        "total_tokens": 7027
+      }
+    },
+    "9ac49ba285bffa015206e3a7529ca17aa311b13559ec476bedb53d7451b99be2": {
+      "_meta": {
+        "run_cost_usd": 0.012288
+      },
+      "final_output": "{\"summary\":\"Recorded reported pregnancy and raised a high-priority alert. Photo match to cat 13 and pregnancy need review; photo date is unknown.\",\"colony_ids\":[\"church-lot\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "colony_id": "church-lot",
+            "photo_id": 26
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "detail": "Volunteer reports Mariposa is visibly pregnant. Photo was found in camera roll; its date is unknown. Photo match to cat 13 is a pending suggestion, not confirmed.",
+            "kind": "health"
+          },
+          "tool": "record_event"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "kind": "health",
+            "severity": "high",
+            "text": "Volunteer reports Mariposa is visibly pregnant; please review promptly. Photo match to cat 13 is pending, and photo date is unknown."
+          },
+          "tool": "raise_alert"
+        }
+      ],
+      "usage": {
+        "input_tokens": 10968,
+        "output_tokens": 264,
+        "requests": 6,
+        "total_tokens": 11232
+      }
+    },
+    "9af73e4e15db901f03247796778af963c9dfcb37723cc73397f24e3ba4125788": {
+      "_meta": {
+        "run_cost_usd": 0.00234
+      },
+      "final_output": "{\"summary\":\"No colony identified. Mango and Papaya should remain separate pending human confirmation.\",\"colony_ids\":[],\"needs_review\":true}",
+      "mutations": [],
+      "usage": {
+        "input_tokens": 2000,
+        "output_tokens": 68,
+        "requests": 2,
+        "total_tokens": 2068
+      }
+    },
+    "9ea22e27bd1925683701472bbc4fc58973195dc92a30ae1bb33e921527c18e66": {
+      "_meta": {
+        "run_cost_usd": 0.005655
+      },
+      "final_output": "{\"summary\":\"Recorded empty bowls and raised a food-needed alert. No feeding was reported; follow-up needed.\",\"colony_ids\":[\"church-lot\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "detail": "Bowls are empty; volunteer checked but did not have food.",
+            "kind": "need"
+          },
+          "tool": "record_event"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "kind": "food_needed",
+            "severity": "high",
+            "text": "Bowls are empty; volunteer had no food. Food is needed today."
+          },
+          "tool": "raise_alert"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4795,
+        "output_tokens": 172,
+        "requests": 4,
+        "total_tokens": 4967
+      }
+    },
+    "9f8ca818b737051b8f4380f5a5435c911a294ddb6c09f8a5e3d9c652376dd896": {
+      "_meta": {
+        "run_cost_usd": 0.005525
+      },
+      "final_output": "{\"summary\":\"Logged feeding and the dry kitten box and mother’s return.\",\"colony_ids\":[\"courtyard\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-03T08:17:00",
+            "colony_id": "courtyard",
+            "volunteer_id": "ana-torres"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "courtyard",
+            "detail": "The kitten box is dry and the mother came back.",
+            "kind": "kittens"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4750,
+        "output_tokens": 155,
+        "requests": 4,
+        "total_tokens": 4905
+      }
+    },
+    "a161b048a348f2cb73b8e031361f17b60fe0813794eda51e7491de4d5a9b6669": {
+      "_meta": {
+        "run_cost_usd": 0.003786
+      },
+      "final_output": "{\"summary\":\"Feeding logged; no issues reported.\",\"colony_ids\":[\"grove-loading-dock\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-27T09:10:00",
+            "colony_id": "grove-loading-dock",
+            "volunteer_id": "camila-ortiz"
+          },
+          "tool": "log_feeding"
+        }
+      ],
+      "usage": {
+        "input_tokens": 3206,
+        "output_tokens": 116,
+        "requests": 3,
+        "total_tokens": 3322
+      }
+    },
+    "a1c15e4bdafa39caf206956c55f3cec4d0b7d5a83123175dfa7ee39acf8b1ecd": {
+      "_meta": {
+        "run_cost_usd": 0.004025
+      },
+      "final_output": "{\"summary\":\"Feeding logged; everything looked okay. No review needed.\",\"colony_ids\":[\"grove-loading-dock\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-01T09:14:00",
+            "colony_id": "grove-loading-dock",
+            "volunteer_id": "camila-ortiz"
+          },
+          "tool": "log_feeding"
+        }
+      ],
+      "usage": {
+        "input_tokens": 3425,
+        "output_tokens": 120,
+        "requests": 3,
+        "total_tokens": 3545
+      }
+    },
+    "a4cb77de55406f7a4830e70486a2f4043ac820b72f22aeee38b893812ff21c8d": {
+      "_meta": {
+        "run_cost_usd": 0.005342
+      },
+      "final_output": "{\"summary\":\"Feeding logged; two bowls were empty on arrival. No review needed.\",\"colony_ids\":[\"grove-loading-dock\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-30T09:00:00",
+            "colony_id": "grove-loading-dock",
+            "volunteer_id": "camila-ortiz"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "grove-loading-dock",
+            "detail": "Fed; two bowls were empty on arrival.",
+            "kind": "fed"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4507,
+        "output_tokens": 167,
+        "requests": 4,
+        "total_tokens": 4674
+      }
+    },
+    "a71f9d890febb49865a2c1b0a7888f34f9fd622eae8d216530c4f1e9e1554f5a": {
+      "_meta": {
+        "run_cost_usd": 0.00318
+      },
+      "final_output": "{\"summary\":\"No rescue event recorded; the message requests clear photos.\",\"colony_ids\":[],\"needs_review\":false}",
+      "mutations": [],
+      "usage": {
+        "input_tokens": 2945,
+        "output_tokens": 47,
+        "requests": 2,
+        "total_tokens": 2992
+      }
+    },
+    "aca181bc004861d38a25745854a26a8546757af07d1cce85dfbc82a7c4bdd087": {
+      "_meta": {
+        "run_cost_usd": 0.007709
+      },
+      "final_output": "{\"summary\":\"Feeding and Flora sighting recorded. Photo created a new cat; identity needs review.\",\"colony_ids\":[\"grove-loading-dock\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-25T09:12:00",
+            "colony_id": "grove-loading-dock",
+            "volunteer_id": "camila-ortiz"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "grove-loading-dock",
+            "photo_id": 5
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "grove-loading-dock",
+            "detail": "Report says Flora was under the pallet; the photo was recorded as a new cat, and the name is not identity confirmation.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6629,
+        "output_tokens": 216,
+        "requests": 5,
+        "total_tokens": 6845
+      }
+    },
+    "ad724a1270d8c4876e1aa2f3b8678fe760a16f9d34d5a9ba5cb6eb0d4717408e": {
+      "_meta": {
+        "run_cost_usd": 0.005291
+      },
+      "final_output": "{\"summary\":\"Feeding and sighting of three regulars recorded.\",\"colony_ids\":[\"laundromat\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-01T07:00:00",
+            "colony_id": "laundromat",
+            "volunteer_id": "marta-ruiz"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "laundromat",
+            "detail": "All three regulars present.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4496,
+        "output_tokens": 159,
+        "requests": 4,
+        "total_tokens": 4655
+      }
+    },
+    "adcc6ffb234cfc378507caa9a34667115dcf9097e70342ac7c738d80ec1fce6b": {
+      "_meta": {
+        "run_cost_usd": 0.00407
+      },
+      "final_output": "{\"summary\":\"Logged Sofia Reyes’s feeding report for Morningside Hedge. No review needed.\",\"colony_ids\":[\"morningside-hedge\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-03T18:12:00",
+            "colony_id": "morningside-hedge",
+            "volunteer_id": "sofia-reyes"
+          },
+          "tool": "log_feeding"
+        }
+      ],
+      "usage": {
+        "input_tokens": 3425,
+        "output_tokens": 129,
+        "requests": 3,
+        "total_tokens": 3554
+      }
+    },
+    "af8ecdd6ae92740776f6fe41944d652b1dfb0364c8a2d82e79039f8cc9be6c88": {
+      "_meta": {
+        "run_cost_usd": 0.005426
+      },
+      "final_output": "{\"summary\":\"Recorded low food supply and raised a high-priority alert. Replenishment needs follow-up.\",\"colony_ids\":[\"wynwood-alley\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "wynwood-alley",
+            "detail": "Almost out of food; only enough remains for one visit.",
+            "kind": "need"
+          },
+          "tool": "record_event"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "wynwood-alley",
+            "kind": "supply",
+            "severity": "high",
+            "text": "Food is almost out; only enough remains for one visit. Replenish as soon as possible."
+          },
+          "tool": "raise_alert"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4521,
+        "output_tokens": 181,
+        "requests": 4,
+        "total_tokens": 4702
+      }
+    },
+    "b0cd2d0a6c3e6b1aa8d2952ccb697d590c30c9d2ef48b02d4f6fdb8000fe8a5b": {
+      "_meta": {
+        "run_cost_usd": 0.007466
+      },
+      "final_output": "{\"summary\":\"Logged feeding and healthy appearance. Photo match is weak and needs review.\",\"colony_ids\":[\"church-lot\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-28T07:20:00",
+            "colony_id": "church-lot",
+            "volunteer_id": "ana-torres"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "church-lot",
+            "photo_id": 13
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "detail": "Volunteer reports the black cat is looking healthy; photo 13 has a weak, unconfirmed match to cat 2.",
+            "kind": "health"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6471,
+        "output_tokens": 199,
+        "requests": 5,
+        "total_tokens": 6670
+      }
+    },
+    "b228dce4d2db93eedf41db279d8d5b12f2a4da7db86ff917f43c8f327a1aa858": {
+      "_meta": {
+        "run_cost_usd": 0.007661
+      },
+      "final_output": "{\"summary\":\"Feeding and gray tabby sighting recorded. Weak photo match needs human review.\",\"colony_ids\":[\"grove-loading-dock\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-29T09:06:00",
+            "colony_id": "grove-loading-dock",
+            "volunteer_id": "camila-ortiz"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "grove-loading-dock",
+            "photo_id": 20
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "grove-loading-dock",
+            "detail": "Gray tabby was back by the scooter; photo 20 has a weak pending match.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6621,
+        "output_tokens": 208,
+        "requests": 5,
+        "total_tokens": 6829
+      }
+    },
+    "b458c6ab502c85a44c6b53bb4f2842220733d5abcfe4aa6d5ec691eed362303c": {
+      "_meta": {
+        "run_cost_usd": 0.005572
+      },
+      "final_output": "{\"summary\":\"Recorded feeding and report that everyone came out. No review needed.\",\"colony_ids\":[\"marina-dumpsters\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-04T07:48:00",
+            "colony_id": "marina-dumpsters",
+            "volunteer_id": "luis-vega"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "marina-dumpsters",
+            "detail": "Volunteer reported everyone came out.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4762,
+        "output_tokens": 162,
+        "requests": 4,
+        "total_tokens": 4924
+      }
+    },
+    "b58d878ea465d74f5b04c6a703a2a71e67b50275710ae09854f06513b341c561": {
+      "_meta": {
+        "run_cost_usd": 0.004067
+      },
+      "final_output": "{\"summary\":\"Feeding logged for Laundromat; bowls washed and refilled. No review needed.\",\"colony_ids\":[\"laundromat\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-02T06:57:00",
+            "colony_id": "laundromat",
+            "volunteer_id": "marta-ruiz"
+          },
+          "tool": "log_feeding"
+        }
+      ],
+      "usage": {
+        "input_tokens": 3437,
+        "output_tokens": 126,
+        "requests": 3,
+        "total_tokens": 3563
+      }
+    },
+    "bb48fa15eadb9ed70fd7ae38fdd360c40003f95931688cb6c104bd2aed05cc8f": {
+      "_meta": {
+        "run_cost_usd": 0.009973
+      },
+      "final_output": "{\"summary\":\"Feeding and sighting recorded; photo created a new cat record. Canela’s identity is unconfirmed.\",\"colony_ids\":[\"marina-dumpsters\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-27T07:57:00",
+            "colony_id": "marina-dumpsters",
+            "volunteer_id": "luis-vega"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "marina-dumpsters",
+            "photo_id": 10
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": 9,
+            "colony_id": "marina-dumpsters",
+            "detail": "Volunteer reports Canela came out after they stepped back; photo 10 shows a brown tabby.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 8778,
+        "output_tokens": 239,
+        "requests": 6,
+        "total_tokens": 9017
+      }
+    },
+    "bcec9855de72e74b8f55a2f1f8055d85aa3d4ef33d8e5d3c65572dc9bcb35093": {
+      "_meta": {
+        "run_cost_usd": 0.008067
+      },
+      "final_output": "{\"summary\":\"Feeding and tortie sighting recorded. Review pending photo match and reported pregnancy; photo does not show apparent pregnancy.\",\"colony_ids\":[\"church-lot\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-02T07:21:00",
+            "colony_id": "church-lot",
+            "volunteer_id": "ana-torres"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "church-lot",
+            "photo_id": 29
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "detail": "Tortoiseshell cat reportedly still looks pregnant and has no ear tip. Photo 29 has a pending match to cat 13; the photo observation does not indicate apparent pregnancy.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6957,
+        "output_tokens": 222,
+        "requests": 5,
+        "total_tokens": 7179
+      }
+    },
+    "bf1ad83ffeb22aeac8386f95ff0b000ee4866ec113e0e28cfe43fd77d424d7b2": {
+      "_meta": {
+        "run_cost_usd": 0.008136
+      },
+      "final_output": "{\"summary\":\"Feeding and gray cat sighting recorded. Photo match is weak and needs review.\",\"colony_ids\":[\"laundromat\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-06T07:01:00",
+            "colony_id": "laundromat",
+            "volunteer_id": "marta-ruiz"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "laundromat",
+            "photo_id": 35
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "laundromat",
+            "detail": "The new gray cat came out from behind the laundromat again; photo 35 has a weak, unconfirmed match suggestion.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 7071,
+        "output_tokens": 213,
+        "requests": 5,
+        "total_tokens": 7284
+      }
+    },
+    "c20c24ce7af3af5de53fb6f7e56074ba9da993fc2289e99e51be17f646cbdc43": {
+      "_meta": {
+        "run_cost_usd": 0.005662
+      },
+      "final_output": "{\"summary\":\"Recorded no feeder or feeding logged today; raised a high-priority alert. Feeding needs review today.\",\"colony_ids\":[\"church-lot\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "detail": "No feeder and no feeding logged today, as reported on 2026-11-06.",
+            "kind": "need"
+          },
+          "tool": "record_event"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "kind": "feeding",
+            "severity": "high",
+            "text": "No feeder and no feeding logged today; arrange feeding today."
+          },
+          "tool": "raise_alert"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4787,
+        "output_tokens": 175,
+        "requests": 4,
+        "total_tokens": 4962
+      }
+    },
+    "c3781d9c020a5f437b1e205819984bce4ac479d66c57ead20ce87254d571079e": {
+      "_meta": {
+        "run_cost_usd": 0.011701
+      },
+      "final_output": "{\"summary\":\"Logged feeding and a kitten sighting; created a cat record and raised a kitten alert. Kitten needs assessment.\",\"colony_ids\":[\"laundromat\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-27T07:02:00",
+            "colony_id": "laundromat",
+            "volunteer_id": "marta-ruiz"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "laundromat",
+            "photo_id": 9
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": 8,
+            "colony_id": "laundromat",
+            "detail": "New gray cat behind the laundromat, called Pebble for now; no ear tip seen.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        },
+        {
+          "args": {
+            "cat_id": 8,
+            "colony_id": "laundromat",
+            "detail": "Photo 9 shows one kitten.",
+            "kind": "kittens"
+          },
+          "tool": "record_event"
+        },
+        {
+          "args": {
+            "cat_id": 8,
+            "colony_id": "laundromat",
+            "kind": "kittens",
+            "severity": "high",
+            "text": "Photo 9 shows a kitten behind the laundromat; assess needs."
+          },
+          "tool": "raise_alert"
+        }
+      ],
+      "usage": {
+        "input_tokens": 10156,
+        "output_tokens": 309,
+        "requests": 7,
+        "total_tokens": 10465
+      }
+    },
+    "c45b4de0ea80e20469d1c7c9125c80372275ad73943d41ebd51c277a02bae479": {
+      "_meta": {
+        "run_cost_usd": 0.005558
+      },
+      "final_output": "{\"summary\":\"Recorded feeding and food delivery at Wynwood Alley.\",\"colony_ids\":[\"wynwood-alley\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-05T18:30:00",
+            "colony_id": "wynwood-alley",
+            "volunteer_id": "javier-santos"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "wynwood-alley",
+            "detail": "Food delivery arrived; Wynwood Alley is stocked.",
+            "kind": "status"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4763,
+        "output_tokens": 159,
+        "requests": 4,
+        "total_tokens": 4922
+      }
+    },
+    "c4948174c8582ee4a9e3b97f0333bbe5d16029a3f3008d8a7ad623f95f248585": {
+      "_meta": {
+        "run_cost_usd": 0.00533
+      },
+      "final_output": "{\"summary\":\"Logged feeding and report that Mariposa ate a full plate. Cat identity remains unconfirmed.\",\"colony_ids\":[\"church-lot\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-01T07:23:00",
+            "colony_id": "church-lot",
+            "volunteer_id": "ana-torres"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "detail": "Volunteer reports Mariposa ate a full plate; name is an unconfirmed identity hint.",
+            "kind": "fed"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4475,
+        "output_tokens": 171,
+        "requests": 4,
+        "total_tokens": 4646
+      }
+    },
+    "c5c3cdff04955d3a0bea80cf33dc16f575f5a4052cfd0980de68018ada0a2f04": {
+      "_meta": {
+        "run_cost_usd": 0.007579
+      },
+      "final_output": "{\"summary\":\"Feeding and Mariposa sighting recorded. Photo created a new cat record; identity needs review.\",\"colony_ids\":[\"church-lot\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-29T07:31:00",
+            "colony_id": "church-lot",
+            "volunteer_id": "ana-torres"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "church-lot",
+            "photo_id": 18
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "detail": "Mariposa was under the shrubs; name is an unconfirmed identity hint for the photographed cat.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6564,
+        "output_tokens": 203,
+        "requests": 5,
+        "total_tokens": 6767
+      }
+    },
+    "c65ea45ad05d8b4047ccb3cf484b55f07aa5315273ed40b97174dcc084439d32": {
+      "_meta": {
+        "run_cost_usd": 0.002606
+      },
+      "final_output": "{\"summary\":\"No colony identified, so nothing was recorded. Human review needed to locate the kittens and arrange foster care.\",\"colony_ids\":[],\"needs_review\":true}",
+      "mutations": [],
+      "usage": {
+        "input_tokens": 2161,
+        "output_tokens": 89,
+        "requests": 2,
+        "total_tokens": 2250
+      }
+    },
+    "cd5b87e7ee3da6011808dc602879b9df8ed95a4f98bbc3ebb612157c938191da": {
+      "_meta": {
+        "run_cost_usd": 0.009537
+      },
+      "final_output": "{\"summary\":\"Feeding and limp recorded; high-priority vet alert raised. Photo match needs human confirmation.\",\"colony_ids\":[\"courtyard\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-30T08:22:00",
+            "colony_id": "courtyard",
+            "volunteer_id": "ana-torres"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "courtyard",
+            "photo_id": 23
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "courtyard",
+            "detail": "Mosaic is limping on her back leg and needs a vet check. Photo match to cat 10 is pending confirmation.",
+            "kind": "health"
+          },
+          "tool": "record_event"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "courtyard",
+            "kind": "health",
+            "severity": "high",
+            "text": "Mosaic is limping on her back leg and needs a vet check. Photo match to cat 10 awaits confirmation."
+          },
+          "tool": "raise_alert"
+        }
+      ],
+      "usage": {
+        "input_tokens": 8232,
+        "output_tokens": 261,
+        "requests": 6,
+        "total_tokens": 8493
+      }
+    },
+    "cd63c9a00a65857d007fd64d3b2e269af0d91f1f99bb1c7dda0ed67a095150fe": {
+      "_meta": {
+        "run_cost_usd": 0.005561
+      },
+      "final_output": "{\"summary\":\"Recorded urgent need and alert for a feeder with food today. Human follow-up needed.\",\"colony_ids\":[\"church-lot\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "detail": "Urgently need a feeder with food today.",
+            "kind": "need"
+          },
+          "tool": "record_event"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "kind": "feeder_and_food",
+            "severity": "urgent",
+            "text": "Urgently need a feeder with food today."
+          },
+          "tool": "raise_alert"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4751,
+        "output_tokens": 162,
+        "requests": 4,
+        "total_tokens": 4913
+      }
+    },
+    "cd9d32a215d4da2e0e4b93585791f3b3ae43fac1bcbfeeefe04c1cdbc0e3f0f7": {
+      "_meta": {
+        "run_cost_usd": 0.003789
+      },
+      "final_output": "{\"summary\":\"Feeding logged at Grove Loading Dock.\",\"colony_ids\":[\"grove-loading-dock\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-31T09:09:00",
+            "colony_id": "grove-loading-dock",
+            "volunteer_id": "camila-ortiz"
+          },
+          "tool": "log_feeding"
+        }
+      ],
+      "usage": {
+        "input_tokens": 3209,
+        "output_tokens": 116,
+        "requests": 3,
+        "total_tokens": 3325
+      }
+    },
+    "d5465aefce323443c96a46e4c3433561a525196049f0fddaf46ca19e9982ae07": {
+      "_meta": {
+        "run_cost_usd": 0.00548
+      },
+      "final_output": "{\"summary\":\"Recorded feeding and kitten check. No review needed.\",\"colony_ids\":[\"courtyard\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-04T08:24:00",
+            "colony_id": "courtyard",
+            "volunteer_id": "ana-torres"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "courtyard",
+            "detail": "Volunteer checked the kittens; no further details reported.",
+            "kind": "kittens"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4720,
+        "output_tokens": 152,
+        "requests": 4,
+        "total_tokens": 4872
+      }
+    },
+    "d8271a6dc88e4141770a682958b41403c4b01e87d4ff25eb0329ca2d6e9d988a": {
+      "_meta": {
+        "run_cost_usd": 0.00575
+      },
+      "final_output": "{\"summary\":\"Courtyard feeding logged. Photo match is weak and pending human review; Misty’s identity is unconfirmed.\",\"colony_ids\":[\"courtyard\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-28T08:25:00",
+            "colony_id": "courtyard",
+            "volunteer_id": "ana-torres"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "courtyard",
+            "photo_id": 15
+          },
+          "tool": "match_photo"
+        }
+      ],
+      "usage": {
+        "input_tokens": 5015,
+        "output_tokens": 147,
+        "requests": 4,
+        "total_tokens": 5162
+      }
+    },
+    "de2fba3516505410661d6ecd2d17e550d0918fa0a9020e0123cd657a59409fac": {
+      "_meta": {
+        "run_cost_usd": 0.003951
+      },
+      "final_output": "{\"summary\":\"Logged Luis Vega’s feeding at River Ramp. No review needed.\",\"colony_ids\":[\"river-ramp\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-01T17:55:00",
+            "colony_id": "river-ramp",
+            "volunteer_id": "luis-vega"
+          },
+          "tool": "log_feeding"
+        }
+      ],
+      "usage": {
+        "input_tokens": 3381,
+        "output_tokens": 114,
+        "requests": 3,
+        "total_tokens": 3495
+      }
+    },
+    "e2dd34cb9f59c353df24f2c6e6bd59363d2ac89c2cd5a82932098a213a9fe6c9": {
+      "_meta": {
+        "run_cost_usd": 0.007446
+      },
+      "final_output": "{\"summary\":\"Feeding and Sombra’s normal eating recorded. Photo match is weak and pending review.\",\"colony_ids\":[\"church-lot\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-31T07:27:00",
+            "colony_id": "church-lot",
+            "volunteer_id": "ana-torres"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "church-lot",
+            "photo_id": 25
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "detail": "Sombra ate normally; photo 25 has a weak pending match, identity unconfirmed.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6456,
+        "output_tokens": 198,
+        "requests": 5,
+        "total_tokens": 6654
+      }
+    },
+    "e4191ee1d210f537486ff925ce1060bbad328acbbaaf11e25c5dfe5218a1afe0": {
+      "_meta": {
+        "run_cost_usd": 0.005702
+      },
+      "final_output": "{\"summary\":\"Feeding and a sighting reported as Chispa were recorded. Cat identity requires review.\",\"colony_ids\":[\"grove-loading-dock\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-07T09:11:00",
+            "colony_id": "grove-loading-dock",
+            "volunteer_id": "camila-ortiz"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "grove-loading-dock",
+            "detail": "Chispa was beside the scooter; name is an unverified identity hint.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 4807,
+        "output_tokens": 179,
+        "requests": 4,
+        "total_tokens": 4986
+      }
+    },
+    "e450a5ab2c83cea47da93ab9d1bbf3a6af87618bdaa31c8f255d5f6ef1f736e7": {
+      "_meta": {
+        "run_cost_usd": 0.008047
+      },
+      "final_output": "{\"summary\":\"Feeding and gray tabby sighting recorded. Weak photo match requires review.\",\"colony_ids\":[\"grove-loading-dock\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-02T09:03:00",
+            "colony_id": "grove-loading-dock",
+            "volunteer_id": "camila-ortiz"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "grove-loading-dock",
+            "photo_id": 31
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "grove-loading-dock",
+            "detail": "Gray tabby seen eating by the scooter; photo 31 has a weak, unconfirmed match suggestion.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6997,
+        "output_tokens": 210,
+        "requests": 5,
+        "total_tokens": 7207
+      }
+    },
+    "e4d16dfac22b1447b429ba870957297ddc13d2919cc1ddc1ee22a3ebd033da13": {
+      "_meta": {
+        "run_cost_usd": 0.007742
+      },
+      "final_output": "{\"summary\":\"Feeding and sighting recorded; photo created a new gray tabby record. Chispa’s identity needs review.\",\"colony_ids\":[\"grove-loading-dock\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-26T09:04:00",
+            "colony_id": "grove-loading-dock",
+            "volunteer_id": "camila-ortiz"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "grove-loading-dock",
+            "photo_id": 8
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "grove-loading-dock",
+            "detail": "Chispa was beside the scooter. The name is an unconfirmed identity hint; photo 8 resulted in a new gray tabby record.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6612,
+        "output_tokens": 226,
+        "requests": 5,
+        "total_tokens": 6838
+      }
+    },
+    "e52f5db118382e4438d98116012a7aa93a47d6e1867fe0f863193bf0e8c21e55": {
+      "_meta": {
+        "run_cost_usd": 0.007547
+      },
+      "final_output": "{\"summary\":\"Logged feeding and a cat sighting. Photo created a new cat record.\",\"colony_ids\":[\"marina-dumpsters\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-28T07:53:00",
+            "colony_id": "marina-dumpsters",
+            "volunteer_id": "luis-vega"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "marina-dumpsters",
+            "photo_id": 14
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "marina-dumpsters",
+            "detail": "A long-haired cat was by the gate again.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6562,
+        "output_tokens": 197,
+        "requests": 5,
+        "total_tokens": 6759
+      }
+    },
+    "e7f22dba9f522d1888101849ab38870cf9455778820c28a6d05e594a98a3f4d2": {
+      "_meta": {
+        "run_cost_usd": 0.011867
+      },
+      "final_output": "{\"summary\":\"Recorded the reported adoption and suggested adopted status. The weak photo match and adoption require human confirmation; status was not changed.\",\"colony_ids\":[\"grove-loading-dock\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "colony_id": "grove-loading-dock",
+            "photo_id": 36
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": 5,
+            "new_status": "adopted",
+            "reason": "Family reports adopting Flora from Grove Loading Dock on 2026-11-05 and says she is safe indoors. Photo 36 has only a weak, pending match to cat 5; confirm identity and adoption before changing status."
+          },
+          "tool": "suggest_status"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "grove-loading-dock",
+            "detail": "Family reports that Flora was adopted on 2026-11-05 and is safe indoors; confirmation requested before changing status. Photo 36 has a weak pending match to cat 5.",
+            "kind": "status"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 10442,
+        "output_tokens": 285,
+        "requests": 6,
+        "total_tokens": 10727
+      }
+    },
+    "f1b6be4686486e435708a1eb888fbe5ffda376e5f1599e599356355cb4ab485b": {
+      "_meta": {
+        "run_cost_usd": 0.00767
+      },
+      "final_output": "{\"summary\":\"Recorded feeding and orange tabby sighting. Photo match is weak and pending review.\",\"colony_ids\":[\"laundromat\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-30T06:52:00",
+            "colony_id": "laundromat",
+            "volunteer_id": "marta-ruiz"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "laundromat",
+            "photo_id": 21
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "laundromat",
+            "detail": "An orange tabby stayed near the hedge; photo 21 has a weak pending match.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6645,
+        "output_tokens": 205,
+        "requests": 5,
+        "total_tokens": 6850
+      }
+    },
+    "f4793a8c0ed240759b88d76d47d91e73b18a46328bb400c49d8f873a344f80d5": {
+      "_meta": {
+        "run_cost_usd": 0.009324
+      },
+      "final_output": "{\"summary\":\"Alimentación registrada; queda suficiente comida para mañana.\",\"colony_ids\":[\"north-bay-courtyard\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-29T18:32:00",
+            "colony_id": "north-bay-courtyard",
+            "volunteer_id": "sofia-reyes"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "north-bay-courtyard",
+            "detail": "Queda suficiente comida para mañana.",
+            "kind": "need"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 8434,
+        "output_tokens": 178,
+        "requests": 5,
+        "total_tokens": 8612
+      }
+    },
+    "fcc2e8781493962b8d8bfadd73511c83292159e0bfc3a3170f39be386e4b4fba": {
+      "_meta": {
+        "run_cost_usd": 0.007832
+      },
+      "final_output": "{\"summary\":\"Recorded feeding and a gray cat sighting. The photo’s weak match to cat 8 needs review.\",\"colony_ids\":[\"laundromat\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-31T07:04:00",
+            "colony_id": "laundromat",
+            "volunteer_id": "marta-ruiz"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "laundromat",
+            "photo_id": 24
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "laundromat",
+            "detail": "The new gray cat came from behind the building again; photo 24 has a weak pending match to cat 8.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6757,
+        "output_tokens": 215,
+        "requests": 5,
+        "total_tokens": 6972
+      }
+    }
+  },
+  "model": "gpt-6.1-terra",
+  "prompt_versions": {
+    "description": "describe-cat-v1",
+    "match": "match-cat-v1",
+    "message_agent": "message-agent-v1"
+  },
+  "updated_at": "2026-11-07T21:29:49.092100+00:00",
+  "version": 1
+}
