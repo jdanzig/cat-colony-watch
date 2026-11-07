@@ -77,6 +77,7 @@ Volunteers keep texting the way they already do. Cat Colony Watch turns the chat
       - **SQLite stays the working database** that the app queries. It's rebuilt on every startup.
       - **Startup:** load the committed demo data and the **committed cache of AI results** (`data/demo/ai_cache.json`), so no API calls are needed. Then **replay the change log from Upstash.**
       - **The change log** is every change made in the live app, appended as JSON to one Redis list: a new sighting (with the AI's results, so a replay never calls the API again), a review decision, an alert marked done, an import. Photos from new sightings, already resized to about 768 px, are stored under their file hash.
+      - **Prefix every key with `ccw:`**, so the database could be shared with another project if ever needed.
       - **Without the Upstash variables** (local development), the log is a local JSON file instead.
       - **A demo reset** clears the log and restores the known demo state. It's passcode-protected, for use right before presenting.
       - Write `render.yaml`: free plan, health check at `/healthz`, Upstash values prompted for by the Blueprint. Use **region `virginia`**, the closest to Miami.
