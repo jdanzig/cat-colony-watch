@@ -31,13 +31,14 @@ def import_demo(
     limit: int | None = None,
     model: str | None = None,
     max_spend_usd: float = 3.0,
+    allow_api: bool = True,
 ) -> tuple[Database, AICache]:
     data_dir = Path(data_dir)
     load_dotenv(Path(".env"))
     selected_model = model or os.getenv("OPENAI_MODEL")
     if not selected_model:
         raise RuntimeError("OPENAI_MODEL is required")
-    if not os.getenv("OPENAI_API_KEY"):
+    if allow_api and not os.getenv("OPENAI_API_KEY"):
         raise RuntimeError("OPENAI_API_KEY is required")
 
     cache = AICache(data_dir / "ai_cache.json", selected_model, max_spend_usd)
@@ -69,6 +70,10 @@ def import_demo(
             digest = file_hash(photo_path)
             description = cache.get("descriptions", digest)
             if description is None:
+                if not allow_api:
+                    raise RuntimeError(
+                        f"photo description missing from cache while API calls are disabled: {photo_path}"
+                    )
                 cache.check_budget()
                 description = describe_photo(
                     photo_path,
@@ -113,6 +118,7 @@ def import_demo(
             volunteer_id=volunteer_id,
             sent_at=report["sent_at"],
             photo_ids=photo_ids,
+            allow_api=allow_api,
         )
         summary = process_report(agent, context, report_input)
         apply_named_cat_facts(db, report_id)
@@ -146,12 +152,14 @@ def main() -> None:
     parser.add_argument("--db", default="data/demo/cat_colony_watch.db")
     parser.add_argument("--limit", type=int)
     parser.add_argument("--max-spend", type=float, default=3.0)
+    parser.add_argument("--cache-only", action="store_true")
     args = parser.parse_args()
     db, cache = import_demo(
         args.data_dir,
         args.db,
         limit=args.limit,
         max_spend_usd=args.max_spend,
+        allow_api=not args.cache_only,
     )
     print(
         json.dumps(

@@ -43,6 +43,7 @@ class ImportContext:
     photo_ids: set[int]
     cache_dir: Path = Path("eval/cache")
     cost_log: Path = Path("costs.log")
+    allow_api: bool = True
     mutations: list[dict[str, Any]] = field(default_factory=list)
     agent_run_cost_usd: float = 0.0
     last_match_cat_id: int | None = None
@@ -237,6 +238,9 @@ def process_report(
         replay_mutations(context, cached["mutations"])
         return AgentSummary.model_validate_json(cached["final_output"])
 
+    if not context.allow_api:
+        raise RuntimeError("message result missing from cache while API calls are disabled")
+
     context.cache.check_budget()
     result = Runner.run_sync(
         agent,
@@ -368,6 +372,8 @@ def _match_photo(
     )
     result = context.cache.get("matches", match_key)
     if result is None:
+        if not context.allow_api:
+            raise RuntimeError("photo match missing from cache while API calls are disabled")
         context.cache.check_budget()
         result = match_cat(
             photo["path"],

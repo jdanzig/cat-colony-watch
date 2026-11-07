@@ -1,0 +1,49 @@
+"""Assert local change-log persistence and replay into a rebuilt database."""
+
+import tempfile
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from app.change_log import ChangeLog
+from app.database import Database
+from app.main import _apply_change
+
+
+with tempfile.TemporaryDirectory() as directory:
+    path = Path(directory) / "changes.json"
+    log = ChangeLog(url="", token="", local_path=path)
+    change = {
+        "id": "test-change",
+        "type": "feeding_report",
+        "created_at": "2026-11-07T12:00:00+00:00",
+        "data": {
+            "colony_id": "yard",
+            "volunteer_id": "feeder",
+            "at": "2026-11-07T12:00:00+00:00",
+        },
+    }
+    log.append(change)
+    assert ChangeLog(url="", token="", local_path=path).load() == [change]
+
+    db = Database()
+    db.connection.execute(
+        "INSERT INTO colonies(id, name, lat, lng, notes) VALUES('yard', 'Yard', 25.8, -80.2, '')"
+    )
+    db.connection.execute(
+        """
+        INSERT INTO volunteers(id, name, phone, role)
+        VALUES('feeder', 'Demo Feeder', '305-555-0101', 'feeder')
+        """
+    )
+    for item in log.load():
+        _apply_change(db, item)
+    last_fed = db.colony_counts()[0]
+    assert last_fed["last_fed_at"] == "2026-11-07T12:00:00+00:00"
+    assert last_fed["last_fed_by"] == "Demo Feeder"
+
+    log.clear()
+    assert log.load() == []
+
+print("change-log persistence and replay checks passed")
