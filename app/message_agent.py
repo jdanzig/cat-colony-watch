@@ -45,6 +45,7 @@ class ImportContext:
     cost_log: Path = Path("costs.log")
     mutations: list[dict[str, Any]] = field(default_factory=list)
     agent_run_cost_usd: float = 0.0
+    last_match_cat_id: int | None = None
 
 
 def _record(context: ImportContext, tool: str, args: dict[str, Any]) -> None:
@@ -178,7 +179,7 @@ def suggest_status(
 ) -> dict[str, Any]:
     """Suggest adopted, missing, or deceased for human review; never change status directly."""
     context = wrapper.context
-    result = context.db.suggest_status(cat_id, new_status, reason)
+    result = context.db.suggest_status(cat_id, new_status, reason, context.sent_at)
     args = {"cat_id": cat_id, "new_status": new_status, "reason": reason}
     _record(context, "suggest_status", args)
     return result
@@ -302,19 +303,37 @@ def replay_mutations(context: ImportContext, mutations: list[dict[str, Any]]) ->
                 args["colony_id"], args["volunteer_id"], args["at"], context.report_id
             )
         elif tool == "record_event":
+            cat_id = _resolve_replayed_cat_id(
+                context,
+                args["cat_id"],
+                colony_id=args["colony_id"],
+                evidence=args["detail"],
+            )
             context.db.record_event(
                 args["kind"],
                 args["colony_id"],
-                args["cat_id"],
+                cat_id,
                 args["detail"],
                 context.report_id,
                 context.sent_at,
                 context.volunteer_id,
             )
         elif tool == "update_cat":
-            context.db.update_cat(**args)
+            replay_args = dict(args)
+            replay_args["cat_id"] = _resolve_replayed_cat_id(
+                context, args["cat_id"], evidence=""
+            )
+            if replay_args["cat_id"] is not None:
+                context.db.update_cat(**replay_args)
         elif tool == "suggest_status":
-            context.db.suggest_status(**args)
+            cat_id = _resolve_replayed_cat_id(context, args["cat_id"], evidence=args["reason"])
+            if cat_id is not None:
+                context.db.suggest_status(
+                    cat_id,
+                    args["new_status"],
+                    args["reason"],
+                    created_at=context.sent_at,
+                )
         elif tool == "raise_alert":
             # Version-1 cached agents proposed free-form alerts. Step 4 replaces
             # them with app.rules.rebuild_alerts(), so replay intentionally
@@ -370,9 +389,67 @@ def _match_photo(
             result.get("comparisons", []),
             result["reason"],
         )
+    context.last_match_cat_id = (
+        int(action["cat_id"]) if action.get("action") in {"new", "existing"} else None
+    )
     if record:
         _record(context, "match_photo", {"photo_id": photo_id, "colony_id": colony_id})
     return {"match": result["suggestion"], **action}
+
+
+def _resolve_replayed_cat_id(
+    context: ImportContext,
+    cached_cat_id: int | None,
+    *,
+    colony_id: str | None = None,
+    evidence: str,
+) -> int | None:
+    """Resolve cached numeric IDs against stable names and the current match outcome."""
+    if cached_cat_id is None:
+        return None
+    report = context.db.connection.execute(
+        "SELECT text FROM reports WHERE id = ?", (context.report_id,)
+    ).fetchone()
+    text = f"{report['text'] if report else ''} {evidence}".casefold()
+    parameters: tuple[Any, ...] = ()
+    where_colony = ""
+    if colony_id is not None:
+        where_colony = "AND colony_id = ?"
+        parameters = (colony_id,)
+    named = context.db.connection.execute(
+        f"""
+        SELECT id, reported_name FROM cats
+        WHERE status = 'active' AND merged_into_cat_id IS NULL
+          AND reported_name IS NOT NULL {where_colony}
+        ORDER BY id
+        """,
+        parameters,
+    ).fetchall()
+    named_ids = {
+        int(cat["id"])
+        for cat in named
+        if cat["reported_name"].casefold() in text
+    }
+    if len(named_ids) == 1:
+        return named_ids.pop()
+    existing = context.db.connection.execute(
+        """
+        SELECT id FROM cats
+        WHERE id = ? AND status = 'active' AND merged_into_cat_id IS NULL
+          AND (? IS NULL OR colony_id = ?)
+        """,
+        (cached_cat_id, colony_id, colony_id),
+    ).fetchone()
+    if existing:
+        return int(existing["id"])
+    if context.last_match_cat_id is not None:
+        matched = context.db.connection.execute(
+            "SELECT id FROM cats WHERE id = ? AND (? IS NULL OR colony_id = ?)",
+            (context.last_match_cat_id, colony_id, colony_id),
+        ).fetchone()
+        if matched:
+            return int(matched["id"])
+    return None
 
 
 def _distance_m(first_lat: float, first_lng: float, second_lat: float, second_lng: float) -> float:

@@ -12,6 +12,7 @@ import hashlib
 import io
 import json
 import os
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Literal
@@ -447,12 +448,20 @@ def match_cat(
     )
     if response.output_parsed is None:
         raise RuntimeError("OpenAI returned no parsed cat comparison")
+    metadata = _usage_metadata(response, selected_model, "match_cat", Path(cost_log))
     comparisons = [item.model_dump() for item in response.output_parsed.comparisons]
+    for comparison in comparisons:
+        comparison["candidate"] = normalize_candidate_label(comparison["candidate"])
     expected = {str(candidate["id"]) for candidate in narrowed}
     returned = {item["candidate"] for item in comparisons}
     if returned != expected:
         raise RuntimeError(f"comparison labels differ: expected {expected}, received {returned}")
     result = {**decide_match(comparisons), "comparisons": comparisons}
-    result["_meta"] = _usage_metadata(response, selected_model, "match_cat", Path(cost_log))
+    result["_meta"] = metadata
     _save_cache(cache_dir, key, result)
     return result
+
+
+def normalize_candidate_label(label: str) -> str:
+    """Accept the model echoing a prompt label without changing candidate identity."""
+    return re.sub(r"^candidate\s+", "", label.strip(), flags=re.IGNORECASE)

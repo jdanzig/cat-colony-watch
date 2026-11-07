@@ -118,6 +118,7 @@ CREATE TABLE IF NOT EXISTS suggestions (
     strength TEXT CHECK (strength IN ('strong', 'weak')),
     feature_verdicts_json TEXT NOT NULL DEFAULT '{}',
     reason TEXT NOT NULL,
+    created_at TEXT NOT NULL,
     decided TEXT CHECK (decided IN ('confirmed', 'rejected')),
     decided_by TEXT REFERENCES volunteers(id),
     decided_at TEXT,
@@ -151,7 +152,7 @@ WHERE kind = 'possible_duplicate' AND decided IS NULL;
 
 CREATE TABLE IF NOT EXISTS alerts (
     id INTEGER PRIMARY KEY,
-    colony_id TEXT NOT NULL REFERENCES colonies(id),
+    colony_id TEXT REFERENCES colonies(id),
     cat_id INTEGER REFERENCES cats(id),
     kind TEXT NOT NULL CHECK (
         kind IN (
@@ -170,7 +171,8 @@ CREATE INDEX IF NOT EXISTS events_by_colony_time ON events(colony_id, at);
 CREATE INDEX IF NOT EXISTS suggestions_open ON suggestions(decided, kind);
 
 CREATE UNIQUE INDEX IF NOT EXISTS one_open_alert
-ON alerts(colony_id, IFNULL(cat_id, -1), kind) WHERE resolved_at IS NULL;
+ON alerts(IFNULL(colony_id, '__all__'), IFNULL(cat_id, -1), kind)
+WHERE resolved_at IS NULL;
 """
 
 
@@ -410,7 +412,7 @@ class Database:
             for group in groups:
                 cats = self.connection.execute(
                     """
-                    SELECT id FROM cats
+                    SELECT id, first_seen FROM cats
                     WHERE colony_id = ? AND LOWER(reported_name) = ?
                       AND status = 'active' AND merged_into_cat_id IS NULL
                     ORDER BY first_seen, id
@@ -435,14 +437,15 @@ class Database:
                         """
                         INSERT INTO suggestions(
                             kind, cat_id, candidate_cat_id, strength,
-                            feature_verdicts_json, reason
-                        ) VALUES('possible_duplicate', ?, ?, 'weak', '{}', ?)
+                            feature_verdicts_json, reason, created_at
+                        ) VALUES('possible_duplicate', ?, ?, 'weak', '{}', ?, ?)
                         """,
                         (
                             duplicate_id,
                             survivor,
                             f"Two records share the reported name {group['reported_name']}; "
                             "a person must compare them before merging.",
+                            duplicate["first_seen"],
                         ),
                     )
                     created += 1
@@ -478,8 +481,8 @@ class Database:
                 """
                 INSERT INTO suggestions(
                     kind, photo_id, candidate_cat_id, strength,
-                    feature_verdicts_json, reason
-                ) VALUES('same_cat', ?, ?, ?, ?, ?)
+                    feature_verdicts_json, reason, created_at
+                ) VALUES('same_cat', ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     photo_id,
@@ -487,6 +490,7 @@ class Database:
                     strength,
                     json.dumps(comparisons, sort_keys=True),
                     reason,
+                    photo["sent_at"],
                 ),
             )
         return {
@@ -562,7 +566,13 @@ class Database:
             ).fetchone()
         )
 
-    def suggest_status(self, cat_id: int, new_status: str, reason: str) -> dict[str, Any]:
+    def suggest_status(
+        self,
+        cat_id: int,
+        new_status: str,
+        reason: str,
+        created_at: str | None = None,
+    ) -> dict[str, Any]:
         if new_status not in {"adopted", "missing", "deceased"}:
             raise ValueError(f"unsupported status suggestion: {new_status}")
         row = self.connection.execute(
@@ -582,10 +592,16 @@ class Database:
         with self.connection:
             cursor = self.connection.execute(
                 """
-                INSERT INTO suggestions(kind, cat_id, new_status, feature_verdicts_json, reason)
-                VALUES('status_change', ?, ?, '{}', ?)
+                INSERT INTO suggestions(
+                    kind, cat_id, new_status, feature_verdicts_json, reason, created_at
+                ) VALUES('status_change', ?, ?, '{}', ?, ?)
                 """,
-                (cat_id, new_status, reason),
+                (
+                    cat_id,
+                    new_status,
+                    reason,
+                    created_at or datetime.now(timezone.utc).isoformat(),
+                ),
             )
         return {"action": "suggestion", "suggestion_id": int(cursor.lastrowid)}
 
@@ -673,16 +689,19 @@ class Database:
 
     def sync_alerts(self, desired: list[dict[str, Any]], resolved_at: str) -> None:
         """Make open alerts equal a fixed-rule result, with one row per rule key."""
-        wanted: dict[tuple[str, int | None, str], dict[str, Any]] = {}
+        wanted: dict[tuple[str | None, int | None, str], dict[str, Any]] = {}
         for item in desired:
             if item["kind"] not in ALERT_KINDS:
                 raise ValueError(f"unsupported alert kind: {item['kind']}")
             if item["severity"] not in {"urgent", "high", "normal"}:
                 raise ValueError(f"unsupported alert severity: {item['severity']}")
-            self._require_colony(item["colony_id"])
+            if item.get("colony_id") is not None:
+                self._require_colony(item["colony_id"])
             if item.get("cat_id") is not None:
+                if item.get("colony_id") is None:
+                    raise ValueError("cat-specific alerts require a colony")
                 self._require_cat_at_colony(item["cat_id"], item["colony_id"])
-            key = (item["colony_id"], item.get("cat_id"), item["kind"])
+            key = (item.get("colony_id"), item.get("cat_id"), item["kind"])
             wanted[key] = item
 
         open_rows = self.connection.execute(
@@ -699,7 +718,7 @@ class Database:
                 existing = self.connection.execute(
                     """
                     SELECT id FROM alerts
-                    WHERE colony_id = ? AND cat_id IS ? AND kind = ? AND resolved_at IS NULL
+                    WHERE colony_id IS ? AND cat_id IS ? AND kind = ? AND resolved_at IS NULL
                     """,
                     key,
                 ).fetchone()
@@ -715,7 +734,7 @@ class Database:
                         VALUES(?, ?, ?, ?, ?, ?)
                         """,
                         (
-                            item["colony_id"],
+                            item.get("colony_id"),
                             item.get("cat_id"),
                             item["kind"],
                             item["severity"],
@@ -727,10 +746,10 @@ class Database:
     def open_alerts(self) -> list[dict[str, Any]]:
         rows = self.connection.execute(
             """
-            SELECT a.id, a.colony_id, c.name AS colony, a.cat_id,
+            SELECT a.id, a.colony_id, COALESCE(c.name, 'All colonies') AS colony, a.cat_id,
                    cat.display_name AS cat, a.kind, a.severity, a.text, a.created_at
             FROM alerts a
-            JOIN colonies c ON c.id = a.colony_id
+            LEFT JOIN colonies c ON c.id = a.colony_id
             LEFT JOIN cats cat ON cat.id = a.cat_id
             WHERE a.resolved_at IS NULL
             ORDER BY CASE a.severity WHEN 'urgent' THEN 0 WHEN 'high' THEN 1 ELSE 2 END,
@@ -765,7 +784,7 @@ class Database:
     def open_suggestions(self) -> list[dict[str, Any]]:
         rows = self.connection.execute(
             """
-            SELECT s.id, s.kind, s.strength, s.reason, s.new_status,
+            SELECT s.id, s.kind, s.strength, s.reason, s.new_status, s.created_at,
                    p.path AS photo_path, candidate.display_name AS candidate,
                    target.display_name AS target,
                    COALESCE(candidate.colony_id, target.colony_id) AS colony_id

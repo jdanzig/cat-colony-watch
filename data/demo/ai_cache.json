@@ -1,5 +1,5 @@
 {
-  "build_cost_usd": 0.648968,
+  "build_cost_usd": 0.730874,
   "descriptions": {
     "00c0b50eb4443b2df1e8033782aae3da98a886afac4b058fec7e261398550b9d": {
       "_meta": {
@@ -582,6 +582,81 @@
           "pattern": "solid",
           "tail": "unclear",
           "view": "front"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "6edba0592fbf6f06c8200e381f940b67e314006f498ee21efa7f6f41434558ce": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001799,
+        "input_tokens": 1154,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 129,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.0,
+            0.102,
+            0.79,
+            0.817
+          ],
+          "coat_color": "mixed",
+          "ear_tip": "none",
+          "eye_color": "yellow",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "white chest and belly",
+            "white legs and paws",
+            "white muzzle",
+            "dark facial stripes",
+            "ringed tail"
+          ],
+          "pattern": "tabby",
+          "tail": "Long, dark-ringed; tip extends out of frame",
+          "view": "side"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
+    },
+    "74865f3b132c030a926b24377e0a1b1a8af36f92d9e396d38ce9ad612c3f9f77": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001487,
+        "input_tokens": 952,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 107,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.0,
+            0.008,
+            0.737,
+            1.0
+          ],
+          "coat_color": "gray",
+          "ear_tip": "none",
+          "eye_color": "yellow",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "dark facial stripes",
+            "pale muzzle"
+          ],
+          "pattern": "tabby",
+          "tail": "unclear",
+          "view": "side"
         }
       ],
       "kittens_present": false,
@@ -1316,6 +1391,43 @@
       ],
       "kittens_present": false,
       "photo_quality": "good"
+    },
+    "f86d1f10fc9797c5fcfd20dec3d33c1f1bc157a780ab96bf6fd7d60964552f4a": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001512,
+        "input_tokens": 952,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 112,
+        "run_cost_usd": 0.0
+      },
+      "cat_count": 1,
+      "cats": [
+        {
+          "apparent_health": [],
+          "box": [
+            0.372,
+            0.113,
+            0.637,
+            0.959
+          ],
+          "coat_color": "gray",
+          "ear_tip": "none",
+          "eye_color": "green",
+          "is_kitten": false,
+          "looks_pregnant": false,
+          "markings": [
+            "dark forehead stripes",
+            "dark leg stripes",
+            "light chin and chest"
+          ],
+          "pattern": "tabby",
+          "tail": "unclear",
+          "view": "front"
+        }
+      ],
+      "kittens_present": false,
+      "photo_quality": "good"
     }
   },
   "failed_call_reserve_usd": 0.01,
@@ -1538,6 +1650,103 @@
       "reason": "no candidates after conservative coat-color filtering",
       "suggestion": "new"
     },
+    "2101445f238364dcaecf9aa64cb8dacdd1c8342cfde6f4e06c756ce728ccbefd": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.003144,
+        "input_tokens": 2234,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 182,
+        "run_cost_usd": 0.003144
+      },
+      "candidate_id": "1",
+      "comparisons": [
+        {
+          "candidate": "1",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "same",
+            "face_markings": "unclear",
+            "pattern": "unclear",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "8",
+          "contradictions": [
+            "Candidate 8 has a dark gray tabby-and-white coat, unlike the query's orange coat.",
+            "Candidate 8 has a white muzzle, chest and legs; the query's visible muzzle and chest are orange."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "same",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
+    "3419c32542ee6c9554a3d3163ffe77e3b2d52d77e45655ca9a60843af89d9b4e": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.003052,
+        "input_tokens": 2032,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 204,
+        "run_cost_usd": 0.003052
+      },
+      "candidate_id": "1",
+      "comparisons": [
+        {
+          "candidate": "1",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "unclear",
+            "face_markings": "unclear",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "8",
+          "contradictions": [
+            "Candidate 8 has a dark gray tabby-and-white coat, unlike the query's orange coat.",
+            "Candidate 8 has extensive white on the chest and legs and a dark facial mask, unlike the query.",
+            "Candidate 8 has a short-haired, dark ringed tail; the query has a long, fluffy orange tail."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "unclear",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "different"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
     "36b800e05936b1f4c95e0bfcc449aace5481573c4db875d8ae32e65e7fdb7f7e": {
       "_meta": {
         "cache_hit": false,
@@ -1595,6 +1804,187 @@
             "eye_color": "not_visible",
             "face_markings": "unclear",
             "pattern": "unclear",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
+    "45a4fbbac5837b714fd81045073cb509b39550a0dc299793cb961cf3b1dc4e74": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001687,
+        "input_tokens": 1302,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 77,
+        "run_cost_usd": 0.0
+      },
+      "candidate_id": "9",
+      "comparisons": [
+        {
+          "candidate": "9",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "same",
+            "face_markings": "unclear",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
+    "4bc9640eac6e488f07763e56941c929cab59683589b463475c45a1204110a234": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.002242,
+        "input_tokens": 1532,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 142,
+        "run_cost_usd": 0.002242
+      },
+      "candidate_id": null,
+      "comparisons": [
+        {
+          "candidate": "1",
+          "contradictions": [
+            "The query has a gray-brown tabby and white coat; the candidate has an orange coat.",
+            "The query has a white muzzle, chest, and legs, while the candidate's visible face, chest, and legs are orange.",
+            "The query has short fur, while the candidate has long fur."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "same",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "every candidate has a visible contradiction",
+      "suggestion": "new"
+    },
+    "4c2968c9b0cb8e50b3ac5fe076cf1761fd95e38f2ab4d02aa26f74b87586c8fc": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.003317,
+        "input_tokens": 2182,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 227,
+        "run_cost_usd": 0.003317
+      },
+      "candidate_id": null,
+      "comparisons": [
+        {
+          "candidate": "2",
+          "contradictions": [
+            "The query has orange tortoiseshell patches on its face and body; candidate 2 appears solid black.",
+            "The query has yellow-green eyes; candidate 2 has amber eyes."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "6",
+          "contradictions": [
+            "The query has a dark tortoiseshell coat with orange patches; candidate 6 has a light gray tabby coat.",
+            "The query has a dark face with asymmetric orange patches; candidate 6 has a pale face with gray tabby stripes."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "same",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "every candidate has a visible contradiction",
+      "suggestion": "new"
+    },
+    "4c9f106bad92f5f31bcc9f0bd731c246bf299bc4b0a0eb94a2c3fd70f32b174f": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.004111,
+        "input_tokens": 2711,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 280,
+        "run_cost_usd": 0.004111
+      },
+      "candidate_id": "2",
+      "comparisons": [
+        {
+          "candidate": "2",
+          "contradictions": [],
+          "features": {
+            "body_markings": "not_visible",
+            "coat_color": "same",
+            "ear_shape_or_damage": "not_visible",
+            "ear_tip": "not_visible",
+            "eye_color": "same",
+            "face_markings": "same",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "6",
+          "contradictions": [
+            "The query has a black face, while candidate 6 has a gray, striped face with a pale muzzle.",
+            "The query's eyes are amber; candidate 6's are greenish."
+          ],
+          "features": {
+            "body_markings": "not_visible",
+            "coat_color": "different",
+            "ear_shape_or_damage": "not_visible",
+            "ear_tip": "not_visible",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "12",
+          "contradictions": [
+            "The query has a black face without visible orange patches; candidate 12 has distinct orange facial patches.",
+            "The query's eyes are amber; candidate 12's are yellow-green."
+          ],
+          "features": {
+            "body_markings": "not_visible",
+            "coat_color": "different",
+            "ear_shape_or_damage": "not_visible",
+            "ear_tip": "not_visible",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
             "tail": "not_visible"
           },
           "matching_specific_markings": []
@@ -1719,6 +2109,54 @@
       "reason": "some agreement or an unclear view; human comparison required",
       "suggestion": "weak"
     },
+    "5601de10d7e6e88f867597822f3c82adc702f0390028f1cd6297d22236540dd2": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.002837,
+        "input_tokens": 1917,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 184,
+        "run_cost_usd": 0.002837
+      },
+      "candidate_id": "1",
+      "comparisons": [
+        {
+          "candidate": "1",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "unclear",
+            "face_markings": "unclear",
+            "pattern": "unclear",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "8",
+          "contradictions": [
+            "The candidate has a dark gray tabby coat, unlike the query's orange coat.",
+            "The candidate has prominent white facial markings and a dark nose bridge, unlike the query's orange face."
+          ],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "unclear",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
     "5740b67aaab6ee7402a0ecfa791810f66a689b2c965a8bd6d3ff533916d806a0": {
       "_meta": {
         "cache_hit": false,
@@ -1816,6 +2254,108 @@
       ],
       "reason": "some agreement or an unclear view; human comparison required",
       "suggestion": "weak"
+    },
+    "6a7ec75cf8a17d9f6e5d4947e3c441e374689443cc758552319b75a58c7c8ec5": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.002075,
+        "input_tokens": 1480,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 119,
+        "run_cost_usd": 0.002075
+      },
+      "candidate_id": null,
+      "comparisons": [
+        {
+          "candidate": "2",
+          "contradictions": [
+            "The query has a gray-brown ticked coat and facial stripes; candidate 2 has a solid black coat and face.",
+            "The query has yellow-green eyes; candidate 2 has orange-amber eyes."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "every candidate has a visible contradiction",
+      "suggestion": "new"
+    },
+    "6be82f22e49d65073324b50fceb22802da553254f88c2073d9ebd8141529eff2": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.004392,
+        "input_tokens": 2797,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 319,
+        "run_cost_usd": 0.004392
+      },
+      "candidate_id": "12",
+      "comparisons": [
+        {
+          "candidate": "2",
+          "contradictions": [
+            "The candidate's face is solid black, while the query has distinct orange mottling beside the nose and on the cheeks.",
+            "The candidate has amber eyes; the query has yellow-green eyes."
+          ],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "6",
+          "contradictions": [
+            "The candidate has a gray ticked coat and pale muzzle rather than the query's black-and-orange tortoiseshell coat and dark muzzle.",
+            "The candidate has dark facial stripes rather than the query's orange facial mottling."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "same",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "12",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "same",
+            "face_markings": "same",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": [
+            "Orange mottling on the image-left side of the nose and muzzle, with a black central nose bridge.",
+            "Broad orange mottling on the image-right cheek."
+          ]
+        }
+      ],
+      "reason": "Orange mottling on the image-left side of the nose and muzzle, with a black central nose bridge.; Broad orange mottling on the image-right cheek.",
+      "suggestion": "strong"
     },
     "6d4e0e6fab4b1b8c7646467088decbfc823ed18a502a1f1ccef286ab52b62206": {
       "_meta": {
@@ -1936,6 +2476,122 @@
             "coat_color": "different",
             "ear_shape_or_damage": "not_visible",
             "ear_tip": "not_visible",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
+    "7eda147fbe651e483cea48fdec12e35188387dd563dede61c69aa6a2f0dd9d0e": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.004016,
+        "input_tokens": 2356,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 332,
+        "run_cost_usd": 0.004016
+      },
+      "candidate_id": "6",
+      "comparisons": [
+        {
+          "candidate": "2",
+          "contradictions": [
+            "The candidate has a solid black coat and face; the query is gray with dark facial and leg stripes and a pale chest.",
+            "The candidate's eyes are orange; the query's are yellow-green."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "6",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "same",
+            "face_markings": "same",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": [
+            "Both have a dark stripe extending outward from the eye across the cheek and a pale muzzle with a dark-edged nose."
+          ]
+        },
+        {
+          "candidate": "12",
+          "contradictions": [
+            "The candidate has a dark tortoiseshell coat with orange patches; the query has a gray coat with dark stripes and a pale chest.",
+            "The candidate has an asymmetric orange facial patch and a dark muzzle; the query has a pale muzzle and striped gray face."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "same",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
+    "8b8dc8ff746d7364674008738a2b0f0b72f6b4f053d129602871b9de6e8ce95d": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.00288,
+        "input_tokens": 1980,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 180,
+        "run_cost_usd": 0.00288
+      },
+      "candidate_id": "2",
+      "comparisons": [
+        {
+          "candidate": "2",
+          "contradictions": [],
+          "features": {
+            "body_markings": "same",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "same",
+            "face_markings": "same",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "6",
+          "contradictions": [
+            "The query has a solid black coat; candidate 6 has a gray ticked coat with facial stripes and a pale muzzle.",
+            "The query has orange-amber eyes; candidate 6 has greenish-yellow eyes."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "same",
             "eye_color": "different",
             "face_markings": "different",
             "pattern": "different",
@@ -2135,6 +2791,73 @@
       "reason": "some agreement or an unclear view; human comparison required",
       "suggestion": "weak"
     },
+    "a7af04806e761775897285c9d2a9a86e72606217eb5f2c64dcdcd8cab23c5298": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.004092,
+        "input_tokens": 2682,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 282,
+        "run_cost_usd": 0.004092
+      },
+      "candidate_id": "6",
+      "comparisons": [
+        {
+          "candidate": "2",
+          "contradictions": [
+            "The candidate has a solid black coat and face, unlike the query's gray ticked coat and striped face."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "6",
+          "contradictions": [],
+          "features": {
+            "body_markings": "same",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "same",
+            "face_markings": "same",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": [
+            "Dark stripe extending outward from the eye across the cheek.",
+            "Pale muzzle with a dark outline around the pinkish nose. "
+          ]
+        },
+        {
+          "candidate": "12",
+          "contradictions": [
+            "The candidate has a black-and-orange tortoiseshell coat and an asymmetrically orange-marked face, unlike the query's gray ticked coat and striped face."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "same",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "Dark stripe extending outward from the eye across the cheek.; Pale muzzle with a dark outline around the pinkish nose. ",
+      "suggestion": "strong"
+    },
     "accfe67cb28fe8b696fedd5e088e682cb9ab1d8e8c3c53f4fa398e1af1258e57": {
       "_meta": {
         "cache_hit": true,
@@ -2143,6 +2866,56 @@
       "candidate_id": null,
       "comparisons": [],
       "reason": "no candidates after conservative coat-color filtering",
+      "suggestion": "new"
+    },
+    "b162fe03bedc95a5ea88fd442d67d56b96a6fa88cc6dadf63fbb459c4dd89111": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.00327,
+        "input_tokens": 2205,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 213,
+        "run_cost_usd": 0.00327
+      },
+      "candidate_id": null,
+      "comparisons": [
+        {
+          "candidate": "1",
+          "contradictions": [
+            "The query has a distinct white muzzle and chest patch; candidate 1 has an orange muzzle and chest without a comparable white patch."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "unclear",
+            "eye_color": "unclear",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "8",
+          "contradictions": [
+            "The query is orange and white; candidate 8 is gray-brown tabby and white.",
+            "Candidate 8 has a dark stripe down the nose and a dark patch beside it, unlike the query's orange face and pink nose."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "unclear",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "unclear"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "every candidate has a visible contradiction",
       "suggestion": "new"
     },
     "b23b87235a96cd472e858e33572edf8f41767047d76868d111c0120214e3baa0": {
@@ -2310,6 +3083,137 @@
       "reason": "some agreement or an unclear view; human comparison required",
       "suggestion": "weak"
     },
+    "b8bdfb319ff8c558bf6c59618813bc65cd0cc6811206a4514de522577c2cc024": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.003994,
+        "input_tokens": 2619,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 275,
+        "run_cost_usd": 0.003994
+      },
+      "candidate_id": "8",
+      "comparisons": [
+        {
+          "candidate": "1",
+          "contradictions": [
+            "The candidate has a long orange coat, while the query has a short brown-gray tabby-and-white coat."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "not_visible",
+            "face_markings": "unclear",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "8",
+          "contradictions": [],
+          "features": {
+            "body_markings": "same",
+            "coat_color": "same",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "not_visible",
+            "face_markings": "unclear",
+            "pattern": "same",
+            "tail": "same"
+          },
+          "matching_specific_markings": [
+            "White hind legs meet the tabby rump at a high boundary, with a warm brown patch near the upper hind leg."
+          ]
+        },
+        {
+          "candidate": "13",
+          "contradictions": [
+            "The candidate is orange and white, whereas the query is brown-gray tabby and white."
+          ],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "not_visible",
+            "face_markings": "unclear",
+            "pattern": "different",
+            "tail": "unclear"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
+    "c37b079e3b91828f9e09404fc36ce1d16e554ca1ad07bb9e94851ed639d6b2e3": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.003709,
+        "input_tokens": 2389,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 264,
+        "run_cost_usd": 0.003709
+      },
+      "candidate_id": "3",
+      "comparisons": [
+        {
+          "candidate": "3",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "not_visible",
+            "face_markings": "same",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "9",
+          "contradictions": [
+            "The candidate has a reddish brown spotted and marbled coat, unlike the query's pale coat with dark gray points.",
+            "The candidate's face has reddish tabby markings rather than the query's dark gray mask."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "not_visible",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "11",
+          "contradictions": [
+            "The candidate's facial mask lacks the query's visible dark forehead stripes."
+          ],
+          "features": {
+            "body_markings": "not_visible",
+            "coat_color": "same",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "not_visible",
+            "eye_color": "not_visible",
+            "face_markings": "different",
+            "pattern": "unclear",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
+    },
     "c7b54102588b5797a6845047938a904126ace526c8d53a82397facc9f81b6fe3": {
       "_meta": {
         "cache_hit": false,
@@ -2373,6 +3277,58 @@
       "reason": "some agreement or an unclear view; human comparison required",
       "suggestion": "weak"
     },
+    "c9d448c594051ae6fbff29b5ef89b24dd14e5f7ba4b50c59059150f3d5261f36": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.003192,
+        "input_tokens": 2147,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 209,
+        "run_cost_usd": 0.003192
+      },
+      "candidate_id": "8",
+      "comparisons": [
+        {
+          "candidate": "1",
+          "contradictions": [
+            "Candidate has an orange coat rather than the query's brown-gray tabby and white coat.",
+            "Candidate lacks the query's prominent white chest and legs."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "unclear",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "8",
+          "contradictions": [],
+          "features": {
+            "body_markings": "same",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "unclear",
+            "face_markings": "same",
+            "pattern": "same",
+            "tail": "same"
+          },
+          "matching_specific_markings": [
+            "Dark tabby patch extends down the nose beside the white muzzle.",
+            "White chest rises into a narrow band across the back of the neck.",
+            "White front leg meets the dark shoulder in a sharply angled boundary."
+          ]
+        }
+      ],
+      "reason": "Dark tabby patch extends down the nose beside the white muzzle.; White chest rises into a narrow band across the back of the neck.; White front leg meets the dark shoulder in a sharply angled boundary.",
+      "suggestion": "strong"
+    },
     "cee956b8a268bb5891a751d1774626cc5a71929439b5b4614f0581eb2a6cce3a": {
       "_meta": {
         "cache_hit": false,
@@ -2424,6 +3380,36 @@
       ],
       "reason": "Dark tapered marking extending down from the inner corner of the prominently visible eye.; Orange patch on the white muzzle beside the pink nose.; Dark forehead stripes bordered by orange above the eye.",
       "suggestion": "strong"
+    },
+    "d5616265bff49527ce3d483bb6472ca6e40245f4cfe4933c82f877c5d5887005": {
+      "_meta": {
+        "cache_hit": true,
+        "estimated_cost_usd": 0.001745,
+        "input_tokens": 1360,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 77,
+        "run_cost_usd": 0.0
+      },
+      "candidate_id": "9",
+      "comparisons": [
+        {
+          "candidate": "9",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "same",
+            "ear_tip": "same",
+            "eye_color": "same",
+            "face_markings": "unclear",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        }
+      ],
+      "reason": "some agreement or an unclear view; human comparison required",
+      "suggestion": "weak"
     },
     "d94ae663e0cff9394998fa6604a50b82a8af806b076e243ae33c0616deef01a1": {
       "_meta": {
@@ -2709,6 +3695,74 @@
       ],
       "reason": "some agreement or an unclear view; human comparison required",
       "suggestion": "weak"
+    },
+    "e9eb9f417bea04b6c06369e8b8ecd65d25405d538d5d86dc3a8207853a664cb3": {
+      "_meta": {
+        "cache_hit": false,
+        "estimated_cost_usd": 0.004345,
+        "input_tokens": 2740,
+        "model": "gpt-6.1-terra",
+        "output_tokens": 321,
+        "run_cost_usd": 0.004345
+      },
+      "candidate_id": "12",
+      "comparisons": [
+        {
+          "candidate": "2",
+          "contradictions": [
+            "The candidate has a solid black coat and face, whereas the query has black-and-rust tortoiseshell coloring and facial mottling.",
+            "The candidate has orange eyes; the query's eyes appear yellow."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "same",
+            "eye_color": "different",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "6",
+          "contradictions": [
+            "The candidate has a gray tabby coat and pale, striped face; the query has a dark tortoiseshell coat and mottled face."
+          ],
+          "features": {
+            "body_markings": "different",
+            "coat_color": "different",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "same",
+            "eye_color": "unclear",
+            "face_markings": "different",
+            "pattern": "different",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": []
+        },
+        {
+          "candidate": "12",
+          "contradictions": [],
+          "features": {
+            "body_markings": "unclear",
+            "coat_color": "same",
+            "ear_shape_or_damage": "unclear",
+            "ear_tip": "unclear",
+            "eye_color": "same",
+            "face_markings": "same",
+            "pattern": "same",
+            "tail": "not_visible"
+          },
+          "matching_specific_markings": [
+            "Both have a narrow rusty streak on the image-left side of the nose and muzzle, with a mostly black central nose bridge.",
+            "Both have rusty mottling on the image-right cheek and a small rusty mark above the image-left eye."
+          ]
+        }
+      ],
+      "reason": "Both have a narrow rusty streak on the image-left side of the nose and muzzle, with a mostly black central nose bridge.; Both have rusty mottling on the image-right cheek and a small rusty mark above the image-left eye.",
+      "suggestion": "strong"
     },
     "eb89e17d923776b00724d7dbd792b0b6ae7ddc0039c79055258e1b4a478123f8": {
       "_meta": {
@@ -3871,6 +4925,44 @@
         "total_tokens": 3549
       }
     },
+    "755e7b0280f613090449f6d26fc1d1d0475e2ce3cba0a330522d7943cb5a8ee5": {
+      "_meta": {
+        "run_cost_usd": 0.007489
+      },
+      "final_output": "{\"summary\":\"Logged feeding and sighting at Church Lot; photo created a new cat record. Names remain unconfirmed.\",\"colony_ids\":[\"church-lot\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-26T07:42:00",
+            "colony_id": "church-lot",
+            "volunteer_id": "ana-torres"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "church-lot",
+            "photo_id": 7
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "detail": "Cinder ate after Sombra left; names are unconfirmed identity hints.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6499,
+        "output_tokens": 198,
+        "requests": 5,
+        "total_tokens": 6697
+      }
+    },
     "76ed7b0ff81d894fac4e6e34f743d4baf357f7a855d9bf51a0014b3dd66426c6": {
       "_meta": {
         "run_cost_usd": 0.005491
@@ -4792,6 +5884,44 @@
         "total_tokens": 4924
       }
     },
+    "b4c51f7e60ceea16df3797b8f5f94ae8ad6206d9eb4582ccd9d13453f202eda5": {
+      "_meta": {
+        "run_cost_usd": 0.007594
+      },
+      "final_output": "{\"summary\":\"Logged feeding and gray tabby sighting. Photo match to cat 6 is weak and pending review.\",\"colony_ids\":[\"church-lot\"],\"needs_review\":true}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-11-03T07:19:00",
+            "colony_id": "church-lot",
+            "volunteer_id": "ana-torres"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "church-lot",
+            "photo_id": 33
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": null,
+            "colony_id": "church-lot",
+            "detail": "Gray tabby seen near the back wall; photo 33 has a weak pending match to cat 6.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6569,
+        "output_tokens": 205,
+        "requests": 5,
+        "total_tokens": 6774
+      }
+    },
     "b58d878ea465d74f5b04c6a703a2a71e67b50275710ae09854f06513b341c561": {
       "_meta": {
         "run_cost_usd": 0.004067
@@ -5537,6 +6667,44 @@
         "total_tokens": 10727
       }
     },
+    "e9cc992445895b9bf62a1275941f43c379bede4483af6db1d917e2ff4e0bd2af": {
+      "_meta": {
+        "run_cost_usd": 0.007819
+      },
+      "final_output": "{\"summary\":\"Logged feeding and Pebble’s sighting; photo created a new cat record.\",\"colony_ids\":[\"laundromat\"],\"needs_review\":false}",
+      "mutations": [
+        {
+          "args": {
+            "at": "2026-10-27T07:02:00",
+            "colony_id": "laundromat",
+            "volunteer_id": "marta-ruiz"
+          },
+          "tool": "log_feeding"
+        },
+        {
+          "args": {
+            "colony_id": "laundromat",
+            "photo_id": 9
+          },
+          "tool": "match_photo"
+        },
+        {
+          "args": {
+            "cat_id": 8,
+            "colony_id": "laundromat",
+            "detail": "New gray cat behind the laundromat, called Pebble for now; no ear tip visible.",
+            "kind": "sighting"
+          },
+          "tool": "record_event"
+        }
+      ],
+      "usage": {
+        "input_tokens": 6789,
+        "output_tokens": 206,
+        "requests": 5,
+        "total_tokens": 6995
+      }
+    },
     "f1b6be4686486e435708a1eb888fbe5ffda376e5f1599e599356355cb4ab485b": {
       "_meta": {
         "run_cost_usd": 0.00767
@@ -5652,6 +6820,6 @@
     "message_agent": "message-agent-v2",
     "message_agent_cache_compat": "message-agent-v1"
   },
-  "updated_at": "2026-11-07T21:56:54.891041+00:00",
+  "updated_at": "2026-11-07T22:08:18.087452+00:00",
   "version": 1
 }

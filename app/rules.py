@@ -105,16 +105,23 @@ def rebuild_alerts(db: Database, as_of: str | None = None) -> list[dict]:
     now = datetime.fromisoformat(as_of)
     stale_at = now - timedelta(days=1)
     unfed_at = now - timedelta(days=2)
+    new_cat_at = now - timedelta(days=7)
     colonies = {
         row["id"]: row["name"]
         for row in db.connection.execute("SELECT id, name FROM colonies").fetchall()
     }
-    desired: dict[tuple[str, int | None, str], dict] = {}
+    monitored_colonies = {
+        row["id"]
+        for row in db.connection.execute(
+            "SELECT id FROM colonies WHERE notes LIKE '%Detailed demo colony%'"
+        ).fetchall()
+    }
+    desired: dict[tuple[str | None, int | None, str], dict] = {}
 
     def add(
         kind: str,
         severity: str,
-        colony_id: str,
+        colony_id: str | None,
         text: str,
         *,
         cat_id: int | None = None,
@@ -173,7 +180,10 @@ def rebuild_alerts(db: Database, as_of: str | None = None) -> list[dict]:
                 cat_id=int(cat["id"]),
                 created_at=needs_vet_at.get(int(cat["id"]), cat["first_seen"]),
             )
-        if cat["tnr_status"] == "needs_tnr":
+        if (
+            cat["tnr_status"] == "needs_tnr"
+            and datetime.fromisoformat(cat["first_seen"]) >= new_cat_at
+        ):
             add(
                 "needs_tnr",
                 "normal",
@@ -211,22 +221,34 @@ def rebuild_alerts(db: Database, as_of: str | None = None) -> list[dict]:
         "SELECT colony_id, detail, at FROM events WHERE kind = 'need' ORDER BY at"
     ).fetchall()
     stopping: dict[str, tuple[str, str]] = {}
+    reported_unfed_days: dict[str, int] = {}
     for event in stopping_rows:
         if STOPPING_WORDS.search(event["detail"]):
             stopping.setdefault(event["colony_id"], (event["detail"], event["at"]))
+        days = re.search(r"not been fed for (\d+) days", event["detail"], re.IGNORECASE)
+        if days:
+            reported_unfed_days[event["colony_id"]] = int(days.group(1))
     for feeding in feeding_rows:
         colony_id = feeding["colony_id"]
         last_fed = datetime.fromisoformat(feeding["last_fed_at"])
         stopped = stopping.get(colony_id)
         if stopped:
+            if last_fed <= unfed_at:
+                days = reported_unfed_days.get(colony_id, 2)
+                text = (
+                    f"{colonies[colony_id]} has lost its feeder and hasn't been fed "
+                    f"for {days} days"
+                )
+            else:
+                text = f"{colonies[colony_id]} has lost its feeder: arrange coverage today"
             add(
                 "lost_feeder",
                 "urgent",
                 colony_id,
-                f"{colonies[colony_id]} has lost its feeder: arrange coverage today",
+                text,
                 created_at=stopped[1],
             )
-        elif last_fed <= unfed_at:
+        elif colony_id in monitored_colonies and last_fed <= unfed_at:
             add(
                 "lost_feeder",
                 "urgent",
@@ -259,32 +281,18 @@ def rebuild_alerts(db: Database, as_of: str | None = None) -> list[dict]:
 
     waiting = db.connection.execute(
         """
-        SELECT colony_id, COUNT(*) AS count, MIN(waiting_since) AS first_waiting
-        FROM (
-            SELECT candidate.colony_id AS colony_id, r.sent_at AS waiting_since
-            FROM suggestions s
-            JOIN photos p ON p.id = s.photo_id
-            JOIN reports r ON r.id = p.report_id
-            JOIN cats candidate ON candidate.id = s.candidate_cat_id
-            WHERE s.kind = 'same_cat' AND s.decided IS NULL
-            UNION ALL
-            SELECT target.colony_id, target.first_seen
-            FROM suggestions s
-            JOIN cats target ON target.id = s.cat_id
-            WHERE s.kind = 'possible_duplicate' AND s.decided IS NULL
-        ) pending
-        WHERE waiting_since <= ?
-        GROUP BY colony_id
+        SELECT COUNT(*) AS count, MIN(created_at) AS first_waiting
+        FROM suggestions WHERE decided IS NULL AND created_at <= ?
         """,
         (stale_at.isoformat(),),
-    ).fetchall()
-    for row in waiting:
+    ).fetchone()
+    if waiting and waiting["count"]:
         add(
             "stale_suggestions",
             "normal",
-            row["colony_id"],
-            f"{row['count']} matches waiting to be confirmed",
-            created_at=row["first_waiting"],
+            None,
+            f"{waiting['count']} confirmations waiting more than a day",
+            created_at=waiting["first_waiting"],
         )
 
     db.sync_alerts(list(desired.values()), as_of)

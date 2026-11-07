@@ -1,11 +1,13 @@
 """Runnable assertions for named-cat updates, duplicate review, and §8 alerts."""
 
 import sys
+from types import SimpleNamespace
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from app.database import ALERT_KINDS, Database
+from app.message_agent import _resolve_replayed_cat_id
 from app.rules import apply_named_cat_facts, rebuild_alerts
 
 
@@ -116,6 +118,21 @@ states = {
 assert states["Mariposa"]["pregnant"] == 1
 assert states["Mosaic"]["health"] == "needs_vet"
 assert states["Canela"]["tnr_status"] == "fixed"
+
+# Cached numeric IDs may shift after a demo photo is replaced. Replay resolves
+# the stable reported name instead of attaching an event to the wrong record.
+context = SimpleNamespace(db=db, report_id=vet_report, last_match_cat_id=None)
+assert _resolve_replayed_cat_id(
+    context, 999, colony_id="yard", evidence="Mosaic needs a vet"
+) == mosaic
+unnamed_context = SimpleNamespace(
+    db=db,
+    report_id=report("2026-10-30T08:15:00", "An unnamed cat was seen."),
+    last_match_cat_id=None,
+)
+assert _resolve_replayed_cat_id(
+    unnamed_context, 999, colony_id="yard", evidence="unnamed cat"
+) is None
 
 # The filename is only a name hint. It creates a review suggestion, not an
 # automatic merge, when a second Nube record appears.

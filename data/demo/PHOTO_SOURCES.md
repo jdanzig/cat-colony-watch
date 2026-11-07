@@ -30,7 +30,7 @@ Author: GPS 56 from New Zealand
 
 License: [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/)
 
-- [`pebble-01.jpg`](https://commons.wikimedia.org/wiki/File:Ellie_(18224600236).jpg)
+- [`pebble-01.jpg`](https://commons.wikimedia.org/wiki/File:Ellie_(35066964024).jpg)
 - [`pebble-02.jpg`](https://commons.wikimedia.org/wiki/File:Ellie_(25956403891).jpg)
 - [`pebble-03.jpg`](https://commons.wikimedia.org/wiki/File:Ellie_(35316705535).jpg)
 
@@ -52,9 +52,9 @@ Author: Camille Gévaudan from Paris, France
 
 License: [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/)
 
-- [`cinder-01.jpg`](https://commons.wikimedia.org/wiki/File:Grizzli_%3F_Loki_%3F_(8147968886).jpg)
+- [`cinder-01.jpg`](https://commons.wikimedia.org/wiki/File:Loki_curieux_(8278662391).jpg)
 - [`cinder-02.jpg`](https://commons.wikimedia.org/wiki/File:Loki_au_soleil_(8278667297).jpg)
-- [`cinder-03.jpg`](https://commons.wikimedia.org/wiki/File:Loki_fait_le_Lolcat_OH_HAI!_(8281849963).jpg)
+- [`cinder-03.jpg`](https://commons.wikimedia.org/wiki/File:Loki_dans_la_cuisine_(8278668247).jpg)
 
 ### Mariposa
 

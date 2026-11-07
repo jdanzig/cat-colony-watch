@@ -5,7 +5,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from app.identification import _clearly_different_coat, decide_match
+from app.identification import _clearly_different_coat, decide_match, normalize_candidate_label
+
+
+assert normalize_candidate_label("CANDIDATE 17") == "17"
+assert normalize_candidate_label("cat_17") == "cat_17"
 
 
 def comparison(candidate, markings=(), contradictions=(), different=False):
