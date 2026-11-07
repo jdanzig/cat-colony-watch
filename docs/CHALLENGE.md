@@ -20,6 +20,7 @@ I just want anyone on my team to know, the same day, how each colony is doing an
 * A person at the rescue confirms before two cats' records are merged, or before a cat is marked adopted or missing.
 * Don't automate WhatsApp to pull messages out of a live chat: WhatsApp's terms forbid automated access in ways it hasn't authorized. A chat saved with WhatsApp's Export chat option works, and so do messages volunteers send on purpose.
 * For this hackathon, use only made-up messages, photos and locations, never real ones.
+  * *Organizer clarification (Nov 7, 2026): "real ones" means private photos, such as a real rescue's or volunteer's own pictures. Openly licensed public photos, such as Wikimedia Commons, are fine to use.*
 
 ## What solved looks like: a judge can see these in your demo
 

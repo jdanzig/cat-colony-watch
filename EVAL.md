@@ -24,7 +24,7 @@ Facial recognition, but for cats. This check runs **the app's own** `describe_ph
   - solid black cats: Cola, Miss Kitty;
   - breed twins: two "Asian cat" entries, a Ragdoll, a Sphynx, a Bengal.
 
-**These photos are for testing only, never demo data.** The brief requires made-up photos in the demo. Demo cats are generated with the OpenAI image API (`PLAN.md` §10, step 1), and this check is run on them too.
+**About 12 of these cats are also the demo cats** (`PLAN.md` §10, step 1). The organizers confirmed openly licensed public photos are fine. So the check doesn't flatter itself, report the numbers twice: for all cats, and for the cats **not** used in the demo.
 
 If `eval_data/` is missing, for example on a fresh clone, run `python eval/fetch_commons.py`. It downloads the same set politely, with pauses between requests, and can be resumed.
 

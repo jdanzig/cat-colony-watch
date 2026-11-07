@@ -20,7 +20,7 @@ Mangrove Mews Cat Rescue is a made-up Miami rescue with a real problem. The foun
 | Colony locations and feeders' names and phone numbers are seen only by the rescue's own people | **The whole app sits behind a team passcode.** The sponsor report and anything shared outside the team leave out locations, names and phone numbers (§4). |
 | **A person confirms before two cats' records are merged, or before a cat is marked adopted or missing** | The AI only **suggests** a match or a status change. A person confirms each one with one tap. Nothing is merged automatically (§7c). |
 | No automation of live WhatsApp chats | Input is only a chat saved with WhatsApp's **Export chat** option, or the app's own Report form. |
-| Made-up messages, photos and locations only | Demo messages, colony names and locations, and feeders' names and phone numbers are all invented. **Demo photos are generated with the OpenAI image API.** Real Wikimedia photos are used only for testing the matching, never as demo data (§10, step 1). |
+| Made-up messages, photos and locations only (the organizers clarified this means **no private photos**; openly licensed public photos are fine) | Demo messages, colony names and locations, and feeders' names and phone numbers are all invented. **Demo photos are openly licensed Wikimedia Commons photos,** credited in `data/demo/PHOTO_SOURCES.md`. No private photos (§10, step 1). |
 
 ### What a judge must see in the demo (from the brief)
 
@@ -47,7 +47,7 @@ The demo script (§11) shows each of the four in order.
 
 ### Budget: $100 in Codex credits and $50 in OpenAI API credits
 
-- **API ($50) pays for the product:** photo descriptions, matching calls, the agent and generating the demo photos. The $50 has to cover development runs, the matching checks and the live demo.
+- **API ($50) pays for the product:** photo descriptions, matching calls and the agent. The $50 has to cover development runs, the matching checks and the live demo.
   - **Cache every AI result by a hash of its input** (image hash plus prompt version). Re-running must never pay twice for the same thing. This is the biggest saving.
   - **Set a hard monthly spending limit** in the OpenAI dashboard, about $40, so a runaway loop can't drain the credits.
   - **Develop on a small sample** of about 10 messages and 10 photos. Run the full import only to check the end-to-end flow, and again for the demo.
@@ -135,7 +135,7 @@ Chat export (.zip)     Report screen (phone)
 **Stack:**
 - Python 3.11+ with **FastAPI**, serving JSON and one static HTML/JS page. No frontend build step.
 - **SQLite** through the stdlib `sqlite3`. No ORM.
-- `openai` (vision, structured output, image generation for demo photos) and `openai-agents` (the agent).
+- `openai` (vision and structured output) and `openai-agents` (the agent).
 - **Leaflet** from a CDN for the map.
 - **Pillow** only for resizing and cropping. **All the AI runs on the OpenAI API:** no local models.
 - `httpx` or stdlib `urllib` for Upstash's REST API. No Redis client library is needed.
@@ -262,16 +262,17 @@ Admin only: **Import** a chat export `.zip`, with a progress line ("Processed 34
    - Write `eval/check_matching.py`. It runs them on the Wikimedia test photos in `eval_data/commons/`; if that folder is missing, `eval/fetch_commons.py` downloads it. It prints how often strong suggestions are right, the wrong-strong rate, the false-split rate and the cost.
    - Run it on a **small set first (5 cats, about $0.50)**. Fix the prompt or rule, run it again, then try the full set once.
    - Write each run's numbers into `eval/results/REPORT.md`.
-1. **Made-up demo data, about 1.5 h.** Everything here is invented, as the brief requires.
+1. **Demo data, about 1.5 h.** The messages, places and people are invented. The photos are openly licensed public photos, which the organizers confirmed is fine.
    - **`data/demo/colonies.json`:** 18 colonies with made-up nicknames ("Laundromat," "Church lot," "Marina dumpsters"). Use approximate points spread across Miami neighborhoods, **not real addresses**.
    - **`data/demo/volunteers.json`:** about 8 made-up volunteers and feeders, using the fictional `305-555-01xx` phone range, each assigned to colonies.
-   - **Demo photos, made with the OpenAI image API** (`scripts/make_demo_photos.py`):
-     - about 12 made-up street cats across 5 detailed colonies;
-     - for each cat, one reference image, then 2–4 more of **the same cat** in other poses, light and street settings, by editing from the reference image so the identity stays consistent;
-     - include **look-alikes on purpose,** such as two similar orange tabbies in one colony, so the confirm queue has something to show;
-     - include a visibly pregnant cat, a limping cat and a litter of kittens;
-     - check the image API's current model and pricing in the docs first, estimate the cost, and **cap it at $5**; save the results in `data/demo/photos/`, generated once and committed.
-   - **Run `eval/check_matching.py` on the generated cats too.** That confirms the demo will behave as rehearsed.
+   - **Demo photos, from the Wikimedia set already in `eval_data/commons/`:**
+     - pick about 12 cats for 5 detailed colonies, and give each a **made-up name**, not its real one;
+     - use 2–4 photos of each, so repeat sightings by different volunteers really are the same cat;
+     - include **look-alikes on purpose,** such as two red tabbies (Rum Tum Tugger and Caramel) or the two black cats (Cola and Miss Kitty) in one colony, so the confirm queue has something to show;
+     - copy the chosen photos into `data/demo/photos/` and commit them;
+     - list each photo's license, author and source page in `data/demo/PHOTO_SOURCES.md`, which CC licenses require, and link it from the README.
+   - **Pregnant, limping and kittens come from the message text** ("está preñada," "she's limping on her back leg," "found 4 kittens in a box"), since pet photos rarely show these. The agent sets health and alerts from what the message says. If a Commons photo with kittens or a visibly pregnant cat turns up, use it.
+   - **Keep the matching check honest:** when reporting `eval/check_matching.py` numbers, give them for the cats **not** used in the demo as well as for all cats, so tuning on demo cats can't inflate the score.
    - **`data/demo/_chat.txt`:** about 80 messages over 2 weeks, in WhatsApp's iOS export format, mixing English and Spanish, with the photos attached and shared-location links. Plant the brief's scenes:
      - two volunteers photograph the same cat on different days;
      - a new gray cat behind the laundromat;
@@ -321,5 +322,5 @@ Each step shows one item from the brief's "What solved looks like" list.
 
 - **After signing in on the hackathon site:** read the Judges and Submission tabs, and find the presentation format and length.
 - **Ask the organizers:** how do judges evaluate Codex use, in the repo or in the demo?
-- Which current OpenAI model has the best vision quality for the price, and which image model works best for consistent made-up cats? Check the docs.
+- Which current OpenAI model has the best vision quality for the price? Check the docs.
 - Is there an OpenAI image-embeddings endpoint? See §7c.

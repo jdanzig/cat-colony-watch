@@ -1,7 +1,7 @@
 """Download the matching-check photos: up to 8 openly licensed photos of each individually named cat on
 Wikimedia Commons, 768 px wide, into eval_data/commons/<cat>/, with manifest.json and SOURCES.md.
-Testing only: these are real photos, so they never go in the demo data. Safe to re-run; files already
-downloaded are skipped."""
+Used by the matching check, and about 12 of these cats are the demo cats (credited in data/demo/PHOTO_SOURCES.md).
+Safe to re-run; files already downloaded are skipped."""
 import json, pathlib, re, time, urllib.error, urllib.parse, urllib.request
 
 UA = {"User-Agent": "cat-colony-watch-eval/0.1 (hackathon matching check)"}
@@ -69,7 +69,7 @@ def main():
         time.sleep(2)
     (ROOT / "manifest.json").write_text(json.dumps(manifest, indent=1))
     rows = "\n".join(f"| {m['file']} | {m['license']} | {m['author'][:60]} | {m['source']} |" for m in manifest)
-    (ROOT / "SOURCES.md").write_text("# Photo sources\n\nWikimedia Commons, downscaled to 768 px. Testing only.\n\n"
+    (ROOT / "SOURCES.md").write_text("# Photo sources\n\nWikimedia Commons, downscaled to 768 px.\n\n"
                                      "| file | license | author | source |\n|---|---|---|---|\n" + rows + "\n")
     print(len(manifest), "photos of", len({m["cat"] for m in manifest}), "cats")
 
