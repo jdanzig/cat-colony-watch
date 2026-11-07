@@ -12,6 +12,7 @@ Read `PLAN.md` first: it has the problem, the architecture, the data model and t
 - **API credits are limited ($50 total).** Cache each photo description by file hash, and never call the API twice for the same photo. Resize images to about 768 px on the long side before sending. During development, test on a small sample of about 10 messages and 10 photos, not the full demo set.
 - Log the token use and estimated cost of every OpenAI call in one place (`costs.log` or a table), so we always know what's been spent and the demo can quote cost per 100 photos.
 - Any non-trivial logic (the parser, matching decisions, alert rules) gets one small runnable `assert`-based test.
+- Hosting is Render free plus Upstash Redis REST for anything that must survive a restart. Call Upstash with plain HTTP requests; no Redis client library is needed.
 - Commit messages: short, plain, imperative.
 
 ## Run

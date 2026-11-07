@@ -70,11 +70,16 @@ Volunteers keep texting the way they already do. Cat Colony Watch turns the chat
 - **Hosting:** free only, nothing paid.
   - **One Render free web service** runs the FastAPI app, which serves both the API and the static page. No separate frontend host such as Netlify is needed.
   - Put `render.yaml` in the repo and the deploy steps in the README.
-  - Secrets (`OPENAI_API_KEY`, `OPENAI_MODEL`, `APP_PASSCODE`) go in Render's environment settings, never in the repo.
+  - Secrets (`OPENAI_API_KEY`, `OPENAI_MODEL`, `APP_PASSCODE`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`) go in Render's environment settings, never in the repo.
   - **Render free limits** and how we handle them:
     - **It sleeps after about 15 minutes idle,** and the first visit then takes up to a minute. Open the URL a few minutes before presenting.
-    - **The disk is wiped on every restart or deploy.** On startup, the app rebuilds the database from the committed demo data plus the **committed cache of AI results** (`data/demo/ai_cache.json`). A restart costs no API credits, and the demo always starts from a known state. Sightings added during the demo last until the next restart, which is fine.
-    - Check whether Render's free plan needs a card. If it does, the fallback is the laptop demo plus a screen recording.
+    - **The disk is wiped on every restart or deploy.** Data is kept with **Render free plus Upstash Redis free**, through Upstash's REST API with `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN`. Both accounts already exist.
+      - **SQLite stays the working database** that the app queries. It's rebuilt on every startup.
+      - **Startup:** load the committed demo data and the **committed cache of AI results** (`data/demo/ai_cache.json`), so no API calls are needed. Then **replay the change log from Upstash.**
+      - **The change log** is every change made in the live app, appended as JSON to one Redis list: a new sighting (with the AI's results, so a replay never calls the API again), a review decision, an alert marked done, an import. Photos from new sightings, already resized to about 768 px, are stored under their file hash.
+      - **Without the Upstash variables** (local development), the log is a local JSON file instead.
+      - **A demo reset** clears the log and restores the known demo state. It's passcode-protected, for use right before presenting.
+      - Write `render.yaml`: free plan, health check at `/healthz`, Upstash values prompted for by the Blueprint. Use **region `virginia`**, the closest to Miami.
   - **Protect the credits on a public URL:**
     - importing and reporting require a passcode (`APP_PASSCODE`), while viewing is open;
     - set a daily API spend cap in code, for example stop at $3 per day, as well as the dashboard limit.
@@ -250,7 +255,7 @@ There's also an **Import** button to upload a chat export `.zip`, with a progres
 3. **Photo description and DB, about 1 h.**
 4. **Agent and tools, about 2 h.** End-to-end import of the demo export into SQLite.
 5. **Alerts, about 30 min.**
-5b. **Deploy to Render, about 30 min.** Do this tonight, not tomorrow, so any hosting surprise has time to be fixed. Seed the database from the demo data and `ai_cache.json` on startup, and set the passcode.
+5b. **Deploy to Render, about 30 min.** Do this tonight, not tomorrow, so any hosting surprise has time to be fixed. Seed the database from the demo data and `ai_cache.json` on startup, then replay the Upstash log. Set the passcode. Check that a sighting added on the live site survives a manual redeploy.
 
 **Sunday (12 PM → 4:45 PM submission)**
 
