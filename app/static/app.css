@@ -27,6 +27,7 @@ body {
   font-size: 17px;
   line-height: 1.45;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 button, input, select, textarea { font: inherit; }
 button, a, select, input, textarea { -webkit-tap-highlight-color: transparent; }
@@ -254,6 +255,16 @@ h1, h2, h3 { font-family: "Fraunces", serif; letter-spacing: -.035em; }
   .signin-card { display: grid; grid-template-columns: .9fr 1.1fr; }
   .signin-art { min-height: 610px; }
   .signin-copy { padding: 68px 58px; align-self: center; }
+}
+
+@media (max-width: 430px) {
+  .topbar { padding-inline: 12px; gap: 6px; }
+  .brand { gap: 7px; }
+  .brand-mark { width: 40px; height: 40px; }
+  .brand-mark svg { width: 29px; }
+  .brand strong { font-size: 17px; }
+  .actor-control { max-width: 136px; }
+  .actor-control select { font-size: 13px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
