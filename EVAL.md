@@ -1,92 +1,75 @@
-# Cat re-identification evaluation
+# Cat identification check
 
-Facial recognition, but for cats. Before building the matching step, measure how well each method tells *individual* cats apart. The results decide which method `PLAN.md` §6c uses, which matches can be applied automatically, and what accuracy the demo claims.
+Facial recognition, but for cats. This check runs **the app's own** `describe_photo()` and `match_cat()` (`PLAN.md` §7) on photos where we already know which cat is which. Build it with the matching code, and re-run it every time a prompt or rule changes. It tells us whether a change helped, which matches can be applied automatically, and what accuracy the demo can honestly claim.
 
-## 1. Questions to answer
+## 1. What it answers
 
-1. **Pick the right cat:** given a new photo and a colony's known cats (5–15), how often is the top choice right? How often is the right cat in the top 3?
-2. **Spot a new cat:** when the cat in the photo is *not* on record, how often does the method correctly say "new"? Two kinds of mistake matter:
+1. **Pick the right cat:** given a photo and a colony's known cats (5–15), how often is the match correct?
+2. **Spot a new cat:** when the cat isn't on record, how often does it say "new"? Two kinds of mistake matter:
    - **False merge:** two different cats are made one. A cat disappears from the census, and possibly an unfixed one. **This is the worse error.**
    - **False split:** one cat is counted twice. That's the double-counting problem the brief names.
-3. **Can we trust its confidence?** When a method says "high confidence," how often is it right? This sets the auto-merge threshold.
-4. **Where does it break?** Break results down by coat type and photo conditions:
+3. **How often it asks a person:** the share of photos sent to review. A low false-merge rate with a reasonable review rate is the goal.
+4. **Where it breaks:**
    - **coat:** distinctive (calico, tortoiseshell, bicolor, unusual markings), tabby, or solid (black, gray, white);
-   - **view:** face or front, side, or back;
-   - **light:** day or night/flash;
-   - **framing:** full body, or partly hidden or far away.
-5. **Cost and speed** for each new photo.
+   - **view:** face, side or back.
+5. **Cost** per photo.
 
-## 2. Test data
+## 2. Test photos
 
-None of this is committed to the repo; it goes in a gitignored `eval_data/`. Record each source and its license in `eval_data/SOURCES.md`.
+`eval_data/commons/` (gitignored) holds **306 photos of 41 individual named cats** from Wikimedia Commons, up to 8 per cat, downscaled to 768 px.
+- Each cat has its own folder, so we know which cat each photo shows.
+- `manifest.json` and `SOURCES.md` list each photo's source page, license and author.
+- They include look-alikes:
+  - red tabbies: Rum Tum Tugger, Caramel, Peach;
+  - solid black cats: Cola, Miss Kitty;
+  - breed twins: two "Asian cat" entries, a Ragdoll, a Sphynx, a Bengal.
 
-| source | what it is | use |
-|---|---|---|
-| **Our own photos** | real cats (ours, friends', street cats near the venue), 3–6 photos each, from different angles, light and days | **The main test set.** Closest to real volunteer photos. Ground truth is certain. Aim for 10–15 cats, including **several look-alikes**, such as two or more solid black or gray cats. |
-| **Hello Street Cat** | 2,796 images of 69 street cats, used in a 2025 re-ID paper | A good match for our use case. Availability and license are unclear, so check the paper first. |
-| **PetFace** (cats subset) | a large animal-face identity dataset with aligned face crops | Tests face-only matching. It's easier than real street photos, so don't use it alone. Check the license; it's probably research-only. Eval only, never in the demo. |
-| **Feral cat re-ID paper** | camera-trap images of feral cats | Only if the data is released. It's night and IR-heavy, which is a hard case. |
+**Before first use,** do a quick visual pass. Drop anything that doesn't clearly show the cat, such as drawings, letters, close-ups of an eye or nose, or group photos. Cats with fewer than 4 usable photos are used only as "new cat" queries.
 
-**Collection rule for our own photos:** shoot the way a volunteer would, on a phone and not posed: some blurry, some from far away, some at night.
+**Limits to say out loud:** these are mostly pet photos, indoors and well lit. Real volunteer photos are street cats at a distance, at night, partly hidden. If time allows, add a few harder photos: Commons street-cat categories, or photos of neighborhood cats taken near the venue.
 
-## 3. Methods to compare
+## 3. How a run works
 
-| id | method | runs where | cost |
-|---|---|---|---|
-| **A** | OpenAI vision, **all photos in one call**: "group the same cats" | API | 1 large call |
-| **B** | OpenAI vision, **per-colony gallery**: the new photo plus the colony's reference photos in one call → cat_id / new, confidence, deciding markings | API | 1 call per photo |
-| **C** | OpenAI vision, **pairwise**: the new photo against each candidate → same / different / unsure | API | 1 call per candidate |
-| **D** | **Describe, then compare text:** a vision call writes a structured description; text embeddings plus cosine similarity | API | 1 vision call + cheap embeddings |
-| **E** | **Feature verdicts plus a rule:** like B, but the model returns a per-feature same / different / not visible for each candidate (`PLAN.md` §6c), and **code** decides | API | 1 call per photo |
-| **F** | **Hybrid:** D's text-embedding ranking keeps the top 3, then E confirms | API | 1 call + cheap embeddings |
+1. **Simulate colonies.** For each trial, pick 8 cats. Give each 1–2 **reference** photos; the rest become **queries**.
+   - About **20% of queries come from cats not in the colony,** which tests "new cat."
+   - Include **hard colonies** made up of look-alikes, such as all the red tabbies or both black cats.
+   - Use fixed random seeds, so runs before and after a change are comparable.
+2. **Run** `describe_photo()` and `match_cat()` on each query, exactly as the app does: same prompts, same cropping, same decision rule.
+3. **Record** for each query: the true cat (or "new"), the decision (match / new / review), the feature verdicts and the cost.
 
-**Everything runs on the OpenAI API;** no local models. Cropping is the only local image step.
+`eval/check_matching.py --cats 5 --seed 1` runs a small check. `--cats all` runs the full set.
 
-**Cropping applies to every method.** The description call returns each cat's bounding box, and Pillow crops it. Run B and E both **with and without cropping**, because a shared background (the same wall or dumpster) can make two different cats look like a match.
+## 4. Numbers it prints
 
-Expected outcome: A breaks once there are more than about 15 photos. **E or F** is the likely winner: a rule over specific observations should be easier to trust than the model's own confidence, and each decision comes with its reason. The test should confirm or overturn that.
+- **Correct-match rate** on the automatic decisions.
+- **False-merge rate** and **false-split rate**.
+- **Review rate:** the share sent to a person.
+- The same three, broken down by coat type.
+- **Cost per photo** and the total for the run.
+- The **5 worst mistakes,** as photo pairs with the feature verdicts. These show what to fix in the prompt or the rule.
 
-The OpenAI API has text embeddings (`text-embedding-3-*`) but no documented image-embeddings endpoint, so D is the "OpenAI only" embedding option. Confirm this against the current docs.
+Append each run to `eval/results/REPORT.md` with the date, what changed and the numbers, so the history shows whether each change helped.
 
-## 4. Protocol
+## 5. The loop
 
-1. **Build simulated colonies.** For each trial, pick 8 cats. Give each 1–2 **reference** photos; the rest become **queries**.
-   - About **20% of queries come from cats not in the colony**, which tests "new cat."
-   - Include **hard colonies**, where every cat is a solid black or gray cat.
-   - Use fixed random seeds, so every method sees the same trials.
-2. **Run every method** on the same trials. B and C return the model's own confidence; D returns a similarity score; E and F return the rule's decision plus the feature verdicts behind it.
-3. **Record per query:** the true cat (or "new"), the predicted cat (or "new"), the confidence or score, and cost and time.
-4. Size: about 60 queries per method, which is enough to see differences without burning credits.
+1. Run a small check (5 cats, about $0.50).
+2. Look at the worst mistakes, then change **one thing**: the prompt wording, which features are asked for, the rule thresholds, or cropping on or off.
+3. Re-run the same seed and keep the change only if the false-merge rate didn't get worse.
+4. Once the small check looks good, run the full set **once**.
 
-## 5. Metrics
+**Target:** false merges near 0% on automatic decisions, and as many automatic decisions as possible. **The rule is: when in doubt, ask a person.** If the review rate is high, the product still works and the pitch says so honestly: "it handles the easy 60% and asks about the rest."
 
-- Top-1 and top-3 accuracy, for queries about known cats.
-- New-cat recall, and the **false-merge rate**: different cats predicted as the same one.
-- The **false-split rate:** the same cat predicted as "new."
-- **Precision by confidence level** (the calibration from Question 3).
-- **Auto-merge coverage:** the share of queries that can be applied without review at ≥95% precision.
-- Cost per query and time per query.
-- All of the above, broken down by coat type and photo condition.
+## 6. Optional: compare other methods
 
-## 6. Decision rule
+Only if the core loop is working and there's spare time and credit. Compare the main method with:
+- all photos in one call (the baseline we expect to break);
+- the model picking a match by itself, with its own confidence and no feature rule;
+- text descriptions compared with text embeddings (cheap).
 
-Choose the method with the **highest auto-merge coverage at ≥95% precision** that fits the budget. Everything below the threshold goes to the review queue.
-
-If no method reaches 95% even on distinctive cats, the product still works. Matching just becomes "suggest and confirm" for every photo, and the pitch says so honestly.
+That gives one pitch slide: "We tested four ways; feature verdicts plus a rule made the fewest false merges."
 
 ## 7. Budget
 
-- Cap the API spend for this test at **$10** of the $50.
-- Order: D (cheapest) → B → E → F → C only if needed → A once, as the baseline. Run B and E with and without cropping.
-- Resize images to about 768 px. Store the result of every call, keyed by a hash of the image plus the prompt, so re-runs are free.
-
-## 8. Output
-
-- `eval/run_eval.py --method B --trials 10 --seed 1`: one script, one method per run.
-- `eval/results/<method>.csv`: one row per query.
-- `eval/results/REPORT.md`: a table of methods × metrics, a breakdown by coat type, a gallery of the hardest misses (photo pairs), and the chosen method and threshold.
-- **The report doubles as a pitch slide.** "We measured it: X% of photos are matched automatically at 95% precision, and the rest go to a volunteer." That speaks directly to judging criteria 3 (use of OpenAI) and 4 (feasibility).
-
-## 9. Time box
-
-About **2–2.5 hours total:** photos 45 min, harness 45 min, runs and report 45 min. If a dataset download or license check takes more than 15 minutes, drop that dataset and use our own photos.
+- **$10 at most** of the $50 for all checking runs combined.
+- Cache every API result by a hash of the image plus the prompt version, so re-running unchanged cases is free. Only changed prompts cost money.
+- Resize to about 768 px before sending.

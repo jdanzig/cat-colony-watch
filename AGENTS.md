@@ -1,9 +1,9 @@
 # AGENTS.md
 
-Read `PLAN.md` first: it has the problem, the architecture, the data model and the build order. Then read `EVAL.md`, the cat re-identification test, which comes before any app code. Work through the build order in §9 in sequence, and get each step working before starting the next.
+Read `PLAN.md` first: it has the problem, the architecture, the data model and the build order. Then read `EVAL.md`, the cat identification check, which is built and re-run alongside the app. Work through the build order in §10 in sequence, and get each step working before starting the next.
 
 ## Conventions
-- Python 3.11+, FastAPI, SQLite via stdlib `sqlite3`, and one static HTML/JS page with no build step. Don't add dependencies beyond those listed in PLAN.md §4 without a reason. **All AI runs on the OpenAI API (`openai`, `openai-agents`): no local models.** Pillow is only for resizing and cropping.
+- Python 3.11+, FastAPI, SQLite via stdlib `sqlite3`, and one static HTML/JS page with no build step. Don't add dependencies beyond those listed in PLAN.md §5 without a reason. **All AI runs on the OpenAI API (`openai`, `openai-agents`): no local models.** Pillow is only for resizing and cropping.
 - Keep it small: no abstractions with a single implementation, and no config for values that never change. The model name comes from `OPENAI_MODEL`, and the key from `OPENAI_API_KEY` in `.env`.
 - Never commit `.env`, real chat exports or real people's photos. Demo data in `data/demo/` is made up or openly licensed; record each photo's source in `data/demo/PHOTO_SOURCES.md`.
 - Never automate WhatsApp or any other app. The only input is an exported chat, a bot or a form.

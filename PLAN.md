@@ -32,7 +32,9 @@ It all has to be recorded: which cats are fixed, which still need **TNR** (trap,
   2. Originality.
   3. Strength of the use of Codex and the OpenAI platform.
   4. Feasibility and reasoning.
-  5. Presentation.
+  5. Delivery of the presentation.
+- **Presentation:** it's scored (criterion 5), but the format and time limit aren't on the public page. The Judges and Submission tabs only show after signing in, so **sign in and join the hackathon as a team of one.** That's needed to submit anyway. Then read those tabs and update §11. The event's own line is "Not slide decks. Shipped software," so plan on a **live demo of the deployed app**, with at most one or two slides.
+- **Team:** solo. Teams can have up to 5 people.
 
 ### Budget: $100 in Codex credits and $50 in OpenAI API credits
 
@@ -43,7 +45,7 @@ It all has to be recorded: which cats are fixed, which still need **TNR** (trap,
   - **Use a cheaper model while developing**, and the better vision model for the matching test and the demo. `OPENAI_MODEL` switches between them.
   - **Log the cost of every call**, so we always know what's been spent and can quote the cost per 100 photos in the pitch.
   - Keep images small: resize to about 768 px on the long side before sending.
-- **Codex ($100) pays for building.** Give it one focused step from §9 at a time, not "build the whole app." Read its diffs instead of letting it loop on failing runs, and check the remaining balance after each step.
+- **Codex ($100) pays for building.** Give it one focused step from §10 at a time, not "build the whole app." Read its diffs instead of letting it loop on failing runs, and check the remaining balance after each step.
 - **Stop rule:** if API spend passes $25 before Sunday, switch to the cheaper model everywhere and cut the live re-import from the demo. Show a run that was already processed.
 
 ## 3. The pitch in one line
@@ -52,7 +54,36 @@ Volunteers keep texting the way they already do. Cat Colony Watch turns the chat
 
 **Honesty principle:** the AI *suggests* matches and *explains* why. When it's unsure, a volunteer confirms with one tap. That keeps the census trustworthy, which is the challenge's own word, and it scores on feasibility.
 
-## 4. Architecture
+## 4. Who uses it, and where it runs
+
+- **Both people, on both devices:**
+  - **Volunteers and feeders, on phones:** report a sighting and see a colony's status.
+  - **Beatriz, on a laptop or phone:** the dashboard, the review queue and reports.
+  - Design every screen **for phones first**, so it also works on a laptop.
+- **Two ways in, one pipeline:**
+  1. **Import a chat export:** the `.zip` with `_chat.txt` and photos. This brings in the history.
+  2. **"Report a sighting" form** in the web app. It's the live input:
+     - a photo, from the phone camera (`<input type="file" accept="image/*" capture="environment">`);
+     - an optional note, in English or Spanish;
+     - the location, from the browser's geolocation, or by picking a colony.
+     It feeds the same agent as an imported message. **This is the stretch goal "keeps the census current as new messages arrive."**
+- **Hosting:** free only, nothing paid.
+  - **One Render free web service** runs the FastAPI app, which serves both the API and the static page. No separate frontend host such as Netlify is needed.
+  - Put `render.yaml` in the repo and the deploy steps in the README.
+  - Secrets (`OPENAI_API_KEY`, `OPENAI_MODEL`, `APP_PASSCODE`) go in Render's environment settings, never in the repo.
+  - **Render free limits** and how we handle them:
+    - **It sleeps after about 15 minutes idle,** and the first visit then takes up to a minute. Open the URL a few minutes before presenting.
+    - **The disk is wiped on every restart or deploy.** On startup, the app rebuilds the database from the committed demo data plus the **committed cache of AI results** (`data/demo/ai_cache.json`). A restart costs no API credits, and the demo always starts from a known state. Sightings added during the demo last until the next restart, which is fine.
+    - Check whether Render's free plan needs a card. If it does, the fallback is the laptop demo plus a screen recording.
+  - **Protect the credits on a public URL:**
+    - importing and reporting require a passcode (`APP_PASSCODE`), while viewing is open;
+    - set a daily API spend cap in code, for example stop at $3 per day, as well as the dashboard limit.
+- **Language:**
+  - **Messages are in English and Spanish:** the demo chat mixes both, as Miami volunteers would. The model reads both with no extra work.
+  - **The interface starts in English.** Keep all on-screen text in one dictionary (`ui_text.js`), so an **English/Español toggle** is a small stretch task.
+  - AI-written text such as alert wording and reasons stays in English for now.
+
+## 5. Architecture
 
 Keep it small: one Python app, one SQLite file, and one HTML page.
 
@@ -63,7 +94,7 @@ WhatsApp chat export (.zip: _chat.txt + photos)
 1. Parse        plain Python: messages, senders, timestamps, attached photos, shared-location links
         │
         ▼
-2. Describe     OpenAI vision call, one per photo → structured JSON (see §6)
+2. Describe     OpenAI vision call, one per photo → structured JSON (see §7a)
         │
         ▼
 3. Extract      Agents SDK agent, one run per message (or small batch) with tools → colony, cat(s), event, need, urgency
@@ -75,7 +106,7 @@ WhatsApp chat export (.zip: _chat.txt + photos)
         └── unsure    → review queue ("Same cat?" card, volunteer decides)
         │
         ▼
-5. Alerts       plain rules over the records (see §7)
+5. Alerts       plain rules over the records (see §8)
         │
         ▼
 6. UI           colony map and list, colony page with cat cards, alerts, review queue, sponsor report
@@ -90,7 +121,7 @@ WhatsApp chat export (.zip: _chat.txt + photos)
 - The model is set by the `OPENAI_MODEL` environment variable. Use a current vision-capable model and check the OpenAI docs for the current one.
 - Secrets live in `.env` (`OPENAI_API_KEY`), which is gitignored. Commit a `.env.example`.
 
-## 5. Data model (SQLite)
+## 6. Data model (SQLite)
 
 | table | key fields |
 |---|---|
@@ -104,9 +135,9 @@ WhatsApp chat export (.zip: _chat.txt + photos)
 
 Every count in the UI and reports is computed from these tables, so the numbers agree everywhere.
 
-## 6. AI steps in detail
+## 7. AI steps in detail
 
-### 6a. Photo description (OpenAI API, vision, structured output)
+### 7a. Photo description (OpenAI API, vision, structured output)
 Make one call per photo. The output schema:
 ```json
 {
@@ -128,7 +159,7 @@ An ear tip (a clipped ear) is the standard sign that a cat is already fixed. Use
 
 `box` is the cat's bounding box as fractions of the photo (left, top, right, bottom). Pillow crops each cat out with it, so matching compares **cats, not backgrounds**: two cats photographed against the same laundromat wall must not match because of the wall. A photo with three cats becomes three crops and three sightings.
 
-### 6b. Message agent (Agents SDK)
+### 7b. Message agent (Agents SDK)
 One `Agent` reads each message, with its photo descriptions and location attached, and records it using tools. It returns a structured summary of what it did.
 
 The tools (`@function_tool`):
@@ -136,14 +167,14 @@ The tools (`@function_tool`):
 - `find_colony(lat, lng, text_hint)`: the nearest colony, or "none within 300 m".
 - `create_colony(name, lat, lng)`
 - `list_cats(colony_id)`: the candidate cats with their descriptions.
-- `match_photo(photo_id, colony_id)`: runs step 6c and returns same / new / unsure with a reason.
+- `match_photo(photo_id, colony_id)`: runs step 7c and returns same / new / unsure with a reason.
 - `record_event(kind, colony_id, cat_id?, detail)`
 - `update_cat(cat_id, tnr_status?, health?, pregnant?)`
 - `raise_alert(kind, severity, colony_id, cat_id?, text)`
 
 Agent instructions, in short: never invent cats or facts that aren't in the message. When unsure, queue the case for review; don't guess.
 
-### 6c. Same-cat matching
+### 7c. Same-cat matching
 The method below is the expected default. **`EVAL.md` decides the final method and threshold.**
 
 **Principle: the model reads, a fixed rule decides.** The vision model reports what it sees, feature by feature. Plain code turns that into same / new / unsure. A model's own "I'm 90% sure" isn't trustworthy; a rule over specific observations can be tested and tuned.
@@ -162,11 +193,11 @@ The method below is the expected default. **`EVAL.md` decides the final method a
    - **Everything else goes to review.**
    - Tune the thresholds on the `EVAL.md` results. **Any contradiction always blocks an automatic match.**
 
-**Do not** send all photos in one call. Accuracy drops and results vary between runs. See §9, step 0.
+**Do not** send all photos in one call. Accuracy drops and results vary between runs. See §10, step 0.
 
 **Check early:** whether the OpenAI API offers image embeddings. If it does, they could replace the text-embedding ranking in step 1. As far as we know it doesn't. Don't build on it without checking.
 
-## 7. Alert rules (plain code, no AI)
+## 8. Alert rules (plain code, no AI)
 
 | condition | severity | text |
 |---|---|---|
@@ -179,7 +210,7 @@ The method below is the expected default. **`EVAL.md` decides the final method a
 
 Alerts appear at the top of the app, sorted by severity and age, and each has a "Done" button.
 
-## 8. UI (one page, three tabs)
+## 9. UI (one page, phone-first)
 
 1. **Today:** the alerts list, with urgent items first. This is the "same day" answer to Beatriz.
 2. **Colonies:** a Leaflet map with 18 pins colored by worst open alert, plus a list. A colony page shows:
@@ -189,14 +220,25 @@ Alerts appear at the top of the app, sorted by severity and age, and each has a 
    - a cat card for each cat: photo, name, status chips, last seen, and the timeline of sightings.
 3. **Review:** "Same cat?" cards with the new photo next to the candidate, the AI's reason, and three buttons: same, different, new cat.
 
+4. **Report a sighting:** the phone form from §4: photo, note and location. After submitting, it shows what the agent did ("Added a sighting of *Gray tabby, white chest* at Laundromat colony; new alert: looks pregnant"), so the volunteer sees right away that it worked.
+
 There's also an **Import** button to upload a chat export `.zip`, with a progress line for each message ("Processed 34 / 80"). And a **Sponsor report** page: cats fixed this period, colonies served and open needs, as a printable page.
 
-## 9. Build order (do these in sequence; each step works before the next starts)
+## 10. Build order (do these in sequence; each step works before the next starts)
 
 **Saturday (now → 9 PM)**
 
-0. **Cat re-identification test, about 2–2.5 h. Follow `EVAL.md`.** Collect photos with known repeats, compare the OpenAI-based matching methods and pick the method and auto-merge threshold. **This decides §6c and what accuracy the demo promises.** Reuse the test photos as demo photos where licenses allow.
-1. **Mock data, about 1 h.** Write `data/demo/_chat.txt` in the WhatsApp iOS export format, with about 80 messages over 2 weeks across 5 detailed colonies (list all 18 by name and location). Use the photos from step 0. Plant the challenge's scenes:
+**Building and checking cat identification go together. Don't measure first and build later.** Build the real functions on the real API, check them right away on photos where we know which cat is which, and re-check every time a prompt or rule changes. See `EVAL.md`.
+
+0. **Identification core plus its check, about 1.5 h.**
+   - Write `describe_photo()` (§7a) and `match_cat()` (§7c, feature verdicts plus a code rule) in the app's own module. These are the functions the app will call.
+   - Write `eval/check_matching.py`. It runs them on the downloaded test photos and prints accuracy, the false-merge rate, the review rate and the cost.
+   - Run it on a **small set first (5 cats, about $0.50)**. Fix the prompt or rule, run it again, then try the full set once.
+   - Write each run's numbers into `eval/results/REPORT.md`.
+1. **Mock data, about 1 h.** Write `data/demo/_chat.txt` in the WhatsApp iOS export format, with about 80 messages over 2 weeks across 5 detailed colonies (list all 18 by name and location). The messages mix English and Spanish.
+   - **Use photos from `eval_data/commons/`:** about 12 of the cats become demo cats spread across the colonies. Copy the photos you use into `data/demo/photos/`, and list each one's license and author in `data/demo/PHOTO_SOURCES.md`, which CC licenses require.
+   - Pick look-alikes on purpose, such as two red tabbies in one colony, so the review queue has something to show.
+   - Plant the challenge's scenes:
    - two volunteers photograph the same calico on different days;
    - a gray cat behind the laundromat;
    - a limping calico;
@@ -208,27 +250,33 @@ There's also an **Import** button to upload a chat export `.zip`, with a progres
 3. **Photo description and DB, about 1 h.**
 4. **Agent and tools, about 2 h.** End-to-end import of the demo export into SQLite.
 5. **Alerts, about 30 min.**
+5b. **Deploy to Render, about 30 min.** Do this tonight, not tomorrow, so any hosting surprise has time to be fixed. Seed the database from the demo data and `ai_cache.json` on startup, and set the passcode.
 
 **Sunday (12 PM → 4:45 PM submission)**
 
-6. **UI, about 2 h:** the Today, Colonies and Review tabs.
+6. **UI, about 2.5 h:** the Today, Colonies, Review and Report-a-sighting screens, phone-first. Re-run `eval/check_matching.py` after any change to prompts or rules.
 7. **Sponsor report, about 30 min.**
-8. **Demo prep, about 1 h:** README with screenshots, a "How we built it" note crediting Codex, and the submission form. **Submit by 4:15 PM**, leaving a buffer.
+8. **Demo prep, about 1 h:**
+   - README with screenshots, the live URL, Render deploy steps and a "How we built it" note crediting Codex.
+   - The submission form. **Submit by 4:15 PM**, leaving a buffer.
+   - Stretch, if there's time: the English/Español toggle.
 
-Cut order if time runs short: map (keep the list) → sponsor report → live new-message agent.
+Cut order if time runs short: Spanish toggle → map (keep the list) → sponsor report → Report-a-sighting form (keep the import).
 
-## 10. Demo script (3 minutes)
+## 11. Demo script (3 minutes, live on the deployed URL)
 
 1. **The problem, 30 s:** show the messy chat: hundreds of messages, photos and pins. Quote Beatriz.
 2. **Import, 30 s:** drop in the export and watch it process.
 3. **Today, 30 s:** "Pregnant calico at Laundromat colony: trap within days" is at the top, from a photo buried under 200 messages.
 4. **Colony page, 30 s:** 9 cats, 6 fixed, 3 need TNR. Open the calico's card: two volunteers' photos, one cat, with the reason "same torn left ear, same white bib."
 5. **Review, 20 s:** the AI wasn't sure about two black cats, so it asked. A volunteer taps once.
-6. **Sponsor report, 20 s:** "47 cats fixed this year," and every number traces back to a photo or message.
-7. **How it's built, 20 s:** OpenAI vision for the photos (the model reads, a rule decides), an Agents SDK agent for the messages, built with Codex. Mention the cost per 100 photos.
+6. **Live report, 20 s:** on a phone, report a sighting with a photo of one of the demo cats. It lands on that cat's card within seconds.
+7. **Sponsor report, 15 s:** "47 cats fixed this year," and every number traces back to a photo or message.
+8. **How it's built, 15 s:** OpenAI vision for the photos (the model reads, a rule decides), an Agents SDK agent for the messages, built with Codex. Mention the cost per 100 photos.
 
-## 11. Open questions
+## 12. Open questions
 
+- **After signing in:** read the Judges and Submission tabs, and find the presentation format and length.
 - **Ask the organizers:** how do judges evaluate Codex use, in the repo or in the demo?
 - Which current OpenAI model has the best vision quality for the price? Check the docs.
-- Is there an OpenAI image-embeddings endpoint? See §6c.
+- Is there an OpenAI image-embeddings endpoint? See §7c.
