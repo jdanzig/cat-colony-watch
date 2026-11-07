@@ -48,7 +48,7 @@ It all has to be recorded: which cats are fixed, which still need **TNR** (trap,
 
 ## 3. The pitch in one line
 
-Volunteers keep texting the way they already do. Cat Colony Watch turns the chat export into a live record of every colony and every cat. It recognizes repeat sightings of the same cat from photos, flags urgent cases (pregnant, injured, kittens) the same day, and produces a sponsor report the numbers in which can be trusted.
+Volunteers keep texting the way they already do. Cat Colony Watch turns the chat export into a live record of every colony and every cat. It recognizes repeat sightings of the same cat from photos, flags urgent cases (pregnant, injured, kittens) the same day, and produces a sponsor report whose numbers can be trusted.
 
 **Honesty principle:** the AI *suggests* matches and *explains* why. When it's unsure, a volunteer confirms with one tap. That keeps the census trustworthy, which is the challenge's own word, and it scores on feasibility.
 
