@@ -18,12 +18,12 @@ from app.database import Database
 from app.identification import MATCH_PROMPT_VERSION, MODEL_PRICES, match_cat
 
 
-AGENT_PROMPT_VERSION = "message-agent-v1"
+AGENT_PROMPT_VERSION = "message-agent-v2"
+LEGACY_AGENT_PROMPT_VERSION = "message-agent-v1"
 EventKind = Literal["fed", "sighting", "tnr_done", "health", "kittens", "need", "status"]
 TNRStatus = Literal["fixed", "needs_tnr", "unknown"]
 Health = Literal["ok", "needs_vet"]
 NewStatus = Literal["adopted", "missing", "deceased"]
-Severity = Literal["urgent", "high", "normal"]
 
 
 class AgentSummary(BaseModel):
@@ -184,31 +184,6 @@ def suggest_status(
     return result
 
 
-@function_tool(failure_error_function=None)
-def raise_alert(
-    wrapper: RunContextWrapper[ImportContext],
-    kind: str,
-    severity: Severity,
-    colony_id: str,
-    text: str,
-    cat_id: int | None = None,
-) -> dict[str, Any]:
-    """Raise a message-supported urgent, high, or normal colony alert."""
-    context = wrapper.context
-    alert_id = context.db.raise_alert(
-        kind, severity, colony_id, cat_id, text, context.sent_at
-    )
-    args = {
-        "kind": kind,
-        "severity": severity,
-        "colony_id": colony_id,
-        "text": text,
-        "cat_id": cat_id,
-    }
-    _record(context, "raise_alert", args)
-    return {"alert_id": alert_id, **args}
-
-
 def build_agent(model: str) -> Agent[ImportContext]:
     return Agent[ImportContext](
         name="Cat colony report recorder",
@@ -229,9 +204,10 @@ def build_agent(model: str) -> Agent[ImportContext]:
             "merges. Never claim a pending match is confirmed. Use update_cat only for TNR, health, "
             "or pregnancy supported by the report; it cannot change status. Adopted, missing, and "
             "deceased are always suggest_status calls requiring later human confirmation. Record "
-            "message-supported kittens, health, tnr_done, or supply events and raise same-day alerts "
-            "when appropriate. A feeder saying they cannot continue is urgent. Finish with a short "
-            "structured summary of what was recorded and what still needs human review."
+            "message-supported kittens, health, tnr_done, feeder, or supply events. Do not decide "
+            "alert kinds or severity; fixed application rules do that after the report is recorded. "
+            "Finish with a short structured summary of what was recorded and what still needs "
+            "human review."
         ),
         tools=[
             list_colonies,
@@ -242,7 +218,6 @@ def build_agent(model: str) -> Agent[ImportContext]:
             record_event,
             update_cat,
             suggest_status,
-            raise_alert,
         ],
         output_type=AgentSummary,
     )
@@ -251,14 +226,12 @@ def build_agent(model: str) -> Agent[ImportContext]:
 def process_report(
     agent: Agent[ImportContext], context: ImportContext, report_input: dict[str, Any]
 ) -> AgentSummary:
-    cache_key = value_hash(
-        {
-            "prompt": AGENT_PROMPT_VERSION,
-            "model": context.model,
-            "report": report_input,
-        }
-    )
+    cache_payload = {"model": context.model, "report": report_input}
+    cache_key = value_hash({"prompt": AGENT_PROMPT_VERSION, **cache_payload})
     cached = context.cache.get("messages", cache_key)
+    if cached is None:
+        legacy_key = value_hash({"prompt": LEGACY_AGENT_PROMPT_VERSION, **cache_payload})
+        cached = context.cache.get("messages", legacy_key)
     if cached is not None:
         replay_mutations(context, cached["mutations"])
         return AgentSummary.model_validate_json(cached["final_output"])
@@ -343,14 +316,10 @@ def replay_mutations(context: ImportContext, mutations: list[dict[str, Any]]) ->
         elif tool == "suggest_status":
             context.db.suggest_status(**args)
         elif tool == "raise_alert":
-            context.db.raise_alert(
-                args["kind"],
-                args["severity"],
-                args["colony_id"],
-                args["cat_id"],
-                args["text"],
-                context.sent_at,
-            )
+            # Version-1 cached agents proposed free-form alerts. Step 4 replaces
+            # them with app.rules.rebuild_alerts(), so replay intentionally
+            # discards these proposals while preserving the underlying events.
+            continue
         else:
             raise ValueError(f"unknown cached mutation tool: {tool}")
 

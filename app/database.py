@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
@@ -20,6 +21,16 @@ TABLES = (
     "volunteers",
     "colonies",
 )
+
+ALERT_KINDS = {
+    "pregnant",
+    "kittens",
+    "needs_vet",
+    "lost_feeder",
+    "out_of_food",
+    "needs_tnr",
+    "stale_suggestions",
+}
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS colonies (
@@ -47,6 +58,7 @@ CREATE TABLE IF NOT EXISTS cats (
     id INTEGER PRIMARY KEY,
     colony_id TEXT NOT NULL REFERENCES colonies(id),
     display_name TEXT NOT NULL,
+    reported_name TEXT,
     description_json TEXT NOT NULL,
     tnr_status TEXT NOT NULL CHECK (tnr_status IN ('fixed', 'needs_tnr', 'unknown')),
     health TEXT NOT NULL CHECK (health IN ('ok', 'needs_vet')),
@@ -56,7 +68,8 @@ CREATE TABLE IF NOT EXISTS cats (
         CHECK (status IN ('active', 'adopted', 'missing', 'deceased')),
     first_seen TEXT NOT NULL,
     last_seen TEXT NOT NULL,
-    reference_photo TEXT NOT NULL
+    reference_photo TEXT NOT NULL,
+    merged_into_cat_id INTEGER REFERENCES cats(id)
 );
 
 CREATE TABLE IF NOT EXISTS reports (
@@ -97,7 +110,7 @@ CREATE TABLE IF NOT EXISTS events (
 
 CREATE TABLE IF NOT EXISTS suggestions (
     id INTEGER PRIMARY KEY,
-    kind TEXT NOT NULL CHECK (kind IN ('same_cat', 'status_change')),
+    kind TEXT NOT NULL CHECK (kind IN ('same_cat', 'possible_duplicate', 'status_change')),
     photo_id INTEGER REFERENCES photos(id),
     cat_id INTEGER REFERENCES cats(id),
     candidate_cat_id INTEGER REFERENCES cats(id),
@@ -111,6 +124,10 @@ CREATE TABLE IF NOT EXISTS suggestions (
     CHECK (
         (kind = 'same_cat' AND photo_id IS NOT NULL AND candidate_cat_id IS NOT NULL
             AND cat_id IS NULL AND new_status IS NULL AND strength IS NOT NULL)
+        OR
+        (kind = 'possible_duplicate' AND photo_id IS NULL AND candidate_cat_id IS NOT NULL
+            AND cat_id IS NOT NULL AND new_status IS NULL AND strength = 'weak'
+            AND cat_id != candidate_cat_id)
         OR
         (kind = 'status_change' AND cat_id IS NOT NULL AND new_status IS NOT NULL
             AND photo_id IS NULL AND candidate_cat_id IS NULL)
@@ -128,11 +145,20 @@ ON suggestions(photo_id) WHERE kind = 'same_cat' AND decided IS NULL;
 CREATE UNIQUE INDEX IF NOT EXISTS one_open_status_change
 ON suggestions(cat_id, new_status) WHERE kind = 'status_change' AND decided IS NULL;
 
+CREATE UNIQUE INDEX IF NOT EXISTS one_open_possible_duplicate
+ON suggestions(MIN(cat_id, candidate_cat_id), MAX(cat_id, candidate_cat_id))
+WHERE kind = 'possible_duplicate' AND decided IS NULL;
+
 CREATE TABLE IF NOT EXISTS alerts (
     id INTEGER PRIMARY KEY,
     colony_id TEXT NOT NULL REFERENCES colonies(id),
     cat_id INTEGER REFERENCES cats(id),
-    kind TEXT NOT NULL,
+    kind TEXT NOT NULL CHECK (
+        kind IN (
+            'pregnant', 'kittens', 'needs_vet', 'lost_feeder',
+            'out_of_food', 'needs_tnr', 'stale_suggestions'
+        )
+    ),
     severity TEXT NOT NULL CHECK (severity IN ('urgent', 'high', 'normal')),
     text TEXT NOT NULL,
     created_at TEXT NOT NULL,
@@ -142,6 +168,9 @@ CREATE TABLE IF NOT EXISTS alerts (
 CREATE INDEX IF NOT EXISTS cats_by_colony ON cats(colony_id, status);
 CREATE INDEX IF NOT EXISTS events_by_colony_time ON events(colony_id, at);
 CREATE INDEX IF NOT EXISTS suggestions_open ON suggestions(decided, kind);
+
+CREATE UNIQUE INDEX IF NOT EXISTS one_open_alert
+ON alerts(colony_id, IFNULL(cat_id, -1), kind) WHERE resolved_at IS NULL;
 """
 
 
@@ -263,9 +292,11 @@ class Database:
         self._require_colony(colony_id)
         rows = self.connection.execute(
             """
-            SELECT id, display_name, description_json, tnr_status, health, health_note,
-                   pregnant, status, first_seen, last_seen, reference_photo
-            FROM cats WHERE colony_id = ? AND status = 'active' ORDER BY id
+            SELECT id, display_name, reported_name, description_json, tnr_status, health,
+                   health_note, pregnant, status, first_seen, last_seen, reference_photo
+            FROM cats
+            WHERE colony_id = ? AND status = 'active' AND merged_into_cat_id IS NULL
+            ORDER BY id
             """,
             (colony_id,),
         ).fetchall()
@@ -325,18 +356,20 @@ class Database:
         health_signs = cat.get("apparent_health", [])
         health = "needs_vet" if health_signs else "ok"
         health_note = "; ".join(health_signs) or None
-        display_name = self._display_name(cat)
+        reported_name = self._reported_name_hint(photo, colony_id)
+        display_name = reported_name or self._display_name(cat)
         with self.connection:
             cursor = self.connection.execute(
                 """
                 INSERT INTO cats(
-                    colony_id, display_name, description_json, tnr_status, health,
-                    health_note, pregnant, status, first_seen, last_seen, reference_photo
-                ) VALUES(?, ?, ?, ?, ?, ?, ?, 'active', ?, ?, ?)
+                    colony_id, display_name, reported_name, description_json, tnr_status,
+                    health, health_note, pregnant, status, first_seen, last_seen, reference_photo
+                ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, 'active', ?, ?, ?)
                 """,
                 (
                     colony_id,
                     display_name,
+                    reported_name,
                     photo["description_json"],
                     tnr_status,
                     health,
@@ -359,6 +392,61 @@ class Database:
                 photo["volunteer_id"],
             )
         return {"action": "new", "cat_id": cat_id, "display_name": display_name}
+
+    def create_possible_duplicate_suggestions(self) -> int:
+        """Suggest record-level duplicates from reported-name hints; never merge them."""
+        groups = self.connection.execute(
+            """
+            SELECT colony_id, LOWER(reported_name) AS normalized_name,
+                   MIN(reported_name) AS reported_name
+            FROM cats
+            WHERE status = 'active' AND merged_into_cat_id IS NULL AND reported_name IS NOT NULL
+            GROUP BY colony_id, LOWER(reported_name)
+            HAVING COUNT(*) > 1
+            """
+        ).fetchall()
+        created = 0
+        with self.connection:
+            for group in groups:
+                cats = self.connection.execute(
+                    """
+                    SELECT id FROM cats
+                    WHERE colony_id = ? AND LOWER(reported_name) = ?
+                      AND status = 'active' AND merged_into_cat_id IS NULL
+                    ORDER BY first_seen, id
+                    """,
+                    (group["colony_id"], group["normalized_name"]),
+                ).fetchall()
+                survivor = int(cats[0]["id"])
+                for duplicate in cats[1:]:
+                    duplicate_id = int(duplicate["id"])
+                    existing = self.connection.execute(
+                        """
+                        SELECT id FROM suggestions
+                        WHERE kind = 'possible_duplicate' AND decided IS NULL
+                          AND MIN(cat_id, candidate_cat_id) = MIN(?, ?)
+                          AND MAX(cat_id, candidate_cat_id) = MAX(?, ?)
+                        """,
+                        (duplicate_id, survivor, duplicate_id, survivor),
+                    ).fetchone()
+                    if existing:
+                        continue
+                    self.connection.execute(
+                        """
+                        INSERT INTO suggestions(
+                            kind, cat_id, candidate_cat_id, strength,
+                            feature_verdicts_json, reason
+                        ) VALUES('possible_duplicate', ?, ?, 'weak', '{}', ?)
+                        """,
+                        (
+                            duplicate_id,
+                            survivor,
+                            f"Two records share the reported name {group['reported_name']}; "
+                            "a person must compare them before merging.",
+                        ),
+                    )
+                    created += 1
+        return created
 
     def create_same_cat_suggestion(
         self,
@@ -549,38 +637,107 @@ class Database:
                     (suggestion["new_status"], suggestion["cat_id"]),
                 )
 
-    def raise_alert(
-        self,
-        kind: str,
-        severity: str,
-        colony_id: str,
-        cat_id: int | None,
-        text: str,
-        created_at: str,
-    ) -> int:
-        if severity not in {"urgent", "high", "normal"}:
-            raise ValueError(f"unsupported severity: {severity}")
-        self._require_colony(colony_id)
-        if cat_id is not None:
-            self._require_cat_at_colony(cat_id, colony_id)
-        existing = self.connection.execute(
-            """
-            SELECT id FROM alerts
-            WHERE kind = ? AND colony_id = ? AND cat_id IS ? AND text = ? AND resolved_at IS NULL
-            """,
-            (kind, colony_id, cat_id, text),
-        ).fetchone()
-        if existing:
-            return int(existing["id"])
+            elif decision == "confirmed" and suggestion["kind"] == "possible_duplicate":
+                duplicate_id = int(suggestion["cat_id"])
+                survivor_id = int(suggestion["candidate_cat_id"])
+                duplicate = self.connection.execute(
+                    "SELECT colony_id FROM cats WHERE id = ? AND merged_into_cat_id IS NULL",
+                    (duplicate_id,),
+                ).fetchone()
+                survivor = self.connection.execute(
+                    "SELECT colony_id FROM cats WHERE id = ? AND merged_into_cat_id IS NULL",
+                    (survivor_id,),
+                ).fetchone()
+                if duplicate is None or survivor is None:
+                    raise ValueError("possible-duplicate cat was already merged")
+                if duplicate["colony_id"] != survivor["colony_id"]:
+                    raise ValueError("possible-duplicate cats must belong to the same colony")
+                self.connection.execute(
+                    "UPDATE photos SET cat_id = ? WHERE cat_id = ?", (survivor_id, duplicate_id)
+                )
+                self.connection.execute(
+                    "UPDATE events SET cat_id = ? WHERE cat_id = ?", (survivor_id, duplicate_id)
+                )
+                self.connection.execute(
+                    """
+                    UPDATE cats
+                    SET last_seen = MAX(last_seen, (SELECT last_seen FROM cats WHERE id = ?))
+                    WHERE id = ?
+                    """,
+                    (duplicate_id, survivor_id),
+                )
+                self.connection.execute(
+                    "UPDATE cats SET merged_into_cat_id = ? WHERE id = ?",
+                    (survivor_id, duplicate_id),
+                )
+
+    def sync_alerts(self, desired: list[dict[str, Any]], resolved_at: str) -> None:
+        """Make open alerts equal a fixed-rule result, with one row per rule key."""
+        wanted: dict[tuple[str, int | None, str], dict[str, Any]] = {}
+        for item in desired:
+            if item["kind"] not in ALERT_KINDS:
+                raise ValueError(f"unsupported alert kind: {item['kind']}")
+            if item["severity"] not in {"urgent", "high", "normal"}:
+                raise ValueError(f"unsupported alert severity: {item['severity']}")
+            self._require_colony(item["colony_id"])
+            if item.get("cat_id") is not None:
+                self._require_cat_at_colony(item["cat_id"], item["colony_id"])
+            key = (item["colony_id"], item.get("cat_id"), item["kind"])
+            wanted[key] = item
+
+        open_rows = self.connection.execute(
+            "SELECT id, colony_id, cat_id, kind FROM alerts WHERE resolved_at IS NULL"
+        ).fetchall()
         with self.connection:
-            cursor = self.connection.execute(
-                """
-                INSERT INTO alerts(colony_id, cat_id, kind, severity, text, created_at)
-                VALUES(?, ?, ?, ?, ?, ?)
-                """,
-                (colony_id, cat_id, kind, severity, text, created_at),
-            )
-        return int(cursor.lastrowid)
+            for row in open_rows:
+                key = (row["colony_id"], row["cat_id"], row["kind"])
+                if key not in wanted:
+                    self.connection.execute(
+                        "UPDATE alerts SET resolved_at = ? WHERE id = ?", (resolved_at, row["id"])
+                    )
+            for key, item in wanted.items():
+                existing = self.connection.execute(
+                    """
+                    SELECT id FROM alerts
+                    WHERE colony_id = ? AND cat_id IS ? AND kind = ? AND resolved_at IS NULL
+                    """,
+                    key,
+                ).fetchone()
+                if existing:
+                    self.connection.execute(
+                        "UPDATE alerts SET severity = ?, text = ? WHERE id = ?",
+                        (item["severity"], item["text"], existing["id"]),
+                    )
+                else:
+                    self.connection.execute(
+                        """
+                        INSERT INTO alerts(colony_id, cat_id, kind, severity, text, created_at)
+                        VALUES(?, ?, ?, ?, ?, ?)
+                        """,
+                        (
+                            item["colony_id"],
+                            item.get("cat_id"),
+                            item["kind"],
+                            item["severity"],
+                            item["text"],
+                            item.get("created_at", resolved_at),
+                        ),
+                    )
+
+    def open_alerts(self) -> list[dict[str, Any]]:
+        rows = self.connection.execute(
+            """
+            SELECT a.id, a.colony_id, c.name AS colony, a.cat_id,
+                   cat.display_name AS cat, a.kind, a.severity, a.text, a.created_at
+            FROM alerts a
+            JOIN colonies c ON c.id = a.colony_id
+            LEFT JOIN cats cat ON cat.id = a.cat_id
+            WHERE a.resolved_at IS NULL
+            ORDER BY CASE a.severity WHEN 'urgent' THEN 0 WHEN 'high' THEN 1 ELSE 2 END,
+                     a.created_at, c.name, a.kind
+            """
+        ).fetchall()
+        return [dict(row) for row in rows]
 
     def colony_counts(self) -> list[dict[str, Any]]:
         rows = self.connection.execute(
@@ -598,6 +755,7 @@ class Database:
                     ORDER BY e.at DESC LIMIT 1) AS last_fed_by
             FROM colonies c
             LEFT JOIN cats cat ON cat.colony_id = c.id AND cat.status = 'active'
+                              AND cat.merged_into_cat_id IS NULL
             GROUP BY c.id, c.name
             ORDER BY c.name
             """
@@ -654,7 +812,11 @@ class Database:
 
     def _require_cat_at_colony(self, cat_id: int, colony_id: str) -> None:
         if self.connection.execute(
-            "SELECT 1 FROM cats WHERE id = ? AND colony_id = ?", (cat_id, colony_id)
+            """
+            SELECT 1 FROM cats
+            WHERE id = ? AND colony_id = ? AND merged_into_cat_id IS NULL
+            """,
+            (cat_id, colony_id),
         ).fetchone() is None:
             raise ValueError(f"cat {cat_id} does not belong to colony {colony_id}")
 
@@ -665,3 +827,28 @@ class Database:
         base = f"{coat} {pattern}" if pattern not in {"unclear", "other"} else f"{coat} cat"
         marking = next(iter(cat.get("markings", [])), "")
         return f"{base}, {marking}".capitalize() if marking else base.capitalize()
+
+    def _reported_name_hint(self, photo: dict[str, Any], colony_id: str) -> str | None:
+        stem = Path(photo["path"]).stem
+        filename_hint = re.sub(r"[-_]\d+$", "", stem).replace("_", " ").strip()
+        if not filename_hint or filename_hint.casefold().startswith("img "):
+            return None
+        known = self.connection.execute(
+            """
+            SELECT reported_name FROM cats
+            WHERE colony_id = ? AND LOWER(reported_name) = LOWER(?)
+              AND status = 'active' AND merged_into_cat_id IS NULL
+            ORDER BY id LIMIT 1
+            """,
+            (colony_id, filename_hint),
+        ).fetchone()
+        if known:
+            return str(known["reported_name"])
+        report = self.connection.execute(
+            "SELECT text FROM reports WHERE id = ?", (photo["report_id"],)
+        ).fetchone()
+        if report and re.search(
+            rf"(?<!\w){re.escape(filename_hint)}(?!\w)", str(report["text"]), re.IGNORECASE
+        ):
+            return filename_hint.title()
+        return None

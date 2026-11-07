@@ -5649,8 +5649,9 @@
   "prompt_versions": {
     "description": "describe-cat-v1",
     "match": "match-cat-v1",
-    "message_agent": "message-agent-v1"
+    "message_agent": "message-agent-v2",
+    "message_agent_cache_compat": "message-agent-v1"
   },
-  "updated_at": "2026-11-07T21:29:49.092100+00:00",
+  "updated_at": "2026-11-07T21:56:54.891041+00:00",
   "version": 1
 }

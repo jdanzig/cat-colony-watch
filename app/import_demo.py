@@ -15,11 +15,13 @@ from app.database import Database
 from app.identification import DESCRIPTION_PROMPT_VERSION, MATCH_PROMPT_VERSION, describe_photo
 from app.message_agent import (
     AGENT_PROMPT_VERSION,
+    LEGACY_AGENT_PROMPT_VERSION,
     ImportContext,
     build_agent,
     process_report,
 )
 from app.parser import parse_chat_file
+from app.rules import apply_named_cat_facts, rebuild_alerts
 
 
 def import_demo(
@@ -43,6 +45,7 @@ def import_demo(
         "description": DESCRIPTION_PROMPT_VERSION,
         "match": MATCH_PROMPT_VERSION,
         "message_agent": AGENT_PROMPT_VERSION,
+        "message_agent_cache_compat": LEGACY_AGENT_PROMPT_VERSION,
     }
     if cache.data.get("prompt_versions") != prompt_versions:
         cache.data["prompt_versions"] = prompt_versions
@@ -112,6 +115,7 @@ def import_demo(
             photo_ids=photo_ids,
         )
         summary = process_report(agent, context, report_input)
+        apply_named_cat_facts(db, report_id)
         unmatched = db.connection.execute(
             """
             SELECT p.id FROM photos p
@@ -131,6 +135,8 @@ def import_demo(
             f"(cache spend ${cache.spend:.4f})"
         )
 
+    db.create_possible_duplicate_suggestions()
+    rebuild_alerts(db)
     return db, cache
 
 
@@ -147,7 +153,16 @@ def main() -> None:
         limit=args.limit,
         max_spend_usd=args.max_spend,
     )
-    print(json.dumps({"cache": cache.stats(), "colonies": db.colony_counts()}, indent=2))
+    print(
+        json.dumps(
+            {
+                "cache": cache.stats(),
+                "colonies": db.colony_counts(),
+                "alerts": db.open_alerts(),
+            },
+            indent=2,
+        )
+    )
     db.close()
 
 
