@@ -139,6 +139,8 @@ The tools (`@function_tool`):
 Agent instructions, in short: never invent cats or facts that aren't in the message. When unsure, queue the case for review; don't guess.
 
 ### 6c. Same-cat matching
+The method below is the expected default. **`EVAL.md` decides the final method and threshold.** The likely winner is a hybrid: local re-ID embeddings pick a shortlist, and an OpenAI vision call confirms and explains.
+
 1. **Narrow** with no AI call: compare only against cats in the same colony, or within about 300 m, and drop cats with a clearly different coat color.
 2. **Compare:** one vision call with the new photo plus the reference photos of the remaining candidates (usually 1–8). It returns the matching cat_id or "new", a confidence (`high` / `medium` / `low`), and the markings that decided it.
 3. **Decide:** a `high` match is applied automatically. `medium` or `low` goes to the review queue.
@@ -176,7 +178,7 @@ There's also an **Import** button to upload a chat export `.zip`, with a progres
 
 **Saturday (now → 9 PM)**
 
-0. **Matching test, about 45 min.** Collect 20–30 cat photos with known repeats: the same cat 3–5 times from different angles, plus look-alike traps such as two plain black cats. Use your own cats or friends' phone photos, which are best, or openly licensed photos (Unsplash, Wikimedia). Write `spike/match_test.py` to run per-colony matching and print a confusion table. **This decides what accuracy the demo promises.** Log the API cost of the run.
+0. **Cat re-identification test, about 2–2.5 h. Follow `EVAL.md`.** Collect photos with known repeats, compare the matching methods (OpenAI vision, local re-ID embeddings, a hybrid) and pick the method and auto-merge threshold. **This decides §6c and what accuracy the demo promises.** Reuse the test photos as demo photos where licenses allow.
 1. **Mock data, about 1 h.** Write `data/demo/_chat.txt` in the WhatsApp iOS export format, with about 80 messages over 2 weeks across 5 detailed colonies (list all 18 by name and location). Use the photos from step 0. Plant the challenge's scenes:
    - two volunteers photograph the same calico on different days;
    - a gray cat behind the laundromat;

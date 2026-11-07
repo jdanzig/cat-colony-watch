@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Read `PLAN.md` first. It has the problem, the architecture, the data model and the build order. Work through the build order in §9 in sequence, and get each step working before starting the next.
+Read `PLAN.md` first, then `EVAL.md` (the cat re-identification test, which comes before any app code). It has the problem, the architecture, the data model and the build order. Work through the build order in §9 in sequence, and get each step working before starting the next.
 
 ## Conventions
 - Python 3.11+, FastAPI, SQLite via stdlib `sqlite3`, and one static HTML/JS page with no build step. Don't add dependencies beyond those listed in PLAN.md §4 without a reason.
