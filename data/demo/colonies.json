@@ -1,0 +1,128 @@
+[
+  {
+    "id": "laundromat",
+    "name": "Laundromat",
+    "lat": 25.8354,
+    "lng": -80.1918,
+    "notes": "Little River area; approximate demo point, not a real address. Detailed demo colony."
+  },
+  {
+    "id": "church-lot",
+    "name": "Church Lot",
+    "lat": 25.8291,
+    "lng": -80.1902,
+    "notes": "Little Haiti area; approximate demo point, not a real address. Detailed demo colony."
+  },
+  {
+    "id": "marina-dumpsters",
+    "name": "Marina Dumpsters",
+    "lat": 25.7308,
+    "lng": -80.2315,
+    "notes": "Coconut Grove area; approximate demo point, not a real address. Detailed demo colony."
+  },
+  {
+    "id": "courtyard",
+    "name": "Courtyard",
+    "lat": 25.7652,
+    "lng": -80.2208,
+    "notes": "Little Havana area; approximate demo point, not a real address. Detailed demo colony."
+  },
+  {
+    "id": "grove-loading-dock",
+    "name": "Grove Loading Dock",
+    "lat": 25.7249,
+    "lng": -80.2421,
+    "notes": "West Grove area; approximate demo point, not a real address. Detailed demo colony."
+  },
+  {
+    "id": "tire-yard",
+    "name": "Tire Yard",
+    "lat": 25.8086,
+    "lng": -80.2226,
+    "notes": "Allapattah area; approximate demo point, not a real address."
+  },
+  {
+    "id": "morningside-hedge",
+    "name": "Morningside Hedge",
+    "lat": 25.8342,
+    "lng": -80.1814,
+    "notes": "Morningside area; approximate demo point, not a real address."
+  },
+  {
+    "id": "wynwood-alley",
+    "name": "Wynwood Alley",
+    "lat": 25.8015,
+    "lng": -80.1992,
+    "notes": "Wynwood area; approximate demo point, not a real address."
+  },
+  {
+    "id": "brickell-garage",
+    "name": "Brickell Garage",
+    "lat": 25.7614,
+    "lng": -80.1913,
+    "notes": "Brickell area; approximate demo point, not a real address."
+  },
+  {
+    "id": "coral-way-pharmacy",
+    "name": "Coral Way Pharmacy",
+    "lat": 25.7502,
+    "lng": -80.2351,
+    "notes": "Coral Way area; approximate demo point, not a real address."
+  },
+  {
+    "id": "underpass-garden",
+    "name": "Underpass Garden",
+    "lat": 25.7869,
+    "lng": -80.2016,
+    "notes": "Overtown area; approximate demo point, not a real address."
+  },
+  {
+    "id": "airport-motel",
+    "name": "Airport Motel",
+    "lat": 25.7623,
+    "lng": -80.2847,
+    "notes": "Flagami area; approximate demo point, not a real address."
+  },
+  {
+    "id": "river-ramp",
+    "name": "River Ramp",
+    "lat": 25.7751,
+    "lng": -80.2148,
+    "notes": "Miami River area; approximate demo point, not a real address."
+  },
+  {
+    "id": "design-loading-bay",
+    "name": "Design Loading Bay",
+    "lat": 25.8132,
+    "lng": -80.1923,
+    "notes": "Design District area; approximate demo point, not a real address."
+  },
+  {
+    "id": "south-miami-office-park",
+    "name": "Office Park",
+    "lat": 25.7052,
+    "lng": -80.2927,
+    "notes": "South Miami area; approximate demo point, not a real address."
+  },
+  {
+    "id": "north-bay-courtyard",
+    "name": "North Bay Courtyard",
+    "lat": 25.8481,
+    "lng": -80.1542,
+    "notes": "North Bay Village area; approximate demo point, not a real address."
+  },
+  {
+    "id": "westchester-market",
+    "name": "Westchester Market",
+    "lat": 25.7471,
+    "lng": -80.3301,
+    "notes": "Westchester area; approximate demo point, not a real address."
+  },
+  {
+    "id": "model-city-workshop",
+    "name": "Blue Workshop",
+    "lat": 25.8251,
+    "lng": -80.2334,
+    "notes": "Model City area; approximate demo point, not a real address."
+  }
+]

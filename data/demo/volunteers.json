@@ -1,0 +1,58 @@
+[
+  {
+    "id": "marta-ruiz",
+    "name": "Marta Ruiz",
+    "phone": "305-555-0101",
+    "role": "feeder",
+    "colony_ids": ["laundromat", "tire-yard", "grove-loading-dock"]
+  },
+  {
+    "id": "diego-morales",
+    "name": "Diego Morales",
+    "phone": "305-555-0102",
+    "role": "volunteer",
+    "colony_ids": ["laundromat", "church-lot", "underpass-garden"]
+  },
+  {
+    "id": "ana-torres",
+    "name": "Ana Torres",
+    "phone": "305-555-0103",
+    "role": "feeder",
+    "colony_ids": ["church-lot", "courtyard", "coral-way-pharmacy"]
+  },
+  {
+    "id": "luis-vega",
+    "name": "Luis Vega",
+    "phone": "305-555-0104",
+    "role": "feeder",
+    "colony_ids": ["marina-dumpsters", "river-ramp", "brickell-garage"]
+  },
+  {
+    "id": "camila-ortiz",
+    "name": "Camila Ortiz",
+    "phone": "305-555-0105",
+    "role": "volunteer",
+    "colony_ids": ["grove-loading-dock", "design-loading-bay", "south-miami-office-park"]
+  },
+  {
+    "id": "javier-santos",
+    "name": "Javier Santos",
+    "phone": "305-555-0106",
+    "role": "feeder",
+    "colony_ids": ["wynwood-alley", "underpass-garden", "model-city-workshop"]
+  },
+  {
+    "id": "sofia-reyes",
+    "name": "Sofia Reyes",
+    "phone": "305-555-0107",
+    "role": "feeder",
+    "colony_ids": ["morningside-hedge", "airport-motel", "north-bay-courtyard", "westchester-market"]
+  },
+  {
+    "id": "beatriz-cruz",
+    "name": "Beatriz Cruz",
+    "phone": "305-555-0108",
+    "role": "admin",
+    "colony_ids": ["laundromat", "church-lot", "marina-dumpsters", "courtyard", "grove-loading-dock"]
+  }
+]
