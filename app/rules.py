@@ -171,12 +171,16 @@ def rebuild_alerts(db: Database, as_of: str | None = None) -> list[dict]:
                 created_at=pregnancy_at.get(int(cat["id"]), cat["first_seen"]),
             )
         if cat["health"] == "needs_vet":
-            note = f": {cat['health_note']}" if cat["health_note"] else ""
+            base = f"{cat['display_name']} needs a vet"
+            health_note = (cat["health_note"] or "").strip()
+            text = health_note if health_note.casefold().startswith(base.casefold()) else (
+                f"{base}: {health_note}" if health_note else base
+            )
             add(
                 "needs_vet",
                 "urgent",
                 cat["colony_id"],
-                f"{cat['display_name']} needs a vet{note}",
+                text,
                 cat_id=int(cat["id"]),
                 created_at=needs_vet_at.get(int(cat["id"]), cat["first_seen"]),
             )

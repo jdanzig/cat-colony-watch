@@ -226,9 +226,14 @@ def build_agent(model: str) -> Agent[ImportContext]:
 
 
 def process_report(
-    agent: Agent[ImportContext], context: ImportContext, report_input: dict[str, Any]
+    agent: Agent[ImportContext],
+    context: ImportContext,
+    report_input: dict[str, Any],
+    *,
+    cache_report_input: dict[str, Any] | None = None,
 ) -> AgentSummary:
-    cache_payload = {"model": context.model, "report": report_input}
+    cached_input = report_input if cache_report_input is None else cache_report_input
+    cache_payload = {"model": context.model, "report": cached_input}
     cache_key = value_hash({"prompt": AGENT_PROMPT_VERSION, **cache_payload})
     cached = context.cache.get("messages", cache_key)
     if cached is None:
@@ -304,7 +309,7 @@ def replay_mutations(context: ImportContext, mutations: list[dict[str, Any]]) ->
             _match_photo(context, record=False, **args)
         elif tool == "log_feeding":
             context.db.log_feeding(
-                args["colony_id"], args["volunteer_id"], args["at"], context.report_id
+                args["colony_id"], context.volunteer_id, context.sent_at, context.report_id
             )
         elif tool == "record_event":
             cat_id = _resolve_replayed_cat_id(

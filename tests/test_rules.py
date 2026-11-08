@@ -181,6 +181,9 @@ assert len({(a["colony_id"], a["cat_id"], a["kind"]) for a in alerts}) == len(al
 for required in ("pregnant", "needs_vet", "kittens", "lost_feeder"):
     matching = [alert for alert in alerts if alert["kind"] == required]
     assert matching and all(alert["severity"] == "urgent" for alert in matching)
+assert "Mosaic needs a vet: Mosaic needs a vet" not in next(
+    alert["text"] for alert in alerts if alert["kind"] == "needs_vet"
+)
 assert not any(
     alert["kind"] == "needs_tnr" and alert["cat_id"] == canela for alert in alerts
 )

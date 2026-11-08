@@ -771,12 +771,15 @@ class Database:
             """
             SELECT a.id, a.colony_id, COALESCE(c.name, 'All colonies') AS colony, a.cat_id,
                    cat.display_name AS cat, a.kind, a.severity, a.text, a.created_at,
-                   COALESCE(
-                       (SELECT p.id FROM photos p WHERE p.cat_id = a.cat_id ORDER BY p.id LIMIT 1),
-                       (SELECT p.id FROM photos p JOIN cats pc ON pc.id = p.cat_id
-                        WHERE pc.colony_id = a.colony_id AND pc.merged_into_cat_id IS NULL
-                        ORDER BY p.id LIMIT 1)
-                   ) AS photo_id
+                   CASE
+                       WHEN a.cat_id IS NOT NULL THEN
+                           (SELECT p.id FROM photos p WHERE p.cat_id = a.cat_id ORDER BY p.id LIMIT 1)
+                       WHEN a.kind != 'kittens' THEN
+                           (SELECT p.id FROM photos p JOIN cats pc ON pc.id = p.cat_id
+                            WHERE pc.colony_id = a.colony_id AND pc.merged_into_cat_id IS NULL
+                            ORDER BY p.id LIMIT 1)
+                       ELSE NULL
+                   END AS photo_id
             FROM alerts a
             LEFT JOIN colonies c ON c.id = a.colony_id
             LEFT JOIN cats cat ON cat.id = a.cat_id
@@ -827,7 +830,12 @@ class Database:
             LEFT JOIN cats target ON target.id = s.cat_id
             LEFT JOIN colonies c ON c.id = COALESCE(candidate.colony_id, target.colony_id)
             WHERE s.decided IS NULL
-            ORDER BY s.id
+            ORDER BY CASE
+                         WHEN s.kind = 'same_cat' AND s.strength = 'strong' THEN 0
+                         WHEN s.kind = 'same_cat' THEN 1
+                         ELSE 2
+                     END,
+                     s.id
             """
         ).fetchall()
         result = []

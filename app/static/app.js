@@ -168,8 +168,16 @@
   nav.addEventListener("click", (event) => {
     const button = event.target.closest("button[data-tab]");
     if (!button || button.disabled) return;
-    state.tab = button.dataset.tab;
-    history.replaceState(null, "", `#${state.tab}`);
+    const nextHash = `#${button.dataset.tab}`;
+    if (location.hash === nextHash) {
+      state.tab = button.dataset.tab;
+      render();
+    } else {
+      location.hash = nextHash;
+    }
+  });
+  window.addEventListener("hashchange", () => {
+    state.tab = location.hash.slice(1) || "today";
     render();
   });
   actorSelect.addEventListener("change", () => {

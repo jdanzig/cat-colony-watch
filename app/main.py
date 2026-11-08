@@ -305,7 +305,7 @@ def _colony_rows(db: Database) -> list[dict]:
         current = alert_levels.get(colony_id)
         if current is None or severity_rank[alert["severity"]] > severity_rank[current]:
             alert_levels[colony_id] = alert["severity"]
-    return [
+    rows = [
         {
             **item,
             "lat": positions[item["id"]]["lat"],
@@ -315,6 +315,14 @@ def _colony_rows(db: Database) -> list[dict]:
         }
         for item in db.colony_counts()
     ]
+    return sorted(
+        rows,
+        key=lambda item: (
+            -severity_rank.get(item["alert_severity"], 0),
+            -item["cats"],
+            item["name"],
+        ),
+    )
 
 
 @app.get("/api/bootstrap")

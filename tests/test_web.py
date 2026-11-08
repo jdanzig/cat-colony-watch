@@ -4,7 +4,9 @@ import json
 import os
 import sys
 import tempfile
+from datetime import datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 from fastapi.testclient import TestClient
 
@@ -37,6 +39,36 @@ with tempfile.TemporaryDirectory() as directory:
         assert len(bootstrap["colonies"]) == 18
         assert bootstrap["alerts"] and bootstrap["suggestions"]
         assert len(bootstrap["volunteers"]) == 8
+        newest_report = web.app.state.db.connection.execute(
+            "SELECT MAX(sent_at) FROM reports"
+        ).fetchone()[0]
+        assert datetime.fromisoformat(newest_report).date() == datetime.now(
+            ZoneInfo("America/New_York")
+        ).date()
+
+        severity = {"urgent": 0, "high": 1, "normal": 2, None: 3}
+        colony_order = [
+            (severity[item["alert_severity"]], -item["cats"], item["name"])
+            for item in bootstrap["colonies"]
+        ]
+        assert colony_order == sorted(colony_order)
+        same_cat_strengths = [
+            item["strength"]
+            for item in bootstrap["suggestions"]
+            if item["kind"] == "same_cat"
+        ]
+        assert same_cat_strengths == sorted(
+            same_cat_strengths, key=lambda strength: 0 if strength == "strong" else 1
+        )
+        assert all(
+            item["photo_id"] is None
+            for item in bootstrap["alerts"]
+            if item["kind"] == "kittens"
+        )
+        assert all(
+            "needs a vet: Mosaic needs a vet" not in item["text"]
+            for item in bootstrap["alerts"]
+        )
 
         detailed = next(item for item in bootstrap["colonies"] if item["cats"])
         colony = client.get(f"/api/colonies/{detailed['id']}", cookies=cookies).json()

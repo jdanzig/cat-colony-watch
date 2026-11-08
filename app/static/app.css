@@ -126,9 +126,11 @@ h1, h2, h3 { font-family: "Fraunces", serif; letter-spacing: -.035em; }
 .map-legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; margin-right: 6px; border-radius: 50%; background: var(--forest-bright); }
 .map-legend .legend-urgent::before { background: var(--orange); }
 .map-legend .legend-high::before { background: var(--gold); }
+.map-legend .legend-normal::before { background: var(--blue); }
 .colony-pin { width: 24px; height: 24px; border: 3px solid white; border-radius: 50% 50% 50% 8px; background: var(--forest-bright); box-shadow: 0 3px 10px rgba(0,0,0,.25); transform: rotate(-45deg); }
 .colony-pin.urgent { background: var(--orange); }
 .colony-pin.high { background: var(--gold); }
+.colony-pin.normal { background: var(--blue); }
 .colony-list { margin-top: 20px; display: grid; gap: 10px; }
 .colony-row { width: 100%; min-height: 88px; padding: 15px 16px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px; border: 1px solid var(--line); border-radius: 18px; background: var(--paper-light); text-align: left; cursor: pointer; }
 .colony-row:hover, .colony-row:focus-visible { border-color: var(--forest-bright); transform: translateY(-1px); }
@@ -165,8 +167,8 @@ h1, h2, h3 { font-family: "Fraunces", serif; letter-spacing: -.035em; }
 .cat-card { overflow: hidden; padding: 0; border: 1px solid var(--line); border-radius: 17px; background: var(--paper-light); text-align: left; cursor: pointer; }
 .cat-card img, .cat-card .cat-placeholder { width: 100%; aspect-ratio: 4/3; object-fit: cover; background: #dfe5dc; }
 .cat-placeholder { display: grid; place-items: center; font-size: 34px; }
-.cat-card-copy { padding: 12px; }
-.cat-card h3 { margin: 0 0 7px; font: 700 18px/1.1 "Atkinson Hyperlegible", sans-serif; letter-spacing: 0; }
+.cat-card-copy { min-width: 0; padding: 12px; display: grid; gap: 7px; }
+.cat-card h3 { overflow-wrap: anywhere; margin: 0; font: 700 18px/1.1 "Atkinson Hyperlegible", sans-serif; letter-spacing: 0; }
 .chips { display: flex; flex-wrap: wrap; gap: 5px; }
 .chip { padding: 4px 8px; border-radius: 99px; background: #e5e0d5; color: var(--ink); font-size: 11px; font-weight: 700; }
 .chip.orange { background: #f8d4c4; color: #812e11; }
@@ -197,6 +199,12 @@ h1, h2, h3 { font-family: "Fraunces", serif; letter-spacing: -.035em; }
 .suggestion-reason { padding: 15px 16px; }
 .suggestion-reason h3 { margin: 0 0 5px; font: 700 13px/1.2 "Atkinson Hyperlegible", sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
 .suggestion-reason p { margin: 0; }
+.suggestion-evidence { padding: 15px 16px; display: grid; gap: 14px; }
+.evidence-group { padding-left: 13px; border-left: 3px solid var(--forest-bright); }
+.evidence-group.differs { border-left-color: var(--orange); }
+.evidence-group h3 { margin: 0 0 6px; font: 700 13px/1.2 "Atkinson Hyperlegible", sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
+.evidence-group ul { margin: 0; padding-left: 19px; }
+.evidence-group li + li { margin-top: 4px; }
 .choice-row { padding: 0 12px 14px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
 .choice-row.two { grid-template-columns: repeat(2, 1fr); }
 .choice-button { padding: 8px 6px; border: 1px solid var(--line); background: var(--paper); font-size: 14px; }

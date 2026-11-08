@@ -10,7 +10,7 @@
         <span class="row-count">${colony.cats}<small>${T.cats}</small></span>
       </button>`).join("");
     app.innerHTML = `<section class="view">${viewHeader(T.coloniesEyebrow, T.coloniesTitle, T.coloniesSubtitle)}
-      <section class="map-card"><div id="colony-map" aria-label="${escapeHTML(T.mapLabel)}"></div><div class="map-legend"><span class="legend-urgent">${T.mapUrgent}</span><span class="legend-high">${T.mapHigh}</span><span>${T.mapOkay}</span></div></section>
+      <section class="map-card"><div id="colony-map" aria-label="${escapeHTML(T.mapLabel)}"></div><div class="map-legend"><span class="legend-urgent">${T.mapUrgent}</span><span class="legend-high">${T.mapHigh}</span><span class="legend-normal">${T.mapWatch}</span><span>${T.mapOkay}</span></div></section>
       <section class="colony-list" aria-label="${escapeHTML(T.colonyList)}">${rows}</section></section>`;
     window.requestAnimationFrame(initMap);
   }
@@ -20,13 +20,16 @@
     if (state.map) state.map.remove();
     state.map = L.map("colony-map", { scrollWheelZoom: false }).setView([25.782, -80.22], 11);
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 18, attribution: "&copy; OpenStreetMap" }).addTo(state.map);
+    const bounds = [];
     state.data.colonies.forEach((colony) => {
       const severity = colony.alert_severity || "okay";
       const icon = L.divIcon({ className: "", html: `<div class="colony-pin ${severity}"></div>`, iconSize: [24, 24], iconAnchor: [12, 22] });
       L.marker([colony.lat, colony.lng], { icon }).addTo(state.map)
         .bindTooltip(`${escapeHTML(colony.name)} · ${colony.cats} ${T.cats}`)
         .on("click", () => showColony(colony.id));
+      bounds.push([colony.lat, colony.lng]);
     });
+    if (bounds.length) state.map.fitBounds(bounds, { padding: [22, 22], maxZoom: 12 });
     window.setTimeout(() => state.map?.invalidateSize(), 380);
   }
 
@@ -44,7 +47,7 @@
       const colony = await api(`/api/colonies/${encodeURIComponent(id)}`);
       const feedings = colony.feeding_log.map((item) => `<div class="log-row"><strong>${escapeHTML(item.volunteer)}</strong><small>${timeAgo(item.at)}</small></div>`).join("");
       const feeders = colony.feeders.map((item) => `<div class="feeder-row"><span><strong>${escapeHTML(item.name)}</strong><br><small>${escapeHTML(item.role)}</small></span><a href="tel:${escapeHTML(item.phone)}">${escapeHTML(item.phone)}</a></div>`).join("");
-      dialogContent.innerHTML = `<header class="detail-head"><p class="eyebrow">${T.coloniesTitle}</p><h1>${escapeHTML(colony.name)}</h1><p>${escapeHTML(colony.notes)}</p></header>
+      dialogContent.innerHTML = `<header class="detail-head"><p class="eyebrow">${T.coloniesTitle}</p><h1>${escapeHTML(colony.name)}</h1></header>
         <div class="metric-grid"><div class="metric"><strong>${colony.cats}</strong><span>${T.cats}</span></div><div class="metric"><strong>${colony.fixed}</strong><span>${T.fixed}</span></div><div class="metric"><strong>${colony.needs_tnr}</strong><span>${T.waitingTnr}</span></div><div class="metric"><strong>${colony.needs_vet}</strong><span>${T.needsVet}</span></div></div>
         <div class="last-fed-banner">${colony.last_fed_at ? fill(T.lastFedBy, { name: escapeHTML(colony.last_fed_by), time: timeAgo(colony.last_fed_at) }) : T.neverFed}</div>
         <section class="detail-section"><h2>${T.colonyCats}</h2>${colony.cats_list.length ? `<div class="cat-grid">${colony.cats_list.map(catCard).join("")}</div>` : `<p>${T.noCats}</p>`}</section>

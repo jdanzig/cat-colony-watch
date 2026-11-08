@@ -5,8 +5,10 @@ from __future__ import annotations
 import argparse
 import json
 import os
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
+from zoneinfo import ZoneInfo
 
 from dotenv import load_dotenv
 
@@ -22,6 +24,26 @@ from app.message_agent import (
 )
 from app.parser import parse_chat_file
 from app.rules import apply_named_cat_facts, rebuild_alerts
+
+
+def shift_demo_reports_to_today(
+    reports: list[dict[str, Any]], today: date | None = None
+) -> list[dict[str, Any]]:
+    """Move the whole demo timeline so its newest message falls on demo day."""
+    if not reports:
+        return reports
+    demo_day = today or datetime.now(ZoneInfo("America/New_York")).date()
+    newest = max(datetime.fromisoformat(report["sent_at"]) for report in reports)
+    offset = demo_day - newest.date()
+    shifted = []
+    for report in reports:
+        item = dict(report)
+        item["cache_sent_at"] = report["sent_at"]
+        item["sent_at"] = (
+            datetime.fromisoformat(report["sent_at"]) + timedelta(days=offset.days)
+        ).isoformat()
+        shifted.append(item)
+    return shifted
 
 
 def import_demo(
@@ -54,7 +76,7 @@ def import_demo(
 
     db = Database(db_path, reset=True)
     db.seed_demo(data_dir)
-    reports = parse_chat_file(data_dir / "_chat.txt")
+    reports = shift_demo_reports_to_today(parse_chat_file(data_dir / "_chat.txt"))
     if limit is not None:
         reports = reports[:limit]
     agent = build_agent(selected_model)
@@ -110,6 +132,7 @@ def import_demo(
             "location": {"lat": report["lat"], "lng": report["lng"]},
             "photos": photo_inputs,
         }
+        cache_report_input = {**report_input, "sent_at": report["cache_sent_at"]}
         context = ImportContext(
             db=db,
             cache=cache,
@@ -120,7 +143,9 @@ def import_demo(
             photo_ids=photo_ids,
             allow_api=allow_api,
         )
-        summary = process_report(agent, context, report_input)
+        summary = process_report(
+            agent, context, report_input, cache_report_input=cache_report_input
+        )
         apply_named_cat_facts(db, report_id)
         unmatched = db.connection.execute(
             """
