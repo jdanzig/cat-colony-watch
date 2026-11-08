@@ -248,6 +248,23 @@ h1, h2, h3 { font-family: "Fraunces", serif; letter-spacing: -.035em; }
 .privacy-note { margin: 18px 0 0; color: var(--ink-soft); font-size: 14px; }
 .form-error { padding: 10px 12px; border-radius: 10px; background: #f8d4c4; color: #812e11; font-weight: 700; }
 
+.sponsor-page { min-height: 100vh; padding: max(28px, env(safe-area-inset-top)) 18px max(34px, env(safe-area-inset-bottom)); }
+.sponsor-shell { width: min(920px, 100%); margin: 0 auto; }
+.sponsor-head { position: relative; overflow: hidden; padding: clamp(26px, 7vw, 54px); border-radius: 28px; background: var(--forest); color: white; box-shadow: var(--shadow); }
+.sponsor-head::after { content: ""; position: absolute; width: 210px; height: 210px; right: -70px; bottom: -100px; border-radius: 50%; background: var(--gold); opacity: .9; }
+.sponsor-mark { width: 54px; height: 54px; margin-bottom: 32px; display: grid; place-items: center; border-radius: 18px; background: var(--paper-light); color: var(--forest); transform: rotate(-3deg); }
+.sponsor-mark svg { width: 38px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.sponsor-head .eyebrow { color: #f2ca70; }
+.sponsor-head h1 { position: relative; z-index: 1; margin: 0; max-width: 650px; font-size: clamp(46px, 12vw, 82px); line-height: .9; }
+.sponsor-subtitle { position: relative; z-index: 1; max-width: 580px; margin: 18px 0 0; color: #e0ebe6; font-size: clamp(18px, 4vw, 23px); }
+.sponsor-metrics { margin-top: 14px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.sponsor-metric { min-height: 142px; padding: 20px 18px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--line); border-radius: 20px; background: var(--paper-light); box-shadow: 0 7px 24px rgba(24,50,45,.06); }
+.sponsor-metric strong { font: 800 clamp(42px, 12vw, 66px)/.9 "Fraunces", serif; color: var(--forest); }
+.sponsor-metric span { max-width: 13rem; color: var(--ink-soft); font-weight: 700; line-height: 1.15; }
+.sponsor-metric-open-needs, .sponsor-metric-urgent-needs { background: #f9e0d5; border-color: #edb69f; }
+.sponsor-metric-urgent-needs strong { color: var(--orange-dark); }
+.sponsor-privacy { margin-top: 14px; padding: 19px 20px; border-radius: 18px; background: #dfe9df; color: #31584b; font-size: 15px; font-weight: 700; }
+
 @media (min-width: 700px) {
   .topbar { padding-inline: 28px; }
   .brand small { display: block; }
@@ -263,6 +280,8 @@ h1, h2, h3 { font-family: "Fraunces", serif; letter-spacing: -.035em; }
   .signin-card { display: grid; grid-template-columns: .9fr 1.1fr; }
   .signin-art { min-height: 610px; }
   .signin-copy { padding: 68px 58px; align-self: center; }
+  .sponsor-metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .sponsor-metric { min-height: 170px; }
 }
 
 @media (max-width: 430px) {

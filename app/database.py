@@ -813,6 +813,31 @@ class Database:
         ).fetchall()
         return [dict(row) for row in rows]
 
+    def sponsor_counts(self) -> dict[str, int]:
+        """Return the aggregate-only figures safe for the public sponsor report."""
+        row = self.connection.execute(
+            """
+            SELECT
+                (SELECT COUNT(*) FROM colonies) AS colonies,
+                (SELECT COUNT(*) FROM cats
+                 WHERE status = 'active' AND merged_into_cat_id IS NULL) AS cats,
+                (SELECT COUNT(*) FROM cats
+                 WHERE status = 'active' AND merged_into_cat_id IS NULL
+                   AND tnr_status = 'fixed') AS fixed,
+                (SELECT COUNT(*) FROM cats
+                 WHERE status = 'active' AND merged_into_cat_id IS NULL
+                   AND tnr_status = 'needs_tnr') AS needs_tnr,
+                (SELECT COUNT(*) FROM cats
+                 WHERE status = 'active' AND merged_into_cat_id IS NULL
+                   AND health = 'needs_vet') AS needs_vet,
+                (SELECT COUNT(*) FROM alerts
+                 WHERE resolved_at IS NULL) AS open_needs,
+                (SELECT COUNT(*) FROM alerts
+                 WHERE resolved_at IS NULL AND severity = 'urgent') AS urgent_needs
+            """
+        ).fetchone()
+        return {key: int(row[key]) for key in row.keys()}
+
     def open_suggestions(self) -> list[dict[str, Any]]:
         rows = self.connection.execute(
             """

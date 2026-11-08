@@ -58,6 +58,14 @@ first_report = db.add_report(
 first_photo = db.add_photo(first_report, "first.jpg", 0, description())
 cat_id = db.create_cat_for_photo(first_photo, "laundromat")["cat_id"]
 assert db.colony_counts()[0]["cats"] == 1
+sponsor = db.sponsor_counts()
+assert sponsor["colonies"] == 1
+assert sponsor["cats"] == 1
+assert sponsor["open_needs"] == 0
+assert set(sponsor) == {
+    "colonies", "cats", "fixed", "needs_tnr", "needs_vet", "open_needs", "urgent_needs"
+}
+assert all(isinstance(value, int) for value in sponsor.values())
 
 second_report = db.add_report(
     {
@@ -98,5 +106,6 @@ assert db.connection.execute("SELECT status FROM cats WHERE id = ?", (cat_id,)).
 db.confirm_suggestion(status["suggestion_id"], "admin", "confirmed")
 assert db.connection.execute("SELECT status FROM cats WHERE id = ?", (cat_id,)).fetchone()[0] == "adopted"
 assert db.colony_counts()[0]["cats"] == 0
+assert db.sponsor_counts()["cats"] == 0
 
 print("database counting and human-decision checks passed")

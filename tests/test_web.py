@@ -16,6 +16,7 @@ os.environ["OPENAI_MODEL"] = "gpt-6.1-terra"
 os.environ["TEAM_PASSCODE"] = "test-team"
 os.environ["ADMIN_PASSCODE"] = "test-admin"
 os.environ["RENDER_GIT_COMMIT"] = "0123456789abcdef"
+os.environ["SPONSOR_REPORT_TOKEN"] = "test-sponsor-link"
 os.environ["UPSTASH_REDIS_REST_URL"] = ""
 os.environ["UPSTASH_REDIS_REST_TOKEN"] = ""
 
@@ -30,11 +31,29 @@ with tempfile.TemporaryDirectory() as directory:
 
     with TestClient(web.app) as client:
         assert client.get("/api/bootstrap").status_code == 401
+        assert client.get("/api/sponsor-link").status_code == 401
+        assert client.get("/report/not-the-token").status_code == 404
+        sponsor_report = client.get("/report/test-sponsor-link")
+        assert sponsor_report.status_code == 200
+        assert sponsor_report.headers["cache-control"] == "private, no-store"
+        assert sponsor_report.headers["x-robots-tag"] == "noindex, nofollow, noarchive"
+        assert "__SPONSOR_DATA__" not in sponsor_report.text
+        assert "__DEPLOY_REVISION__" not in sponsor_report.text
+        assert sponsor_report.text.count("?v=0123456789ab") == 4
+        assert "<img" not in sponsor_report.text
+        assert "/api/" not in sponsor_report.text
+        assert "305-555" not in sponsor_report.text
+        for private_value in ("Marta", "Beatriz", "Mango", "Laundromat", "25.", "-80."):
+            assert private_value not in sponsor_report.text
+
         signed_in = client.post(
             "/signin", data={"passcode": "test-team"}, follow_redirects=False
         )
         assert signed_in.status_code == 303
         cookies = signed_in.cookies
+        assert client.get("/api/sponsor-link", cookies=cookies).json() == {
+            "path": "/report/test-sponsor-link"
+        }
 
         bootstrap = client.get("/api/bootstrap", cookies=cookies).json()
         assert len(bootstrap["colonies"]) == 18

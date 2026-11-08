@@ -35,6 +35,7 @@ from app.rules import apply_named_cat_facts, rebuild_alerts
 
 DATA_DIR = Path("data/demo")
 STATIC_DIR = Path(__file__).parent / "static"
+SPONSOR_TEMPLATE = Path(__file__).parent / "sponsor.html"
 DB_PATH = Path(os.getenv("CCW_DB_PATH", "/tmp/cat_colony_watch.db"))
 LOCAL_LOG_PATH = Path(os.getenv("CCW_LOCAL_CHANGE_LOG", "data/local_changes.json"))
 LIVE_PHOTO_DIR = Path(os.getenv("CCW_LIVE_PHOTO_DIR", "/tmp/ccw_live_photos"))
@@ -49,6 +50,25 @@ def _deploy_revision() -> str:
 def _index_html() -> str:
     return (STATIC_DIR / "index.html").read_text().replace(
         "__DEPLOY_REVISION__", _deploy_revision()
+    )
+
+
+def _sponsor_report_token() -> str:
+    configured = os.getenv("SPONSOR_REPORT_TOKEN", "").strip()
+    if configured:
+        return configured
+    return hmac.new(
+        os.environ["ADMIN_PASSCODE"].encode(),
+        b"cat-colony-watch-sponsor-report",
+        hashlib.sha256,
+    ).hexdigest()[:32]
+
+
+def _sponsor_html(db: Database) -> str:
+    return (
+        SPONSOR_TEMPLATE.read_text()
+        .replace("__DEPLOY_REVISION__", _deploy_revision())
+        .replace("__SPONSOR_DATA__", json.dumps(db.sponsor_counts(), separators=(",", ":")))
     )
 
 
@@ -302,6 +322,25 @@ async def signin(request: Request):
 @app.get("/")
 def home():
     return HTMLResponse(_index_html())
+
+
+@app.get("/report/{token}")
+def sponsor_report(token: str, request: Request):
+    if not hmac.compare_digest(token, _sponsor_report_token()):
+        raise HTTPException(status_code=404, detail="Not Found")
+    return HTMLResponse(
+        _sponsor_html(request.app.state.db),
+        headers={
+            "Cache-Control": "private, no-store",
+            "X-Robots-Tag": "noindex, nofollow, noarchive",
+            "Referrer-Policy": "no-referrer",
+        },
+    )
+
+
+@app.get("/api/sponsor-link")
+def sponsor_link():
+    return {"path": f"/report/{_sponsor_report_token()}"}
 
 
 def _colony_rows(db: Database) -> list[dict]:
