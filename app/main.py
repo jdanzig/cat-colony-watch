@@ -27,7 +27,7 @@ from fastapi.staticfiles import StaticFiles
 from PIL import Image, ImageOps
 from pydantic import BaseModel, Field
 
-from app.ai_cache import AICache, BudgetExceeded
+from app.ai_cache import AICache
 from app.change_log import ChangeLog
 from app.database import Database
 from app.identification import describe_photo
@@ -48,7 +48,6 @@ RUNTIME_CACHE_PATH = Path(
 )
 COOKIE_NAME = "ccw_session"
 MAX_UPLOAD_BYTES = 12 * 1024 * 1024
-DAILY_API_LIMIT_USD = 3.0
 MIAMI_TIME = ZoneInfo("America/New_York")
 
 
@@ -126,12 +125,16 @@ def _session_token() -> str:
 def _build_database() -> tuple[Database, AICache]:
     RUNTIME_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(DATA_DIR / "ai_cache.json", RUNTIME_CACHE_PATH)
-    return import_demo(
+    db, cache = import_demo(
         DATA_DIR,
         DB_PATH,
         cache_path=RUNTIME_CACHE_PATH,
         allow_api=False,
     )
+    # Live reports retain cost accounting, but are not blocked by the demo-import
+    # budget. Import and evaluation commands still use their explicit safeguards.
+    cache.max_spend_usd = None
+    return db, cache
 
 
 def _api_spend_today(changes: list[dict], now: datetime | None = None) -> float:
@@ -522,7 +525,6 @@ def storage(request: Request):
         "mode": request.app.state.change_log.mode,
         "changes": request.app.state.change_count,
         "api_spend_today_usd": request.app.state.api_spend_today_usd,
-        "api_daily_limit_usd": DAILY_API_LIMIT_USD,
     }
 
 
@@ -645,11 +647,6 @@ def add_photo_report(report: LiveReport, request: Request):
         request.state.photo_change_appended = False
         try:
             return _add_photo_report_locked(report, request)
-        except BudgetExceeded as error:
-            if not request.state.photo_change_appended:
-                _record_failed_api_spend(request, spend_before)
-            _load_state(request.app)
-            raise HTTPException(status_code=429, detail=str(error)) from error
         except HTTPException:
             raise
         except Exception:
@@ -668,12 +665,6 @@ def _record_failed_api_spend(request: Request, spend_before: float) -> None:
 def _add_photo_report_locked(report: LiveReport, request: Request):
     db: Database = request.app.state.db
     cache: AICache = request.app.state.cache
-    remaining_budget = DAILY_API_LIMIT_USD - request.app.state.api_spend_today_usd
-    if remaining_budget <= 0.10:
-        raise BudgetExceeded(
-            f"Today's ${DAILY_API_LIMIT_USD:.2f} OpenAI limit has been reached"
-        )
-    cache.max_spend_usd = cache.spend + remaining_budget
     spend_before = cache.spend
     try:
         db._require_colony(report.colony_id)

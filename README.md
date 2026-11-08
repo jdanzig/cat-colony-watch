@@ -24,7 +24,7 @@ The demo is for Mangrove Mews, a made-up Miami rescue caring for 18 colonies. It
 
 Admins see **Share sponsor report** at the top of Today. Enter the separate admin passcode to reveal a secret link, then tap **Copy link**. Anyone with that link can see aggregate impact counts, but never locations, volunteer names, phone numbers or photos. Treat it like a private document link.
 
-Admins also see **Reset demo**. It requires the admin passcode and removes every live report, decision and uploaded photo before rebuilding the original demo. It does not reset API spend already incurred that day. Photo reports show their own estimated API cost, and the server enforces a durable **$3 daily OpenAI limit**, including across redeploys.
+Admins also see **Reset demo**. It requires the admin passcode and removes every live report, decision and uploaded photo before rebuilding the original demo. It does not reset API spend already incurred that day. Photo reports show their own estimated API cost, and the server retains that cost history across resets and redeploys. The live app does not enforce a daily spend cap, so the OpenAI project should have an account-level budget and usage alerts.
 
 ### What is real and what is still a demo
 

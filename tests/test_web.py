@@ -181,8 +181,8 @@ with tempfile.TemporaryDirectory() as directory:
             "mode": "local",
             "changes": 0,
             "api_spend_today_usd": 0.0,
-            "api_daily_limit_usd": 3.0,
         }
+        assert web.app.state.cache.max_spend_usd is None
         assert client.post(
             "/api/reports/photo",
             cookies=cookies,

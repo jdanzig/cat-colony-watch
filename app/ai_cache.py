@@ -27,7 +27,12 @@ def value_hash(value: Any) -> str:
 
 
 class AICache:
-    def __init__(self, path: str | Path, model: str, max_spend_usd: float = 3.0):
+    def __init__(
+        self,
+        path: str | Path,
+        model: str,
+        max_spend_usd: float | None = 3.0,
+    ):
         self.path = Path(path)
         self.model = model
         self.max_spend_usd = max_spend_usd
@@ -54,6 +59,8 @@ class AICache:
         return float(self.data.get("build_cost_usd", 0.0))
 
     def check_budget(self, reserve_usd: float = 0.10) -> None:
+        if self.max_spend_usd is None:
+            return
         if self.spend >= self.max_spend_usd - reserve_usd:
             raise BudgetExceeded(
                 f"AI cache build has spent ${self.spend:.4f}; another call could exceed "
