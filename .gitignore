@@ -9,3 +9,4 @@ eval/cache/
 costs.log
 data/demo/*.db
 data/local_changes.json
+artifacts/

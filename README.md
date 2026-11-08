@@ -30,6 +30,16 @@ Admins also see **Reset demo**. It requires the admin passcode and removes every
 
 The reporting, matching suggestions, human decisions, alerts, persistence and privacy boundary are working application paths. The rescue, volunteers, locations, chat history and starting cat census are deliberately fictional. This version uses a shared team passcode rather than individual user accounts, and importing a private historical chat remains a developer-assisted command. Before use by a real rescue, replace the demo seed with its approved private data, set new secrets, configure a rescue-owned Upstash database and OpenAI project, and define who is allowed to use the admin passcode.
 
+### What this demo does not address
+
+This prototype proves the core reporting and review workflow; it is not a completed real-rescue rollout.
+
+- **Individual accounts and roles:** it uses shared team and admin passcodes, not per-person permissions or audit-grade user identity.
+- **Hands-off chat ingestion:** it does not connect to or automate WhatsApp. A historical export still requires a developer-assisted import.
+- **Real-rescue data governance:** a rescue still needs to define consent, access, retention, deletion, incident response and staff ownership before approved private data is loaded.
+- **Offline and production-scale reliability:** poor-connectivity field use, multiple rescue organizations, high report volume and production service levels have not been proven by this demo.
+- **Guaranteed cat identification:** the 15-cat evaluation is useful evidence, not a guarantee on every cat or photograph. The app deliberately keeps uncertain matches—and every merge or status change—under human review.
+
 ### Bringing in a WhatsApp history
 
 Cat Colony Watch does not connect to or automate WhatsApp. It only reads a chat export that a person deliberately saves.
