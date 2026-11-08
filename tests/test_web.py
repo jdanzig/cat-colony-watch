@@ -51,7 +51,17 @@ with tempfile.TemporaryDirectory() as directory:
         )
         assert signed_in.status_code == 303
         cookies = signed_in.cookies
-        assert client.get("/api/sponsor-link", cookies=cookies).json() == {
+        assert client.get("/api/sponsor-link", cookies=cookies).status_code == 405
+        assert client.post(
+            "/api/sponsor-link",
+            cookies=cookies,
+            json={"admin_passcode": "wrong"},
+        ).status_code == 403
+        assert client.post(
+            "/api/sponsor-link",
+            cookies=cookies,
+            json={"admin_passcode": "test-admin"},
+        ).json() == {
             "path": "/report/test-sponsor-link"
         }
 
@@ -59,6 +69,20 @@ with tempfile.TemporaryDirectory() as directory:
         assert len(bootstrap["colonies"]) == 18
         assert bootstrap["alerts"] and bootstrap["suggestions"]
         assert len(bootstrap["volunteers"]) == 8
+        clinic_cats = web.app.state.db.connection.execute(
+            """
+            SELECT reported_name, tnr_status FROM cats
+            WHERE reported_name IN ('Pebble', 'Cinder', 'Sombra', 'Misty', 'Chispa')
+              AND merged_into_cat_id IS NULL
+            ORDER BY reported_name
+            """
+        ).fetchall()
+        assert len(clinic_cats) == 5
+        assert all(row["tnr_status"] == "fixed" for row in clinic_cats)
+        assert web.app.state.db.sponsor_counts()["fixed"] == 6
+        assert web.app.state.db.connection.execute(
+            "SELECT COUNT(*) FROM reports"
+        ).fetchone()[0] == 89
         newest_report = web.app.state.db.connection.execute(
             "SELECT MAX(sent_at) FROM reports"
         ).fetchone()[0]

@@ -100,6 +100,10 @@ h1, h2, h3 { font-family: "Fraunces", serif; letter-spacing: -.035em; }
 .nav-count.visible { display: grid; }
 
 .alert-grid { display: grid; gap: 14px; }
+.admin-tools { margin: -5px 0 20px; padding: 15px; display: flex; align-items: center; justify-content: space-between; gap: 14px; border: 1px solid #b9cdbf; border-radius: 18px; background: #dfe9df; }
+.admin-tools .eyebrow { margin-bottom: 2px; color: var(--forest-bright); }
+.admin-tools strong { display: block; font-size: 15px; line-height: 1.2; }
+.admin-tools .ghost-button { flex: 0 0 auto; background: var(--paper-light); }
 .alert-card { overflow: hidden; display: grid; grid-template-columns: 92px 1fr; min-height: 150px; border: 1px solid var(--line); border-left: 6px solid var(--blue); border-radius: 20px; background: var(--paper-light); box-shadow: 0 8px 28px rgba(24,50,45,.07); }
 .alert-card.urgent { border-left-color: var(--orange); }
 .alert-card.high { border-left-color: var(--gold); }
@@ -247,6 +251,8 @@ h1, h2, h3 { font-family: "Fraunces", serif; letter-spacing: -.035em; }
 .signin-copy form { display: grid; gap: 14px; margin-top: 25px; }
 .privacy-note { margin: 18px 0 0; color: var(--ink-soft); font-size: 14px; }
 .form-error { padding: 10px 12px; border-radius: 10px; background: #f8d4c4; color: #812e11; font-weight: 700; }
+.share-report-form, .secret-link-panel { display: grid; gap: 14px; }
+.secret-link-panel input[readonly] { font-size: 14px; color: var(--forest); background: #eef3ec; }
 
 .sponsor-page { min-height: 100vh; padding: max(28px, env(safe-area-inset-top)) 18px max(34px, env(safe-area-inset-bottom)); }
 .sponsor-shell { width: min(920px, 100%); margin: 0 auto; }
@@ -292,6 +298,8 @@ h1, h2, h3 { font-family: "Fraunces", serif; letter-spacing: -.035em; }
   .brand strong { font-size: 17px; }
   .actor-control { max-width: 136px; }
   .actor-control select { font-size: 13px; }
+  .admin-tools { align-items: stretch; flex-direction: column; }
+  .admin-tools .ghost-button { width: 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {

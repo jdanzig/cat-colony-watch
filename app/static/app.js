@@ -133,7 +133,51 @@
         <div class="alert-body"><div class="alert-meta"><span class="severity ${escapeHTML(alert.severity)}">${T[alert.severity] || alert.severity}</span><span>${escapeHTML(alert.colony)}</span></div>
           <h2>${escapeHTML(alert.text)}</h2><button type="button" class="small-button" data-alert-done="${alert.id}">${T.done}</button></div>
       </article>`).join("");
-    app.innerHTML = `<section class="view">${viewHeader(T.todayEyebrow, T.todayTitle, T.todaySubtitle)}${cards ? `<div class="alert-grid">${cards}</div>` : emptyState("✓", T.allClearTitle, T.allClearBody)}</section>`;
+    const sponsorShare = actor()?.role === "admin" ? `<aside class="admin-tools"><div><p class="eyebrow">${T.adminTools}</p><strong>${T.sponsorSharePrompt}</strong></div><button type="button" class="ghost-button" id="share-sponsor-report">${T.shareSponsorReport}</button></aside>` : "";
+    app.innerHTML = `<section class="view">${viewHeader(T.todayEyebrow, T.todayTitle, T.todaySubtitle)}${sponsorShare}${cards ? `<div class="alert-grid">${cards}</div>` : emptyState("✓", T.allClearTitle, T.allClearBody)}</section>`;
+  }
+
+  function openSponsorShare() {
+    dialogContent.innerHTML = `<header class="detail-head"><p class="eyebrow">${T.adminTools}</p><h1>${T.shareSponsorReport}</h1><p>${T.sponsorShareBody}</p></header>
+      <form class="share-report-form" id="share-report-form">
+        <label class="field"><span>${T.adminPasscode}</span><input id="share-admin-passcode" type="password" autocomplete="current-password" required></label>
+        <p class="form-error" id="share-report-error" hidden></p>
+        <button type="submit" class="primary-button">${T.showSecretLink}</button>
+      </form>`;
+    openDialog();
+    document.getElementById("share-admin-passcode").focus();
+  }
+
+  async function revealSponsorLink(form) {
+    const button = form.querySelector("button[type=submit]");
+    const error = document.getElementById("share-report-error");
+    button.disabled = true;
+    error.hidden = true;
+    try {
+      const payload = await api("/api/sponsor-link", {
+        method: "POST",
+        body: JSON.stringify({ admin_passcode: document.getElementById("share-admin-passcode").value }),
+      });
+      const link = new URL(payload.path, location.origin).href;
+      dialogContent.innerHTML = `<header class="detail-head"><p class="eyebrow">${T.sponsorReport}</p><h1>${T.secretLinkReady}</h1><p>${T.secretLinkHelp}</p></header>
+        <div class="secret-link-panel"><label class="field"><span>${T.secretLink}</span><input id="sponsor-secret-link" type="url" value="${escapeHTML(link)}" readonly></label><button type="button" class="primary-button" id="copy-sponsor-link">${T.copyLink}</button></div>`;
+    } catch (requestError) {
+      button.disabled = false;
+      error.textContent = T.adminPasscodeError;
+      error.hidden = false;
+    }
+  }
+
+  async function copySponsorLink(button) {
+    const input = document.getElementById("sponsor-secret-link");
+    try {
+      await navigator.clipboard.writeText(input.value);
+    } catch (clipboardError) {
+      input.select();
+      document.execCommand("copy");
+    }
+    button.textContent = T.copied;
+    showToast(T.linkCopied);
   }
 
   async function resolveAlert(id, button) {
@@ -183,12 +227,24 @@
   actorSelect.addEventListener("change", () => {
     localStorage.setItem("ccw-volunteer", actorId());
     showToast(fill(T.reportsAs, { name: actor().name }));
+    if (state.tab === "today") renderToday();
   });
   document.getElementById("dialog-close").addEventListener("click", () => dialog.close());
   dialog.addEventListener("click", (event) => { if (event.target === dialog) dialog.close(); });
   app.addEventListener("click", (event) => {
     const alert = event.target.closest("[data-alert-done]");
     if (alert) resolveAlert(alert.dataset.alertDone, alert);
+    const share = event.target.closest("#share-sponsor-report");
+    if (share) openSponsorShare();
+  });
+  dialogContent.addEventListener("submit", (event) => {
+    if (!event.target.matches("#share-report-form")) return;
+    event.preventDefault();
+    revealSponsorLink(event.target);
+  });
+  dialogContent.addEventListener("click", (event) => {
+    const copy = event.target.closest("#copy-sponsor-link");
+    if (copy) copySponsorLink(copy);
   });
 
   localizeShell();

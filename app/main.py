@@ -87,6 +87,10 @@ class AlertDecision(BaseModel):
     volunteer_id: str
 
 
+class AdminPasscode(BaseModel):
+    admin_passcode: str = Field(min_length=1, max_length=200)
+
+
 class LiveReport(BaseModel):
     kind: Literal["sighting", "urgent"]
     colony_id: str
@@ -338,8 +342,12 @@ def sponsor_report(token: str, request: Request):
     )
 
 
-@app.get("/api/sponsor-link")
-def sponsor_link():
+@app.post("/api/sponsor-link")
+def sponsor_link(access: AdminPasscode):
+    if not hmac.compare_digest(
+        access.admin_passcode, os.getenv("ADMIN_PASSCODE", "")
+    ):
+        raise HTTPException(status_code=403, detail="admin passcode required")
     return {"path": f"/report/{_sponsor_report_token()}"}
 
 
