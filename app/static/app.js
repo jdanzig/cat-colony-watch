@@ -163,7 +163,9 @@
       <article class="alert-card ${escapeHTML(alert.severity)}">
         ${alert.photo_id ? `<img class="alert-photo" src="${photoURL(alert.photo_id)}" width="92" height="150" loading="lazy" decoding="async" alt="${escapeHTML(T.photoAlt)}">` : `<div class="alert-photo placeholder" aria-hidden="true">✦</div>`}
         <div class="alert-body"><div class="alert-meta"><span class="severity ${escapeHTML(alert.severity)}">${T[alert.severity] || alert.severity}</span><span>${alert.colony_id ? escapeHTML(alert.colony) : T.allColonies}</span></div>
-          <h2>${alertText(alert)}</h2><button type="button" class="small-button" data-alert-done="${alert.id}">${T.done}</button></div>
+          <h2>${alertText(alert)}</h2>
+          <div class="alert-actions"><button type="button" class="small-button" data-alert-done="${alert.id}">${T.done}</button><button type="button" class="alert-toggle" data-alert-toggle="${alert.id}" aria-expanded="false" aria-controls="alert-details-${alert.id}"><span>${T.alertDetails}</span><span class="alert-chevron" aria-hidden="true">⌄</span></button></div>
+          <div class="alert-details" id="alert-details-${alert.id}" hidden><strong>${T.alertReason}</strong><p>${escapeHTML(I18N.translateContent(alert.text))}</p><small>${fill(T.alertOpened, { time: timeAgo(alert.created_at) })}</small></div></div>
       </article>`).join("");
     const sponsorShare = actor()?.role === "admin" ? `<aside class="admin-tools"><div><p class="eyebrow">${T.adminTools}</p><strong>${T.sponsorSharePrompt}</strong></div><div class="admin-actions"><button type="button" class="ghost-button" id="share-sponsor-report">${T.shareSponsorReport}</button><button type="button" class="ghost-button danger-button" id="reset-demo">${T.resetDemo}</button></div></aside>` : "";
     app.innerHTML = `<section class="view">${viewHeader(T.todayEyebrow, T.todayTitle, T.todaySubtitle)}${sponsorShare}${cards ? `<div class="alert-grid">${cards}</div>` : emptyState("✓", T.allClearTitle, T.allClearBody)}</section>`;
@@ -305,6 +307,13 @@
   document.getElementById("dialog-close").addEventListener("click", () => dialog.close());
   dialog.addEventListener("click", (event) => { if (event.target === dialog) dialog.close(); });
   app.addEventListener("click", (event) => {
+    const alertToggle = event.target.closest("[data-alert-toggle]");
+    if (alertToggle) {
+      const details = document.getElementById(`alert-details-${alertToggle.dataset.alertToggle}`);
+      const expanded = alertToggle.getAttribute("aria-expanded") !== "true";
+      alertToggle.setAttribute("aria-expanded", String(expanded));
+      details.hidden = !expanded;
+    }
     const alert = event.target.closest("[data-alert-done]");
     if (alert) resolveAlert(alert.dataset.alertDone, alert);
     const share = event.target.closest("#share-sponsor-report");
