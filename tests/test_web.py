@@ -15,6 +15,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 os.environ["OPENAI_MODEL"] = "gpt-6.1-terra"
 os.environ["TEAM_PASSCODE"] = "test-team"
 os.environ["ADMIN_PASSCODE"] = "test-admin"
+os.environ["RENDER_GIT_COMMIT"] = "0123456789abcdef"
 os.environ["UPSTASH_REDIS_REST_URL"] = ""
 os.environ["UPSTASH_REDIS_REST_TOKEN"] = ""
 
@@ -120,7 +121,14 @@ with tempfile.TemporaryDirectory() as directory:
         alerts = client.get("/api/alerts", cookies=cookies).json()
         assert all(item["id"] != alert["id"] for item in alerts)
 
-        assert client.get("/", cookies=cookies).status_code == 200
+        index = client.get("/", cookies=cookies)
+        assert index.status_code == 200
+        assert "__DEPLOY_REVISION__" not in index.text
+        assert index.text.count("?v=0123456789ab") == 7
+        assert "/static/favicon.svg?v=0123456789ab" in index.text
         assert client.get("/static/ui_text.js").status_code == 200
+
+        confirm_js = client.get("/static/confirm.js").text
+        assert "T.featureMatches" not in confirm_js
 
 print("authenticated UI API and replay checks passed")

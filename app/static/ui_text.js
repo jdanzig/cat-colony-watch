@@ -79,7 +79,6 @@ window.UI_TEXT = Object.freeze({
   decidingMarkings: "What the model noticed",
   matchingFeatures: "Matching features",
   differingFeatures: "Differing features",
-  featureMatches: "Same {feature}",
   featureDiffers: "Different {feature}",
   featureBodyMarkings: "body markings",
   featureCoatColor: "coat color",

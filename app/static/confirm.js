@@ -21,7 +21,6 @@
     const features = verdict.features || {};
     const matches = [...new Set([
       ...(verdict.matching_specific_markings || []).map((item) => String(item).trim()).filter(Boolean),
-      ...Object.entries(features).filter(([, value]) => value === "same").map(([key]) => fill(T.featureMatches, { feature: featureLabels[key] || key })),
     ])];
     const differences = [...new Set([
       ...(verdict.contradictions || []).map((item) => String(item).trim()).filter(Boolean),

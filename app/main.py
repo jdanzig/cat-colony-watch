@@ -19,7 +19,7 @@ from urllib.parse import parse_qs
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, Header, HTTPException, Request
-from fastapi.responses import FileResponse, JSONResponse, RedirectResponse
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from PIL import Image, ImageOps
 from pydantic import BaseModel, Field
@@ -40,6 +40,16 @@ LOCAL_LOG_PATH = Path(os.getenv("CCW_LOCAL_CHANGE_LOG", "data/local_changes.json
 LIVE_PHOTO_DIR = Path(os.getenv("CCW_LIVE_PHOTO_DIR", "/tmp/ccw_live_photos"))
 COOKIE_NAME = "ccw_session"
 MAX_UPLOAD_BYTES = 12 * 1024 * 1024
+
+
+def _deploy_revision() -> str:
+    return os.getenv("RENDER_GIT_COMMIT", "local")[:12] or "local"
+
+
+def _index_html() -> str:
+    return (STATIC_DIR / "index.html").read_text().replace(
+        "__DEPLOY_REVISION__", _deploy_revision()
+    )
 
 
 class FeedingReport(BaseModel):
@@ -262,7 +272,7 @@ def healthz(request: Request):
         "ok": True,
         "ready": hasattr(request.app.state, "db"),
         "storage": getattr(getattr(request.app.state, "change_log", None), "mode", None),
-        "revision": os.getenv("RENDER_GIT_COMMIT", "local")[:12],
+        "revision": _deploy_revision(),
     }
 
 
@@ -291,7 +301,7 @@ async def signin(request: Request):
 
 @app.get("/")
 def home():
-    return FileResponse(STATIC_DIR / "index.html")
+    return HTMLResponse(_index_html())
 
 
 def _colony_rows(db: Database) -> list[dict]:
