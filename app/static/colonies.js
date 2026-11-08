@@ -37,7 +37,7 @@
     const sightings = cat.unconfirmed_sightings
       ? `<span class="chip blue">${fill(cat.unconfirmed_sightings === 1 ? T.unconfirmedSightings : T.unconfirmedSightingsPlural, { count: cat.unconfirmed_sightings })}</span>` : "";
     return `<button type="button" class="cat-card" data-cat="${cat.id}">
-      ${cat.photo_id ? `<img src="${photoURL(cat.photo_id)}" alt="${escapeHTML(T.photoAlt)}">` : `<span class="cat-placeholder" aria-hidden="true">◉</span>`}
+      ${cat.photo_id ? `<img src="${photoURL(cat.photo_id)}" width="320" height="240" loading="lazy" decoding="async" alt="${escapeHTML(T.photoAlt)}">` : `<span class="cat-placeholder" aria-hidden="true">◉</span>`}
       <span class="cat-card-copy"><h3>${escapeHTML(cat.reported_name || cat.display_name)}</h3><span class="chips">${chipsForCat(cat)}${sightings}</span></span>
     </button>`;
   }
@@ -63,10 +63,10 @@
   async function showCat(id) {
     try {
       const cat = await api(`/api/cats/${id}`);
-      const photos = cat.photos.map((item) => `<div class="photo-tile"><img src="${photoURL(item.id)}" alt="${escapeHTML(T.photoAlt)}">${item.confirmed ? "" : `<span>${T.unconfirmed}</span>`}</div>`).join("");
+      const photos = cat.photos.map((item) => `<div class="photo-tile"><img src="${photoURL(item.id)}" width="320" height="320" loading="lazy" decoding="async" alt="${escapeHTML(T.photoAlt)}">${item.confirmed ? "" : `<span>${T.unconfirmed}</span>`}</div>`).join("");
       const history = cat.history.map((item) => `<div class="history-row"><strong>${escapeHTML(eventLabels[item.kind] || item.kind)}</strong><span>${escapeHTML(I18N.translateContent(item.detail))}</span><small>${escapeHTML(item.volunteer)} · ${timeAgo(item.at)}</small></div>`).join("");
       dialogContent.innerHTML = `<header class="detail-head"><p class="eyebrow">${T.catProfile}</p><h1>${escapeHTML(cat.reported_name || cat.display_name)}</h1><p>${escapeHTML(cat.colony)}</p></header>
-        ${cat.photos[0] ? `<div class="profile-hero"><img src="${photoURL(cat.photos[0].id)}" alt="${escapeHTML(T.photoAlt)}"></div>` : ""}
+        ${cat.photos[0] ? `<div class="profile-hero"><img src="${photoURL(cat.photos[0].id)}" width="768" height="576" decoding="async" alt="${escapeHTML(T.photoAlt)}"></div>` : ""}
         <div class="chips">${chipsForCat(cat)}</div>
         <section class="detail-section"><div class="log-list"><div class="log-row"><strong>${T.firstSeen}</strong><small>${timeAgo(cat.first_seen)}</small></div><div class="log-row"><strong>${T.lastSeen}</strong><small>${timeAgo(cat.last_seen)}</small></div></div></section>
         <section class="detail-section"><h2>${T.photos}</h2><div class="photo-grid">${photos}</div></section>

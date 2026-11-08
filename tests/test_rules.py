@@ -174,6 +174,27 @@ db.record_event(
     "2026-11-05T08:00:00",
     "feeder",
 )
+urgent_report = db.add_report(
+    {
+        "sent_at": "2026-11-06T09:00:00",
+        "sender": "Demo Feeder",
+        "kind": "urgent",
+        "text": "Something at Yard needs attention today.",
+        "lat": None,
+        "lng": None,
+        "source": "app",
+        "raw": "live:test-urgent",
+    }
+)
+db.record_event(
+    "need",
+    "yard",
+    None,
+    "Something needs attention today.",
+    urgent_report,
+    "2026-11-06T09:00:00",
+    "feeder",
+)
 
 alerts = rebuild_alerts(db, "2026-11-07T09:00:00")
 assert {alert["kind"] for alert in alerts} <= ALERT_KINDS
@@ -181,6 +202,7 @@ assert len({(a["colony_id"], a["cat_id"], a["kind"]) for a in alerts}) == len(al
 for required in ("pregnant", "needs_vet", "kittens", "lost_feeder"):
     matching = [alert for alert in alerts if alert["kind"] == required]
     assert matching and all(alert["severity"] == "urgent" for alert in matching)
+assert any(alert["kind"] == "reported_urgent" for alert in alerts)
 assert "Mosaic needs a vet: Mosaic needs a vet" not in next(
     alert["text"] for alert in alerts if alert["kind"] == "needs_vet"
 )

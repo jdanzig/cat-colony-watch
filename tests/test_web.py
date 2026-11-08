@@ -6,6 +6,8 @@ import sys
 import tempfile
 import base64
 import io
+import time
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -63,6 +65,7 @@ with tempfile.TemporaryDirectory() as directory:
         assert signin_page.headers["cache-control"] == "private, no-store"
         assert signin_page.headers["x-frame-options"] == "DENY"
         assert signin_page.headers["x-content-type-options"] == "nosniff"
+        assert "frame-ancestors 'none'" in signin_page.headers["content-security-policy"]
         assert "__DEPLOY_REVISION__" not in signin_page.text
         assert signin_page.text.count("?v=0123456789ab") == 4
         assert 'id="locale-select"' in signin_page.text
@@ -88,6 +91,7 @@ with tempfile.TemporaryDirectory() as directory:
         )
         assert signed_in.status_code == 303
         cookies = signed_in.cookies
+        assert signed_in.headers["x-request-id"]
         secure_signin = client.post(
             "/signin",
             data={"passcode": "test-team"},
@@ -108,6 +112,22 @@ with tempfile.TemporaryDirectory() as directory:
         ).json() == {
             "path": "/report/test-sponsor-link"
         }
+        assert client.get("/api/operations", cookies=cookies).status_code == 403
+        operations = client.get(
+            "/api/operations",
+            cookies=cookies,
+            headers={"x-admin-passcode": "test-admin"},
+        ).json()
+        assert operations["storage"] == "local"
+        assert operations["photo_reports"]["succeeded"] == 0
+
+        oversized = client.post(
+            "/api/reports/photo",
+            cookies=cookies,
+            content=b"{}",
+            headers={"content-length": str(web.MAX_PHOTO_BODY_BYTES + 1)},
+        )
+        assert oversized.status_code == 413
 
         bootstrap = client.get("/api/bootstrap", cookies=cookies).json()
         baseline_alerts = len(bootstrap["alerts"])
@@ -253,6 +273,7 @@ with tempfile.TemporaryDirectory() as directory:
                     "note": "brown cat by the bowls",
                     "lat": 25.8354,
                     "lng": -80.1918,
+                    "client_request_id": "test-sighting-request",
                     "photo_data_url": "data:image/jpeg;base64,"
                     + base64.b64encode(photo_bytes).decode(),
                 },
@@ -270,11 +291,145 @@ with tempfile.TemporaryDirectory() as directory:
         )
         assert abs(photo_result["api_cost_usd"] - 0.01) < 0.000001, photo_result
         assert abs(photo_result["api_spend_today_usd"] - 0.01) < 0.000001
+        photo_changes = web.app.state.change_count
+        duplicate_photo = client.post(
+            "/api/reports/photo",
+            cookies=cookies,
+            json={
+                "kind": "sighting",
+                "colony_id": "laundromat",
+                "volunteer_id": "beatriz-cruz",
+                "note": "brown cat by the bowls",
+                "client_request_id": "test-sighting-request",
+                "photo_data_url": "data:image/jpeg;base64,"
+                + base64.b64encode(photo_bytes).decode(),
+            },
+        )
+        assert duplicate_photo.status_code == 200
+        assert duplicate_photo.json()["duplicate"] is True
+        assert web.app.state.change_count == photo_changes
         web._load_state(web.app)
         assert web.app.state.api_spend_today_usd == 0.01
         assert web.app.state.db.connection.execute(
             "SELECT COUNT(*) FROM reports WHERE source = 'app' AND kind = 'sighting'"
         ).fetchone()[0] == 1
+
+        web.describe_photo = fake_describe_photo
+        web.match_report_photo = fake_match_report_photo
+        try:
+            urgent_report = client.post(
+                "/api/reports/photo",
+                cookies=cookies,
+                json={
+                    "kind": "urgent",
+                    "colony_id": "laundromat",
+                    "volunteer_id": "beatriz-cruz",
+                    "note": "Mango is limping by the bowls",
+                    "client_request_id": "test-urgent-request",
+                    "photo_data_url": "data:image/jpeg;base64,"
+                    + base64.b64encode(photo_bytes).decode(),
+                },
+            )
+        finally:
+            web.describe_photo = original_describe_photo
+            web.match_report_photo = original_match_report_photo
+        assert urgent_report.status_code == 200, urgent_report.text
+        assert urgent_report.json()["needs_review"] is True
+        mango = web.app.state.db.connection.execute(
+            "SELECT status, health FROM cats WHERE colony_id = 'laundromat' AND reported_name = 'Mango'"
+        ).fetchone()
+        assert dict(mango) == {"status": "active", "health": "needs_vet"}
+        assert any(
+            item["kind"] == "needs_vet" and item["colony_id"] == "laundromat"
+            for item in web.app.state.db.open_alerts()
+        )
+
+        failed_files_before = set(web.LIVE_PHOTO_DIR.glob("*.jpg"))
+        failure_photo = io.BytesIO()
+        Image.new("RGB", (65, 65), (12, 34, 56)).save(failure_photo, format="JPEG")
+
+        def failed_description(*args, **kwargs):
+            raise TimeoutError("simulated provider timeout")
+
+        web.describe_photo = failed_description
+        try:
+            failed_report = client.post(
+                "/api/reports/photo",
+                cookies=cookies,
+                json={
+                    "kind": "sighting",
+                    "colony_id": "laundromat",
+                    "volunteer_id": "beatriz-cruz",
+                    "client_request_id": "test-failure-request",
+                    "photo_data_url": "data:image/jpeg;base64,"
+                    + base64.b64encode(failure_photo.getvalue()).decode(),
+                },
+            )
+        finally:
+            web.describe_photo = original_describe_photo
+        assert failed_report.status_code == 503
+        assert failed_report.json()["detail"].startswith("photo analysis is temporarily")
+        assert set(web.LIVE_PHOTO_DIR.glob("*.jpg")) == failed_files_before
+        operations = client.get(
+            "/api/operations",
+            cookies=cookies,
+            headers={"x-admin-passcode": "test-admin"},
+        ).json()
+        assert operations["photo_reports"]["succeeded"] == 2
+        assert operations["photo_reports"]["failed"] == 1
+        assert operations["photo_reports"]["last_error"] == "TimeoutError"
+
+        empty_photo = io.BytesIO()
+        Image.new("RGB", (66, 66), (210, 210, 210)).save(empty_photo, format="JPEG")
+
+        def no_cat_description(*args, **kwargs):
+            return {
+                "cat_count": 0,
+                "cats": [],
+                "kittens_present": False,
+                "photo_quality": "good",
+                "_meta": {"run_cost_usd": 0.004},
+            }
+
+        files_before_no_cat = set(web.LIVE_PHOTO_DIR.glob("*.jpg"))
+        changes_before_no_cat = web.app.state.change_count
+        web.describe_photo = no_cat_description
+        try:
+            no_cat_report = client.post(
+                "/api/reports/photo",
+                cookies=cookies,
+                json={
+                    "kind": "sighting",
+                    "colony_id": "laundromat",
+                    "volunteer_id": "beatriz-cruz",
+                    "client_request_id": "test-no-cat-request",
+                    "photo_data_url": "data:image/jpeg;base64,"
+                    + base64.b64encode(empty_photo.getvalue()).decode(),
+                },
+            )
+        finally:
+            web.describe_photo = original_describe_photo
+        assert no_cat_report.status_code == 400
+        assert no_cat_report.json()["detail"] == "no cat was visible in the photo"
+        assert set(web.LIVE_PHOTO_DIR.glob("*.jpg")) == files_before_no_cat
+        assert web.app.state.change_count == changes_before_no_cat
+
+        web.app.state.rate_windows[("photo", "testclient")] = [
+            time.monotonic()
+        ] * web.PHOTO_RATE_LIMIT
+        throttled = client.post(
+            "/api/reports/photo",
+            cookies=cookies,
+            json={
+                "kind": "sighting",
+                "colony_id": "laundromat",
+                "volunteer_id": "beatriz-cruz",
+                "photo_data_url": "data:image/jpeg;base64,bad",
+            },
+        )
+        assert throttled.status_code == 429
+        assert throttled.headers["retry-after"] == str(web.RATE_WINDOW_SECONDS)
+        web._clear_rate_limit(web.app, "photo", "testclient")
 
         fed_at = "2026-11-07T15:30:00+00:00"
         fed = client.post(
@@ -284,9 +439,25 @@ with tempfile.TemporaryDirectory() as directory:
                 "colony_id": "westchester-market",
                 "volunteer_id": "beatriz-cruz",
                 "at": fed_at,
+                "client_request_id": "test-feeding-request",
             },
         )
         assert fed.status_code == 200
+        fed_changes = web.app.state.change_count
+        fed_duplicate = client.post(
+            "/api/reports/fed",
+            cookies=cookies,
+            json={
+                "colony_id": "westchester-market",
+                "volunteer_id": "beatriz-cruz",
+                "at": "2099-01-01T00:00:00+00:00",
+                "client_request_id": "test-feeding-request",
+            },
+        )
+        assert fed_duplicate.status_code == 200
+        assert fed_duplicate.json()["duplicate"] is True
+        assert fed_duplicate.json()["at"] == fed_at
+        assert web.app.state.change_count == fed_changes
 
         suggestion = next(item for item in bootstrap["suggestions"] if item["kind"] == "same_cat")
         decision = client.post(
@@ -306,6 +477,7 @@ with tempfile.TemporaryDirectory() as directory:
 
         changes = json.loads(web.LOCAL_LOG_PATH.read_text())
         assert [item["type"] for item in changes] == [
+            "live_report",
             "live_report",
             "feeding_report",
             "suggestion_decision",
@@ -333,10 +505,40 @@ with tempfile.TemporaryDirectory() as directory:
         confirm_js = client.get("/static/confirm.js").text
         assert "T.featureMatches" not in confirm_js
 
+        changes_before_concurrency = web.app.state.change_count
+        def concurrent_feeding(index):
+            return client.post(
+                "/api/reports/fed",
+                cookies=cookies,
+                json={
+                    "colony_id": "westchester-market",
+                    "volunteer_id": "beatriz-cruz",
+                    "at": f"2026-11-07T16:{index:02d}:00+00:00",
+                },
+            ).status_code
+
+        with ThreadPoolExecutor(max_workers=4) as pool:
+            statuses = list(pool.map(concurrent_feeding, range(8)))
+        assert statuses == [200] * 8
+        assert web.app.state.change_count == changes_before_concurrency + 8
+        web._load_state(web.app)
+        assert web.app.state.change_count == changes_before_concurrency + 8
+
+        failed_signins = [
+            client.post("/signin", data={"passcode": "wrong"}, follow_redirects=False)
+            for _ in range(web.SIGNIN_FAILURE_LIMIT + 1)
+        ]
+        assert failed_signins[-1].status_code == 429
+        assert failed_signins[-1].headers["retry-after"] == str(web.RATE_WINDOW_SECONDS)
+        assert 'data-rate-limited="true"' in failed_signins[-1].text
+        assert client.post(
+            "/signin", data={"passcode": "test-team"}, follow_redirects=False
+        ).status_code == 303
+
         live_photo = root / "live_photos" / "reset-test.jpg"
         web.app.state.change_log.store_photo("reset-test", b"temporary photo")
         web.app.state.change_log.add_api_spend(web._api_day(), 0.0023)
-        web.app.state.api_spend_today_usd = 0.0123
+        spend_before_reset = web.app.state.change_log.api_spend(web._api_day())
         assert live_photo.exists()
         reset = client.post(
             "/api/admin/reset",
@@ -344,7 +546,7 @@ with tempfile.TemporaryDirectory() as directory:
             headers={"x-admin-passcode": "test-admin"},
         )
         assert reset.status_code == 200
-        assert reset.json()["api_spend_today_usd"] == 0.0123
+        assert reset.json()["api_spend_today_usd"] == round(spend_before_reset, 8)
         assert not live_photo.exists()
         clean = client.get("/api/bootstrap", cookies=cookies).json()
         assert len(clean["alerts"]) == baseline_alerts

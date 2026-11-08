@@ -55,7 +55,7 @@
         : escapeHTML(I18N.translateContent(item.reason));
     return `<article class="suggestion-card">
       <header class="suggestion-head"><div><p class="eyebrow">${escapeHTML(item.colony || "")}</p><h2>${title}</h2></div>${item.strength ? `<span class="match-strength ${item.strength}">${item.strength === "strong" ? T.strongMatch : T.weakMatch}</span>` : ""}</header>
-      ${(firstPhoto || secondPhoto) ? `<div class="compare-photos">${firstPhoto ? `<div class="compare-photo"><img src="${photoURL(firstPhoto)}" alt="${escapeHTML(T.photoAlt)}"><span>${firstLabel}</span></div>` : ""}${secondPhoto ? `<div class="compare-photo"><img src="${photoURL(secondPhoto)}" alt="${escapeHTML(T.photoAlt)}"><span>${secondLabel}</span></div>` : ""}</div>` : ""}
+      ${(firstPhoto || secondPhoto) ? `<div class="compare-photos">${firstPhoto ? `<div class="compare-photo"><img src="${photoURL(firstPhoto)}" width="320" height="240" loading="lazy" decoding="async" alt="${escapeHTML(T.photoAlt)}"><span>${firstLabel}</span></div>` : ""}${secondPhoto ? `<div class="compare-photo"><img src="${photoURL(secondPhoto)}" width="320" height="240" loading="lazy" decoding="async" alt="${escapeHTML(T.photoAlt)}"><span>${secondLabel}</span></div>` : ""}</div>` : ""}
       ${evidence ? `<div class="suggestion-evidence">${evidenceList(T.matchingFeatures, evidence.matches, "matches")}${evidenceList(T.differingFeatures, evidence.differences, "differs")}</div>` : `<div class="suggestion-reason"><h3>${T.decidingMarkings}</h3><p>${reason}</p></div>`}${actions}</article>`;
   }
 

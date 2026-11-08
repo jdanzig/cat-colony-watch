@@ -14,7 +14,7 @@ The demo is for Mangrove Mews, a made-up Miami rescue caring for 18 colonies. It
 
 1. Open the [live app](https://cat-colony-watch.onrender.com) on a phone or laptop. A free Render service may take up to a minute to wake up.
 2. Enter the team passcode Beatriz shared with you. Do not post this passcode publicly.
-3. Choose your name under **Working as**. The app remembers it on that phone.
+3. Choose your name under **Reporter**. The app remembers it on that phone.
 4. Use the language menu to choose English, Español or Kreyòl. The choice carries across sign-in, the app and sponsor reports.
 5. Use the four tabs at the bottom:
    - **Today** puts urgent needs first. Tap **Done** after the team handles one.
@@ -78,6 +78,8 @@ The public demo follows the same pipeline using only invented data in `data/demo
 
 Render runs the FastAPI service from the Blueprint. SQLite is rebuilt from the committed demo on startup, then the append-only Upstash change log replays live reports and human decisions. That is how reports survive a restart or redeploy. Without the two Upstash variables, local development uses a local JSON change log instead.
 
+Use the [operations guide](docs/OPERATIONS.md) for release checks, private backup and restore, monitoring, incidents, privacy retention and the remaining real-world launch gates.
+
 ## Developer guide
 
 ### Stack
@@ -94,7 +96,7 @@ The main flow is:
 WhatsApp export or phone report
   -> parse message, photo and location
   -> describe visible cat features
-  -> Agents SDK agent records events
+  -> structured app fields or the Agents SDK importer record events
   -> fixed matching rule creates a suggestion
   -> human confirms any merge or status change
   -> SQLite views and fixed alert rules update the UI
@@ -140,6 +142,8 @@ python eval/check_matching.py --cats 15 --seed 2 --hard-colony
 ```
 
 See [EVAL.md](EVAL.md) for the protocol and [eval/results/REPORT.md](eval/results/REPORT.md) for recorded runs.
+
+Create a private backup of live changes and uploaded photos with `python -m app.backup --export /private/path/backup.json`. Restore is intentionally explicit; see the [operations guide](docs/OPERATIONS.md).
 
 ## How we built it
 

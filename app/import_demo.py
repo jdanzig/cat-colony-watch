@@ -55,6 +55,7 @@ def import_demo(
     model: str | None = None,
     max_spend_usd: float = 3.0,
     allow_api: bool = True,
+    verbose: bool = True,
 ) -> tuple[Database, AICache]:
     data_dir = Path(data_dir)
     load_dotenv(Path(".env"))
@@ -162,10 +163,11 @@ def import_demo(
                 f"agent did not call match_photo for report {report_id}, photo IDs "
                 f"{[row['id'] for row in unmatched]}"
             )
-        print(
-            f"{number:>3}/{len(reports)} report {report_id}: {summary.summary} "
-            f"(cache spend ${cache.spend:.4f})"
-        )
+        if verbose:
+            print(
+                f"{number:>3}/{len(reports)} report {report_id}: {summary.summary} "
+                f"(cache spend ${cache.spend:.4f})"
+            )
 
     db.create_possible_duplicate_suggestions()
     rebuild_alerts(db)

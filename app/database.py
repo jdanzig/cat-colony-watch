@@ -30,6 +30,7 @@ ALERT_KINDS = {
     "lost_feeder",
     "out_of_food",
     "needs_tnr",
+    "reported_urgent",
     "stale_suggestions",
 }
 
@@ -158,7 +159,7 @@ CREATE TABLE IF NOT EXISTS alerts (
     kind TEXT NOT NULL CHECK (
         kind IN (
             'pregnant', 'kittens', 'needs_vet', 'lost_feeder',
-            'out_of_food', 'needs_tnr', 'stale_suggestions'
+            'out_of_food', 'needs_tnr', 'reported_urgent', 'stale_suggestions'
         )
     ),
     severity TEXT NOT NULL CHECK (severity IN ('urgent', 'high', 'normal')),

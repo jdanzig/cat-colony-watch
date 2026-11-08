@@ -57,7 +57,11 @@
       throw new Error(T.actionError);
     }
     const payload = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(I18N.locale === "en" ? (payload.detail || T.actionError) : T.actionError);
+    if (!response.ok) {
+      const requestError = new Error(I18N.locale === "en" ? (payload.detail || T.actionError) : T.actionError);
+      requestError.status = response.status;
+      throw requestError;
+    }
     return payload;
   }
 
@@ -103,6 +107,7 @@
   function openDialog() {
     if (!dialog.open) dialog.showModal();
     dialog.scrollTop = 0;
+    document.getElementById("dialog-close").focus({ preventScroll: true });
   }
 
   let toastTimer;
@@ -140,6 +145,7 @@
       if (alert.kind === "needs_tnr") return fill(T.alertNeedsTnr, values);
       if (alert.kind === "kittens") return fill(T.alertKittens, values);
       if (alert.kind === "out_of_food") return fill(T.alertOutOfFood, values);
+      if (alert.kind === "reported_urgent") return fill(T.alertReportedUrgent, values);
       if (alert.kind === "stale_suggestions") {
         const count = alert.text.match(/\d+/)?.[0] || state.data.suggestions.length;
         return fill(T.alertConfirmations, { count });
@@ -155,7 +161,7 @@
     };
     const cards = state.data.alerts.map((alert) => `
       <article class="alert-card ${escapeHTML(alert.severity)}">
-        ${alert.photo_id ? `<img class="alert-photo" src="${photoURL(alert.photo_id)}" alt="${escapeHTML(T.photoAlt)}">` : `<div class="alert-photo placeholder" aria-hidden="true">✦</div>`}
+        ${alert.photo_id ? `<img class="alert-photo" src="${photoURL(alert.photo_id)}" width="92" height="150" loading="lazy" decoding="async" alt="${escapeHTML(T.photoAlt)}">` : `<div class="alert-photo placeholder" aria-hidden="true">✦</div>`}
         <div class="alert-body"><div class="alert-meta"><span class="severity ${escapeHTML(alert.severity)}">${T[alert.severity] || alert.severity}</span><span>${alert.colony_id ? escapeHTML(alert.colony) : T.allColonies}</span></div>
           <h2>${alertText(alert)}</h2><button type="button" class="small-button" data-alert-done="${alert.id}">${T.done}</button></div>
       </article>`).join("");
@@ -253,6 +259,7 @@
     document.title = T.pageTitle;
     document.getElementById("brand-name").textContent = T.appName;
     document.getElementById("brand-tagline").textContent = T.appTagline;
+    document.getElementById("skip-link").textContent = T.skipToContent;
     document.querySelector(".brand").setAttribute("aria-label", T.appName);
     document.getElementById("language-label").textContent = T.language;
     document.getElementById("actor-label").textContent = T.actingAs;
@@ -275,6 +282,9 @@
   nav.addEventListener("click", (event) => {
     const button = event.target.closest("button[data-tab]");
     if (!button || button.disabled) return;
+    if (state.tab === "report" && state.reportDirty && !window.confirm(T.discardReport)) return;
+    state.reportDirty = false;
+    state.reportRequestId = null;
     const nextHash = `#${button.dataset.tab}`;
     if (location.hash === nextHash) {
       state.tab = button.dataset.tab;
@@ -326,6 +336,9 @@
 
   localizeShell();
   refresh().then(render).catch((error) => {
-    app.innerHTML = `<section class="view">${emptyState("!", T.loadError, error.message || T.loadError)}<button class="primary-button" onclick="location.reload()">${T.retry}</button></section>`;
+    app.innerHTML = `<section class="view">${emptyState("!", T.loadError, error.message || T.loadError)}<button class="primary-button" id="reload-app">${T.retry}</button></section>`;
+  });
+  app.addEventListener("click", (event) => {
+    if (event.target.closest("#reload-app")) location.reload();
   });
 })();

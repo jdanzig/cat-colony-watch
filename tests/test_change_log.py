@@ -32,6 +32,29 @@ with tempfile.TemporaryDirectory() as directory:
     assert log.add_api_spend("2026-11-07", 0.0123) == 0.0123
     assert log.api_spend("2026-11-07") == 0.0123
 
+    photo_change = {
+        "id": "photo-change",
+        "type": "live_report",
+        "created_at": "2026-11-07T13:00:00+00:00",
+        "data": {"photo_hash": "abc123"},
+    }
+    log.append(photo_change)
+    bundle = log.export_bundle()
+    assert bundle["format"] == "cat-colony-watch-backup-v1"
+    assert bundle["photos"] and len(bundle["changes"]) == 2
+    restore_path = Path(directory) / "restored.json"
+    restored = ChangeLog(url="", token="", local_path=restore_path)
+    restored.restore_bundle(bundle)
+    assert restored.load() == [change, photo_change]
+    assert restored.load_photo("abc123") == b"photo bytes"
+    try:
+        restored.restore_bundle(bundle)
+        raise AssertionError("restore should refuse a non-empty log")
+    except ValueError as error:
+        assert "not empty" in str(error)
+    restored.delete_photo("abc123")
+    assert not (restore_path.parent / "live_photos" / "abc123.jpg").exists()
+
     db = Database()
     db.connection.execute(
         "INSERT INTO colonies(id, name, lat, lng, notes) VALUES('yard', 'Yard', 25.8, -80.2, '')"
@@ -43,7 +66,7 @@ with tempfile.TemporaryDirectory() as directory:
         """
     )
     cache = AICache(Path(directory) / "cache.json", "test-model")
-    for item in log.load():
+    for item in [change]:
         _apply_change(db, cache, log, item)
     last_fed = db.colony_counts()[0]
     assert last_fed["last_fed_at"] == "2026-11-07T12:00:00+00:00"

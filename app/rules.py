@@ -283,6 +283,40 @@ def rebuild_alerts(db: Database, as_of: str | None = None) -> list[dict]:
                 created_at=at,
             )
 
+    urgent_reports = db.connection.execute(
+        """
+        SELECT e.colony_id, e.cat_id, e.kind, e.detail, e.at
+        FROM events e JOIN reports r ON r.id = e.report_id
+        WHERE r.source = 'app' AND r.kind = 'urgent'
+        ORDER BY e.at
+        """
+    ).fetchall()
+    for event in urgent_reports:
+        colony_id = event["colony_id"]
+        cat_id = event["cat_id"]
+        handled = event["kind"] == "kittens"
+        if event["kind"] == "health" and cat_id is not None:
+            handled = any(
+                key in desired
+                for key in (
+                    (colony_id, cat_id, "needs_vet"),
+                    (colony_id, cat_id, "pregnant"),
+                )
+            )
+        if event["kind"] == "need":
+            handled = bool(
+                STOPPING_WORDS.search(event["detail"])
+                or FOOD_SHORTAGE_WORDS.search(event["detail"])
+            )
+        if not handled:
+            add(
+                "reported_urgent",
+                "urgent",
+                colony_id,
+                f"Urgent report at {colonies[colony_id]}: review today",
+                created_at=event["at"],
+            )
+
     waiting = db.connection.execute(
         """
         SELECT COUNT(*) AS count, MIN(created_at) AS first_waiting

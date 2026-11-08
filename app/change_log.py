@@ -6,6 +6,7 @@ import json
 import os
 import time
 from base64 import b64decode, b64encode
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -125,6 +126,63 @@ class ChangeLog:
         if not path.exists():
             raise RuntimeError(f"live photo is missing locally: {digest}")
         return path.read_bytes()
+
+    def delete_photo(self, digest: str) -> None:
+        """Remove one unreferenced live photo after a failed report."""
+        if self.url:
+            self._redis(["DEL", f"{REDIS_PHOTO_PREFIX}{digest}"])
+            return
+        self._local_photo_path(digest).unlink(missing_ok=True)
+
+    def export_bundle(self) -> dict[str, Any]:
+        """Export replay data and referenced photos into one private backup object."""
+        changes = self.load()
+        digests = sorted({
+            change.get("data", {}).get("photo_hash")
+            for change in changes
+            if change.get("data", {}).get("photo_hash")
+        })
+        return {
+            "format": "cat-colony-watch-backup-v1",
+            "exported_at": datetime.now(timezone.utc).isoformat(),
+            "changes": changes,
+            "photos": {
+                digest: b64encode(self.load_photo(digest)).decode()
+                for digest in digests
+            },
+        }
+
+    def restore_bundle(self, bundle: dict[str, Any], *, replace: bool = False) -> None:
+        """Restore a validated backup; replacing existing state must be explicit."""
+        if bundle.get("format") != "cat-colony-watch-backup-v1":
+            raise ValueError("unsupported backup format")
+        changes = bundle.get("changes")
+        photos = bundle.get("photos")
+        if not isinstance(changes, list) or not isinstance(photos, dict):
+            raise ValueError("backup changes and photos are required")
+        ids = [item.get("id") for item in changes if isinstance(item, dict)]
+        if len(ids) != len(changes) or any(not item for item in ids) or len(set(ids)) != len(ids):
+            raise ValueError("backup has missing or duplicate change ids")
+        digests = {
+            change.get("data", {}).get("photo_hash")
+            for change in changes
+            if change.get("data", {}).get("photo_hash")
+        }
+        if not digests.issubset(photos):
+            raise ValueError("backup is missing one or more live photos")
+        if self.load() and not replace:
+            raise ValueError("change log is not empty; pass replace=True to overwrite it")
+        decoded = {}
+        try:
+            decoded = {digest: b64decode(photos[digest], validate=True) for digest in digests}
+        except (ValueError, TypeError) as error:
+            raise ValueError("backup contains an invalid photo") from error
+        if replace:
+            self.clear()
+        for digest, content in decoded.items():
+            self.store_photo(digest, content)
+        for change in changes:
+            self.append(change)
 
     def _redis(self, command: list[Any]) -> Any:
         response = httpx.post(

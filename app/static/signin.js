@@ -14,9 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
       "privacy-note": t.privacyNote,
     };
     Object.entries(values).forEach(([id, value]) => { document.getElementById(id).textContent = value; });
-    if (new URLSearchParams(location.search).has("error")) {
+    if (new URLSearchParams(location.search).has("error") || document.body.dataset.rateLimited) {
       const error = document.getElementById("signin-error");
-      error.textContent = t.incorrectPasscode;
+      error.textContent = document.body.dataset.rateLimited ? t.tooManyAttempts : t.incorrectPasscode;
       error.hidden = false;
     }
     i18n.localizeControl(localeSelect);
