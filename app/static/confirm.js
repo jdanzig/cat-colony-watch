@@ -1,7 +1,7 @@
 (() => {
   "use strict";
   const C = window.CCW;
-  const { T, app, state, api, refresh, escapeHTML, fill, photoURL, viewHeader, emptyState, actorId, showToast, registerTab } = C;
+  const { T, I18N, app, state, api, refresh, escapeHTML, fill, photoURL, viewHeader, emptyState, actorId, showToast, registerTab } = C;
 
   const featureLabelKeys = {
     body_markings: "featureBodyMarkings",
@@ -20,10 +20,10 @@
     if (!verdict) return null;
     const features = verdict.features || {};
     const matches = [...new Set([
-      ...(verdict.matching_specific_markings || []).map((item) => String(item).trim()).filter(Boolean),
+      ...(verdict.matching_specific_markings || []).map((item) => I18N.translateContent(item)).filter(Boolean),
     ])];
     const differences = [...new Set([
-      ...(verdict.contradictions || []).map((item) => String(item).trim()).filter(Boolean),
+      ...(verdict.contradictions || []).map((item) => I18N.translateContent(item)).filter(Boolean),
       ...Object.entries(features).filter(([, value]) => value === "different").map(([key]) => fill(T.featureDiffers, { feature: T[featureLabelKeys[key]] || key })),
     ])];
     return { matches, differences };
@@ -48,10 +48,15 @@
     if (sameCat) actions = `<div class="choice-row"><button class="choice-button approve" data-suggestion="${item.id}" data-action="same">${T.same}</button><button class="choice-button" data-suggestion="${item.id}" data-action="different">${T.different}</button><button class="choice-button warn" data-suggestion="${item.id}" data-action="new_cat">${T.newCat}</button></div>`;
     if (duplicate) actions = `<div class="choice-row two"><button class="choice-button approve" data-suggestion="${item.id}" data-action="confirm">${T.mergeRecords}</button><button class="choice-button" data-suggestion="${item.id}" data-action="reject">${T.keepSeparate}</button></div>`;
     if (status) actions = `<div class="choice-row two"><button class="choice-button approve" data-suggestion="${item.id}" data-action="confirm">${fill(T.confirmStatus, { status: T[item.new_status] || escapeHTML(item.new_status) })}</button><button class="choice-button" data-suggestion="${item.id}" data-action="reject">${T.reject}</button></div>`;
+    const reason = duplicate
+      ? fill(T.duplicateReason, { cat: escapeHTML(item.candidate || item.target) })
+      : status
+        ? fill(T.statusReason, { cat: escapeHTML(item.target || item.candidate), colony: escapeHTML(item.colony) })
+        : escapeHTML(I18N.translateContent(item.reason));
     return `<article class="suggestion-card">
       <header class="suggestion-head"><div><p class="eyebrow">${escapeHTML(item.colony || "")}</p><h2>${title}</h2></div>${item.strength ? `<span class="match-strength ${item.strength}">${item.strength === "strong" ? T.strongMatch : T.weakMatch}</span>` : ""}</header>
       ${(firstPhoto || secondPhoto) ? `<div class="compare-photos">${firstPhoto ? `<div class="compare-photo"><img src="${photoURL(firstPhoto)}" alt="${escapeHTML(T.photoAlt)}"><span>${firstLabel}</span></div>` : ""}${secondPhoto ? `<div class="compare-photo"><img src="${photoURL(secondPhoto)}" alt="${escapeHTML(T.photoAlt)}"><span>${secondLabel}</span></div>` : ""}</div>` : ""}
-      ${evidence ? `<div class="suggestion-evidence">${evidenceList(T.matchingFeatures, evidence.matches, "matches")}${evidenceList(T.differingFeatures, evidence.differences, "differs")}</div>` : `<div class="suggestion-reason"><h3>${T.decidingMarkings}</h3><p>${escapeHTML(item.reason)}</p></div>`}${actions}</article>`;
+      ${evidence ? `<div class="suggestion-evidence">${evidenceList(T.matchingFeatures, evidence.matches, "matches")}${evidenceList(T.differingFeatures, evidence.differences, "differs")}</div>` : `<div class="suggestion-reason"><h3>${T.decidingMarkings}</h3><p>${reason}</p></div>`}${actions}</article>`;
   }
 
   function renderConfirm() {

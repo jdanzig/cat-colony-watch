@@ -38,6 +38,16 @@ const english = Object.freeze({
   waitingTnr: "Waiting for TNR",
   needsVet: "Needs vet",
   noAlerts: "No open alerts",
+  allColonies: "All colonies",
+  alertPregnant: "Pregnant cat at {colony}: trap within days",
+  alertNeedsVet: "{cat} needs veterinary care",
+  alertNeedsTnr: "New unfixed cat at {colony}: add to the TNR list",
+  alertKittens: "New kittens at {colony}: check for their mother",
+  alertLostFeederDays: "{colony} has lost its feeder and has not been fed for {count} days",
+  alertLostFeeder: "{colony} has lost its feeder: arrange coverage today",
+  alertNotFedSince: "{colony} has not been fed since {date}",
+  alertOutOfFood: "{colony} is out of food",
+  alertConfirmations: "{count} confirmations have waited more than a day",
   lastFed: "Last fed",
   lastFedBy: "Last fed by {name}, {time}",
   neverFed: "No feeding has been logged yet",
@@ -59,6 +69,10 @@ const english = Object.freeze({
   eventKittens: "Kittens",
   eventNeed: "Need",
   eventStatus: "Status",
+  roleAdmin: "Admin",
+  roleFeeder: "Feeder",
+  roleVolunteer: "Volunteer",
+  historyFixedAtClinic: "{cat} was fixed at the clinic today.",
   photos: "Photos",
   noHistory: "No history recorded yet.",
   unconfirmed: "Unconfirmed",
@@ -133,6 +147,9 @@ const english = Object.freeze({
   sending: "Recording…",
   reportRecorded: "Recorded",
   fedRecorded: "Feeding logged for {colony}.",
+  photoReportRecorded: "Photo report recorded for {colony}.",
+  photoReportNeedsReview: "The agent flagged it for human review.",
+  photoReportNoReview: "The agent did not flag it for review.",
   chooseColonyError: "Choose a colony first.",
   choosePhotoError: "Take or choose a photo first.",
   reportError: "The report could not be recorded. Please try again.",
@@ -188,6 +205,8 @@ const english = Object.freeze({
   sponsorOpenNeeds: "Open needs",
   sponsorUrgentNeeds: "Urgent needs",
   sponsorPrivacy: "This public report contains aggregate counts only. Locations, people and photos stay private.",
+  duplicateReason: "Two records use the name {cat}. Compare them before merging.",
+  statusReason: "A family reported that {cat} was adopted from {colony} and is safe indoors. Confirm the cat's identity and adoption before changing status.",
 });
 
 const spanish = Object.freeze({
@@ -227,6 +246,16 @@ const spanish = Object.freeze({
   waitingTnr: "En espera de TNR",
   needsVet: "Necesitan veterinario",
   noAlerts: "Sin alertas abiertas",
+  allColonies: "Todas las colonias",
+  alertPregnant: "Gata embarazada en {colony}: atrápala en los próximos días",
+  alertNeedsVet: "{cat} necesita atención veterinaria",
+  alertNeedsTnr: "Gato nuevo sin esterilizar en {colony}: agregar a la lista de TNR",
+  alertKittens: "Gatitos nuevos en {colony}: buscar a la madre",
+  alertLostFeederDays: "{colony} perdió a su alimentador y lleva {count} días sin comer",
+  alertLostFeeder: "{colony} perdió a su alimentador: conseguir cobertura hoy",
+  alertNotFedSince: "{colony} no ha recibido alimento desde {date}",
+  alertOutOfFood: "{colony} se quedó sin comida",
+  alertConfirmations: "{count} confirmaciones llevan más de un día pendientes",
   lastFed: "Última alimentación",
   lastFedBy: "Alimentó {name}, {time}",
   neverFed: "Todavía no se ha registrado una alimentación",
@@ -248,6 +277,10 @@ const spanish = Object.freeze({
   eventKittens: "Gatitos",
   eventNeed: "Necesidad",
   eventStatus: "Estado",
+  roleAdmin: "Administración",
+  roleFeeder: "Alimentador",
+  roleVolunteer: "Voluntario",
+  historyFixedAtClinic: "{cat} fue esterilizado hoy en la clínica.",
   photos: "Fotos",
   noHistory: "Todavía no hay historial registrado.",
   unconfirmed: "Sin confirmar",
@@ -322,6 +355,9 @@ const spanish = Object.freeze({
   sending: "Registrando…",
   reportRecorded: "Registrado",
   fedRecorded: "Alimentación registrada en {colony}.",
+  photoReportRecorded: "Reporte con foto registrado en {colony}.",
+  photoReportNeedsReview: "El agente lo marcó para revisión humana.",
+  photoReportNoReview: "El agente no lo marcó para revisión.",
   chooseColonyError: "Primero elige una colonia.",
   choosePhotoError: "Primero toma o elige una foto.",
   reportError: "No se pudo registrar el reporte. Inténtalo de nuevo.",
@@ -377,6 +413,8 @@ const spanish = Object.freeze({
   sponsorOpenNeeds: "Necesidades abiertas",
   sponsorUrgentNeeds: "Necesidades urgentes",
   sponsorPrivacy: "Este informe público contiene únicamente cifras totales. Las ubicaciones, las personas y las fotos permanecen privadas.",
+  duplicateReason: "Dos registros usan el nombre {cat}. Compáralos antes de unirlos.",
+  statusReason: "Una familia informó que {cat} fue adoptado de {colony} y está seguro dentro de casa. Confirma la identidad y la adopción antes de cambiar el estado.",
 });
 
 const creole = Object.freeze({
@@ -416,6 +454,16 @@ const creole = Object.freeze({
   waitingTnr: "Ap tann TNR",
   needsVet: "Bezwen veterinè",
   noAlerts: "Pa gen alèt ouvè",
+  allColonies: "Tout koloni yo",
+  alertPregnant: "Chat ansent nan {colony}: pran li nan pèlen nan kèk jou",
+  alertNeedsVet: "{cat} bezwen swen veterinè",
+  alertNeedsTnr: "Nouvo chat ki poko esterilize nan {colony}: ajoute li sou lis TNR la",
+  alertKittens: "Nouvo ti chat nan {colony}: chèche manman yo",
+  alertLostFeederDays: "{colony} pèdi moun ki te bay manje a epi li gen {count} jou san manje",
+  alertLostFeeder: "{colony} pèdi moun ki te bay manje a: jwenn yon ranplasman jodi a",
+  alertNotFedSince: "{colony} pa resevwa manje depi {date}",
+  alertOutOfFood: "{colony} pa gen manje ankò",
+  alertConfirmations: "{count} konfimasyon ap tann depi plis pase yon jou",
   lastFed: "Dènye fwa yo te manje",
   lastFedBy: "{name} te bay manje, {time}",
   neverFed: "Poko gen okenn manje ki anrejistre",
@@ -437,6 +485,10 @@ const creole = Object.freeze({
   eventKittens: "Ti chat",
   eventNeed: "Bezwen",
   eventStatus: "Estati",
+  roleAdmin: "Administratè",
+  roleFeeder: "Moun ki bay manje",
+  roleVolunteer: "Volontè",
+  historyFixedAtClinic: "Yo te esterilize {cat} nan klinik la jodi a.",
   photos: "Foto",
   noHistory: "Poko gen istwa ki anrejistre.",
   unconfirmed: "Poko konfime",
@@ -511,6 +563,9 @@ const creole = Object.freeze({
   sending: "N ap anrejistre…",
   reportRecorded: "Anrejistre",
   fedRecorded: "Manje anrejistre nan {colony}.",
+  photoReportRecorded: "Rapò ak foto anrejistre pou {colony}.",
+  photoReportNeedsReview: "Ajan an make li pou yon moun revize li.",
+  photoReportNoReview: "Ajan an pa make li pou revizyon.",
   chooseColonyError: "Chwazi yon koloni anvan.",
   choosePhotoError: "Pran oswa chwazi yon foto anvan.",
   reportError: "Nou pa t ka anrejistre rapò a. Eseye ankò.",
@@ -566,6 +621,71 @@ const creole = Object.freeze({
   sponsorOpenNeeds: "Bezwen ki ouvè",
   sponsorUrgentNeeds: "Bezwen ijan",
   sponsorPrivacy: "Rapò piblik sa a montre total sèlman. Kote yo, moun yo ak foto yo rete prive.",
+  duplicateReason: "De dosye sèvi ak non {cat}. Konpare yo anvan ou mete yo ansanm.",
+  statusReason: "Yon fanmi rapòte yo adopte {cat} nan {colony} epi li an sekirite anndan kay. Konfime idantite chat la ak adopsyon an anvan ou chanje estati a.",
+});
+
+const contentTranslations = Object.freeze({
+  es: Object.freeze({
+    "New cat from photo": "Gato nuevo registrado a partir de la foto",
+    "Nube stayed close today. Photo 3 shows a cream colorpoint cat; the name is an unconfirmed identity hint.": "Nube se quedó cerca hoy. La foto 3 muestra un gato crema con puntas oscuras; el nombre es solo una pista de identidad sin confirmar.",
+    "New gray cat behind the laundromat, called Pebble for now; no ear tip visible.": "Gato gris nuevo detrás de la lavandería, llamado Pebble por ahora; no se ve la punta de la oreja marcada.",
+    "Volunteer reports Canela came out after they stepped back; photo 10 shows a brown tabby.": "La persona voluntaria informa que Canela salió cuando se alejaron; la foto 10 muestra un gato atigrado marrón.",
+    "Canela was fixed today at the clinic. Photo match to cat 9 is weak and pending review.": "Canela fue esterilizada hoy en la clínica. La coincidencia de la foto con el gato 9 es débil y está pendiente de revisión.",
+    "Mosaic was near the blue planter; photo 11 shows one cat. The name is an unconfirmed identity hint.": "Mosaic estaba cerca de la maceta azul; la foto 11 muestra un gato. El nombre es solo una pista de identidad sin confirmar.",
+    "Mosaic is limping on her back leg and needs a vet check. Photo match to cat 10 is pending confirmation.": "Mosaic cojea de una pata trasera y necesita una revisión veterinaria. La coincidencia de la foto con el gato 10 está pendiente de confirmación.",
+    "Mosaic is still limping on a back leg; photo match to cat 10 is pending confirmation.": "Mosaic todavía cojea de una pata trasera; la coincidencia de la foto con el gato 10 está pendiente de confirmación.",
+    "Mosaic needs a vet appointment; identity requires confirmation.": "Mosaic necesita una cita veterinaria; hay que confirmar su identidad.",
+    "Volunteer reports Mariposa is visibly pregnant. Photo was found in camera roll; its date is unknown. Photo match to cat 13 is a pending suggestion, not confirmed.": "La persona voluntaria informa que Mariposa parece embarazada. La foto estaba en el carrete y no se conoce su fecha. La coincidencia con el gato 13 es una sugerencia pendiente, no una confirmación.",
+    "Dark stripe extending outward from the eye across the cheek.": "Franja oscura que se extiende desde el ojo por la mejilla.",
+    "Pale muzzle with a dark outline around the pinkish nose.": "Hocico claro con un contorno oscuro alrededor de la nariz rosada.",
+    "Dark tabby forehead patch bordering an orange cheek, with a white blaze running down beside the nose.": "Mancha atigrada oscura en la frente junto a una mejilla naranja, con una franja blanca que baja al lado de la nariz.",
+    "Orange-brown patch beside the pink nose on an otherwise white muzzle.": "Mancha marrón anaranjada junto a la nariz rosada sobre un hocico blanco.",
+    "Dark tabby patch extends down the nose beside the white muzzle.": "Mancha atigrada oscura que baja por la nariz junto al hocico blanco.",
+    "White chest rises into a narrow band across the back of the neck.": "El pecho blanco sube hasta formar una banda estrecha por la nuca.",
+    "White front leg meets the dark shoulder in a sharply angled boundary.": "La pata delantera blanca se une al hombro oscuro en un borde bien angulado.",
+    "Both have a narrow rusty streak on the image-left side of the nose and muzzle, with a mostly black central nose bridge.": "Ambos tienen una franja rojiza estrecha en el lado izquierdo de la nariz y el hocico, con el centro del puente nasal casi negro.",
+    "Both have rusty mottling on the image-right cheek and a small rusty mark above the image-left eye.": "Ambos tienen un moteado rojizo en la mejilla derecha y una pequeña marca rojiza sobre el ojo izquierdo.",
+    "Orange mottling on the image-left side of the nose and muzzle, with a black central nose bridge.": "Moteado naranja en el lado izquierdo de la nariz y el hocico, con el centro del puente nasal negro.",
+    "Broad orange mottling on the image-right cheek.": "Moteado naranja ancho en la mejilla derecha.",
+    "Dark tapered marking extending down from the inner corner of the prominently visible eye.": "Marca oscura y afilada que baja desde el lagrimal del ojo más visible.",
+    "Orange patch on the white muzzle beside the pink nose.": "Mancha naranja sobre el hocico blanco junto a la nariz rosada.",
+    "Dark forehead stripes bordered by orange above the eye.": "Rayas oscuras en la frente bordeadas de naranja sobre el ojo.",
+    "Narrow white blaze rising between the eyes and widening over the nose into a white muzzle": "Franja blanca estrecha que sube entre los ojos y se ensancha sobre la nariz hasta formar un hocico blanco",
+    "Both have a dark stripe extending outward from the eye across the cheek and a pale muzzle with a dark-edged nose.": "Ambos tienen una franja oscura que sale del ojo y cruza la mejilla, y un hocico claro con el borde de la nariz oscuro.",
+    "White hind legs meet the tabby rump at a high boundary, with a warm brown patch near the upper hind leg.": "Las patas traseras blancas se unen a la grupa atigrada en un borde alto, con una mancha marrón cálida cerca de la parte superior de la pata.",
+    "White muzzle with a narrow blaze extending upward along the nose": "Hocico blanco con una franja estrecha que sube por la nariz",
+  }),
+  ht: Object.freeze({
+    "New cat from photo": "Nouvo chat anrejistre apati foto a",
+    "Nube stayed close today. Photo 3 shows a cream colorpoint cat; the name is an unconfirmed identity hint.": "Nube te rete toupre jodi a. Foto 3 montre yon chat krèm ak pwent fonse; non an se sèlman yon endis idantite ki poko konfime.",
+    "New gray cat behind the laundromat, called Pebble for now; no ear tip visible.": "Nouvo chat gri dèyè lesiv la, nou rele li Pebble pou kounye a; nou pa wè okenn pwent zòrèy make.",
+    "Volunteer reports Canela came out after they stepped back; photo 10 shows a brown tabby.": "Volontè a rapòte Canela te soti apre yo te fè bak; foto 10 montre yon chat mawon ak ray.",
+    "Canela was fixed today at the clinic. Photo match to cat 9 is weak and pending review.": "Yo te esterilize Canela nan klinik la jodi a. Korespondans foto a ak chat 9 la fèb epi li poko revize.",
+    "Mosaic was near the blue planter; photo 11 shows one cat. The name is an unconfirmed identity hint.": "Mosaic te toupre po flè ble a; foto 11 montre yon chat. Non an se sèlman yon endis idantite ki poko konfime.",
+    "Mosaic is limping on her back leg and needs a vet check. Photo match to cat 10 is pending confirmation.": "Mosaic ap bwete ak yon janm dèyè epi li bezwen yon veterinè egzamine li. Korespondans foto a ak chat 10 la poko konfime.",
+    "Mosaic is still limping on a back leg; photo match to cat 10 is pending confirmation.": "Mosaic toujou ap bwete ak yon janm dèyè; korespondans foto a ak chat 10 la poko konfime.",
+    "Mosaic needs a vet appointment; identity requires confirmation.": "Mosaic bezwen yon randevou veterinè; fòk yo konfime idantite li.",
+    "Volunteer reports Mariposa is visibly pregnant. Photo was found in camera roll; its date is unknown. Photo match to cat 13 is a pending suggestion, not confirmed.": "Volontè a rapòte Mariposa sanble ansent. Yo te jwenn foto a nan telefòn lan epi yo pa konnen dat li. Korespondans ak chat 13 la se yon sijesyon k ap tann, li poko konfime.",
+    "Dark stripe extending outward from the eye across the cheek.": "Bann nwa ki soti nan je a epi pase sou bò figi a.",
+    "Pale muzzle with a dark outline around the pinkish nose.": "Mizo pal ak yon liy nwa toutotou nen woz la.",
+    "Dark tabby forehead patch bordering an orange cheek, with a white blaze running down beside the nose.": "Tach fonse ak ray sou fwon an bò kote yon bò figi zoranj, ak yon bann blan ki desann bò nen an.",
+    "Orange-brown patch beside the pink nose on an otherwise white muzzle.": "Tach mawon-zoranj bò nen woz la sou yon mizo blan.",
+    "Dark tabby patch extends down the nose beside the white muzzle.": "Tach fonse ak ray la desann sou nen an bò mizo blan an.",
+    "White chest rises into a narrow band across the back of the neck.": "Pwatrin blan an monte nan yon bann etwat dèyè kou a.",
+    "White front leg meets the dark shoulder in a sharply angled boundary.": "Janm devan blan an rankontre zepòl fonse a nan yon liy ki fè yon ang klè.",
+    "Both have a narrow rusty streak on the image-left side of the nose and muzzle, with a mostly black central nose bridge.": "Toude gen yon bann wouye etwat sou bò goch nen ak mizo a, ak mitan pon nen an prèske nwa.",
+    "Both have rusty mottling on the image-right cheek and a small rusty mark above the image-left eye.": "Toude gen ti tach wouye sou bò dwat figi a ak yon ti mak wouye anlè je goch la.",
+    "Orange mottling on the image-left side of the nose and muzzle, with a black central nose bridge.": "Ti tach zoranj sou bò goch nen ak mizo a, ak mitan pon nen an nwa.",
+    "Broad orange mottling on the image-right cheek.": "Gwo zòn ti tach zoranj sou bò dwat figi a.",
+    "Dark tapered marking extending down from the inner corner of the prominently visible eye.": "Mak fonse ki vin pi mens epi ki desann soti nan kwen anndan je ki pi vizib la.",
+    "Orange patch on the white muzzle beside the pink nose.": "Tach zoranj sou mizo blan an bò nen woz la.",
+    "Dark forehead stripes bordered by orange above the eye.": "Ray fonse sou fwon an ak zoranj toutotou yo anlè je a.",
+    "Narrow white blaze rising between the eyes and widening over the nose into a white muzzle": "Bann blan etwat ki monte ant je yo epi ki vin pi laj sou nen an rive nan mizo blan an",
+    "Both have a dark stripe extending outward from the eye across the cheek and a pale muzzle with a dark-edged nose.": "Toude gen yon bann nwa ki soti nan je a epi pase sou bò figi a, ak yon mizo pal ki gen yon liy nwa bò nen an.",
+    "White hind legs meet the tabby rump at a high boundary, with a warm brown patch near the upper hind leg.": "Janm dèyè blan yo rankontre dèyè kò ki gen ray la byen wo, ak yon tach mawon cho toupre anlè janm dèyè a.",
+    "White muzzle with a narrow blaze extending upward along the nose": "Mizo blan ak yon bann etwat ki monte sou nen an",
+  }),
 });
 
 const locales = Object.freeze({ en: english, es: spanish, ht: creole });
@@ -600,6 +720,16 @@ function bindControl(control) {
   window.addEventListener("ccw:localechange", () => localizeControl(control));
 }
 
+function translateContent(value) {
+  const source = String(value ?? "").trim();
+  if (locale === "en" || !source) return source;
+  const direct = contentTranslations[locale]?.[source];
+  if (direct) return direct;
+  const fixed = source.match(/^(.+) was fixed at the clinic today\.$/);
+  if (fixed) return activeText.historyFixedAtClinic.replace("{cat}", fixed[1]);
+  return source;
+}
+
 applyLocale(locale, false);
 window.UI_TEXTS = locales;
 window.UI_TEXT = activeText;
@@ -608,5 +738,6 @@ window.UI_I18N = Object.freeze({
   setLocale: applyLocale,
   bindControl,
   localizeControl,
+  translateContent,
 });
 })();

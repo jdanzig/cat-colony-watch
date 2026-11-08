@@ -1,7 +1,7 @@
 (() => {
   "use strict";
   const C = window.CCW;
-  const { T, app, state, api, refresh, escapeHTML, fill, viewHeader, actorId, showToast, registerTab } = C;
+  const { T, I18N, app, state, api, refresh, escapeHTML, fill, viewHeader, actorId, showToast, registerTab } = C;
   state.reportKind = "fed";
   state.location = null;
 
@@ -62,6 +62,10 @@
           lng: state.location?.lng || null,
           photo_data_url: await imageDataURL(file),
         }) });
+        if (I18N.locale !== "en") {
+          const colony = state.data.colonies.find((item) => item.id === colonyId);
+          result.summary = `${fill(T.photoReportRecorded, { colony: colony.name })} ${result.needs_review ? T.photoReportNeedsReview : T.photoReportNoReview}`;
+        }
       }
       document.getElementById("report-result").innerHTML = `<section class="report-result"><h2>${T.reportRecorded}</h2><p>${escapeHTML(result.summary)}</p></section>`;
       form.reset();

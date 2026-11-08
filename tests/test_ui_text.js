@@ -38,6 +38,12 @@ assert.strictEqual(window.UI_TEXT, liveTextObject);
 assert.equal(text.todayTitle, "Hoy");
 assert.equal(text.sameCatQuestion, "¿Es el mismo gato?");
 assert.equal(text.shareSponsorReport, "Compartir informe para patrocinadores");
+assert.equal(i18n.translateContent("New cat from photo"), "Gato nuevo registrado a partir de la foto");
+assert.equal(
+  i18n.translateContent("Dark stripe extending outward from the eye across the cheek."),
+  "Franja oscura que se extiende desde el ojo por la mejilla.",
+);
+assert.equal(i18n.translateContent("Sombra was fixed at the clinic today."), "Sombra fue esterilizado hoy en la clínica.");
 assert.equal(document.documentElement.lang, "es");
 assert.equal(stored.get("ccw-locale"), "es");
 
@@ -59,6 +65,12 @@ assert.equal(i18n.locale, "ht");
 assert.equal(text.todayTitle, "Jodi a");
 assert.equal(text.sameCatQuestion, "Menm chat la?");
 assert.equal(text.shareSponsorReport, "Pataje rapò pou esponsò");
+assert.equal(i18n.translateContent("New cat from photo"), "Nouvo chat anrejistre apati foto a");
+assert.equal(
+  i18n.translateContent("Dark stripe extending outward from the eye across the cheek."),
+  "Bann nwa ki soti nan je a epi pase sou bò figi a.",
+);
+assert.equal(i18n.translateContent("Sombra was fixed at the clinic today."), "Yo te esterilize Sombra nan klinik la jodi a.");
 assert.equal(document.documentElement.lang, "ht");
 assert.equal(control.value, "ht");
 assert.equal(attributes["aria-label"], "Lang");

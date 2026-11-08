@@ -57,7 +57,7 @@
       throw new Error(T.actionError);
     }
     const payload = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(payload.detail || T.actionError);
+    if (!response.ok) throw new Error(I18N.locale === "en" ? (payload.detail || T.actionError) : T.actionError);
     return payload;
   }
 
@@ -133,11 +133,31 @@
   }
 
   function renderToday() {
+    const alertText = (alert) => {
+      const values = { colony: escapeHTML(alert.colony), cat: escapeHTML(alert.cat || alert.colony) };
+      if (alert.kind === "pregnant") return fill(T.alertPregnant, values);
+      if (alert.kind === "needs_vet") return fill(T.alertNeedsVet, values);
+      if (alert.kind === "needs_tnr") return fill(T.alertNeedsTnr, values);
+      if (alert.kind === "kittens") return fill(T.alertKittens, values);
+      if (alert.kind === "out_of_food") return fill(T.alertOutOfFood, values);
+      if (alert.kind === "stale_suggestions") {
+        const count = alert.text.match(/\d+/)?.[0] || state.data.suggestions.length;
+        return fill(T.alertConfirmations, { count });
+      }
+      if (alert.kind === "lost_feeder") {
+        const days = alert.text.match(/(\d+) days/)?.[1];
+        if (days) return fill(T.alertLostFeederDays, { ...values, count: days });
+        const since = alert.text.match(/hasn't been fed since (.+)$/)?.[1];
+        if (since) return fill(T.alertNotFedSince, { ...values, date: escapeHTML(since) });
+        return fill(T.alertLostFeeder, values);
+      }
+      return escapeHTML(I18N.translateContent(alert.text));
+    };
     const cards = state.data.alerts.map((alert) => `
       <article class="alert-card ${escapeHTML(alert.severity)}">
         ${alert.photo_id ? `<img class="alert-photo" src="${photoURL(alert.photo_id)}" alt="${escapeHTML(T.photoAlt)}">` : `<div class="alert-photo placeholder" aria-hidden="true">✦</div>`}
-        <div class="alert-body"><div class="alert-meta"><span class="severity ${escapeHTML(alert.severity)}">${T[alert.severity] || alert.severity}</span><span>${escapeHTML(alert.colony)}</span></div>
-          <h2>${escapeHTML(alert.text)}</h2><button type="button" class="small-button" data-alert-done="${alert.id}">${T.done}</button></div>
+        <div class="alert-body"><div class="alert-meta"><span class="severity ${escapeHTML(alert.severity)}">${T[alert.severity] || alert.severity}</span><span>${alert.colony_id ? escapeHTML(alert.colony) : T.allColonies}</span></div>
+          <h2>${alertText(alert)}</h2><button type="button" class="small-button" data-alert-done="${alert.id}">${T.done}</button></div>
       </article>`).join("");
     const sponsorShare = actor()?.role === "admin" ? `<aside class="admin-tools"><div><p class="eyebrow">${T.adminTools}</p><strong>${T.sponsorSharePrompt}</strong></div><button type="button" class="ghost-button" id="share-sponsor-report">${T.shareSponsorReport}</button></aside>` : "";
     app.innerHTML = `<section class="view">${viewHeader(T.todayEyebrow, T.todayTitle, T.todaySubtitle)}${sponsorShare}${cards ? `<div class="alert-grid">${cards}</div>` : emptyState("✓", T.allClearTitle, T.allClearBody)}</section>`;
@@ -204,7 +224,8 @@
     document.querySelector(".brand").setAttribute("aria-label", T.appName);
     document.getElementById("language-label").textContent = T.language;
     actorSelect.setAttribute("aria-label", T.actingAs);
-    document.getElementById("loading-copy").textContent = T.loading;
+    const loadingCopy = document.getElementById("loading-copy");
+    if (loadingCopy) loadingCopy.textContent = T.loading;
     nav.setAttribute("aria-label", T.appName);
     [T.tabToday, T.tabColonies, T.tabConfirm, T.tabReport].forEach((label, index) => { nav.querySelectorAll("button b")[index].textContent = label; });
     document.getElementById("dialog-close").setAttribute("aria-label", T.close);
@@ -212,7 +233,7 @@
   }
 
   window.CCW = {
-    T, app, nav, dialog, dialogContent, state, eventLabels,
+    T, I18N, app, nav, dialog, dialogContent, state, eventLabels,
     api, refresh, render, registerTab, showToast, openDialog,
     actorId, escapeHTML, fill, photoURL, timeAgo, viewHeader, emptyState, chipsForCat,
   };

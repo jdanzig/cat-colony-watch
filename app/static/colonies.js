@@ -1,7 +1,7 @@
 (() => {
   "use strict";
   const C = window.CCW;
-  const { T, app, dialogContent, state, eventLabels, api, escapeHTML, fill, photoURL, timeAgo, viewHeader, chipsForCat, openDialog, registerTab } = C;
+  const { T, I18N, app, dialogContent, state, eventLabels, api, escapeHTML, fill, photoURL, timeAgo, viewHeader, chipsForCat, openDialog, registerTab } = C;
 
   function renderColonies() {
     const rows = state.data.colonies.map((colony) => `
@@ -46,7 +46,10 @@
     try {
       const colony = await api(`/api/colonies/${encodeURIComponent(id)}`);
       const feedings = colony.feeding_log.map((item) => `<div class="log-row"><strong>${escapeHTML(item.volunteer)}</strong><small>${timeAgo(item.at)}</small></div>`).join("");
-      const feeders = colony.feeders.map((item) => `<div class="feeder-row"><span><strong>${escapeHTML(item.name)}</strong><br><small>${escapeHTML(item.role)}</small></span><a href="tel:${escapeHTML(item.phone)}">${escapeHTML(item.phone)}</a></div>`).join("");
+      const feeders = colony.feeders.map((item) => {
+        const role = T[`role${item.role.charAt(0).toUpperCase()}${item.role.slice(1)}`] || item.role;
+        return `<div class="feeder-row"><span><strong>${escapeHTML(item.name)}</strong><br><small>${escapeHTML(role)}</small></span><a href="tel:${escapeHTML(item.phone)}">${escapeHTML(item.phone)}</a></div>`;
+      }).join("");
       dialogContent.innerHTML = `<header class="detail-head"><p class="eyebrow">${T.coloniesTitle}</p><h1>${escapeHTML(colony.name)}</h1></header>
         <div class="metric-grid"><div class="metric"><strong>${colony.cats}</strong><span>${T.cats}</span></div><div class="metric"><strong>${colony.fixed}</strong><span>${T.fixed}</span></div><div class="metric"><strong>${colony.needs_tnr}</strong><span>${T.waitingTnr}</span></div><div class="metric"><strong>${colony.needs_vet}</strong><span>${T.needsVet}</span></div></div>
         <div class="last-fed-banner">${colony.last_fed_at ? fill(T.lastFedBy, { name: escapeHTML(colony.last_fed_by), time: timeAgo(colony.last_fed_at) }) : T.neverFed}</div>
@@ -61,7 +64,7 @@
     try {
       const cat = await api(`/api/cats/${id}`);
       const photos = cat.photos.map((item) => `<div class="photo-tile"><img src="${photoURL(item.id)}" alt="${escapeHTML(T.photoAlt)}">${item.confirmed ? "" : `<span>${T.unconfirmed}</span>`}</div>`).join("");
-      const history = cat.history.map((item) => `<div class="history-row"><strong>${escapeHTML(eventLabels[item.kind] || item.kind)}</strong><span>${escapeHTML(item.detail)}</span><small>${escapeHTML(item.volunteer)} · ${timeAgo(item.at)}</small></div>`).join("");
+      const history = cat.history.map((item) => `<div class="history-row"><strong>${escapeHTML(eventLabels[item.kind] || item.kind)}</strong><span>${escapeHTML(I18N.translateContent(item.detail))}</span><small>${escapeHTML(item.volunteer)} · ${timeAgo(item.at)}</small></div>`).join("");
       dialogContent.innerHTML = `<header class="detail-head"><p class="eyebrow">${T.catProfile}</p><h1>${escapeHTML(cat.reported_name || cat.display_name)}</h1><p>${escapeHTML(cat.colony)}</p></header>
         ${cat.photos[0] ? `<div class="profile-hero"><img src="${photoURL(cat.photos[0].id)}" alt="${escapeHTML(T.photoAlt)}"></div>` : ""}
         <div class="chips">${chipsForCat(cat)}</div>
