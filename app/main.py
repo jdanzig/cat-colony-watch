@@ -32,7 +32,14 @@ from app.change_log import ChangeLog
 from app.database import Database
 from app.identification import describe_photo
 from app.import_demo import import_demo
-from app.message_agent import ImportContext, build_agent, process_report, replay_mutations
+from app.message_agent import (
+    AgentSummary,
+    ImportContext,
+    build_agent,
+    match_report_photo,
+    process_report,
+    replay_mutations,
+)
 from app.rules import apply_named_cat_facts, rebuild_alerts
 
 
@@ -744,7 +751,37 @@ def _add_photo_report_locked(report: LiveReport, request: Request):
         "location": {"lat": report.lat, "lng": report.lng},
         "photos": photo_inputs,
     }
-    summary = process_report(request.app.state.agent, context, report_input)
+    if report.kind == "sighting":
+        # The app form has already supplied the colony, volunteer, timestamp and
+        # report kind. Only visual identity needs AI here; deterministic routing
+        # avoids several redundant agent turns on the phone's critical path.
+        for photo_id in photo_ids:
+            match_report_photo(context, photo_id, report.colony_id)
+        direct_outcomes = _photo_report_outcomes(db, photo_ids)
+        if direct_outcomes["match_suggestions"]:
+            match = direct_outcomes["match_suggestions"][0]
+            summary_text = (
+                f"Recorded a {colony['name']} sighting; a {match['strength']} "
+                f"{match['candidate']} match needs review."
+            )
+            needs_review = True
+        elif direct_outcomes["new_cat_count"]:
+            summary_text = (
+                f"Recorded a {colony['name']} sighting and created "
+                f"{direct_outcomes['new_cat_count']} new cat record"
+                f"{'s' if direct_outcomes['new_cat_count'] != 1 else ''}."
+            )
+            needs_review = False
+        else:
+            summary_text = f"Recorded a {colony['name']} sighting."
+            needs_review = False
+        summary = AgentSummary(
+            summary=summary_text,
+            colony_ids=[report.colony_id],
+            needs_review=needs_review,
+        )
+    else:
+        summary = process_report(request.app.state.agent, context, report_input)
     apply_named_cat_facts(db, report_id)
     db.create_possible_duplicate_suggestions()
     rebuild_alerts(db, at)

@@ -37,6 +37,7 @@ i18n.setLocale("es");
 assert.strictEqual(window.UI_TEXT, liveTextObject);
 assert.equal(text.todayTitle, "Hoy");
 assert.equal(text.sameCatQuestion, "¿Es el mismo gato?");
+assert.equal(text.actingAs, "Voluntario");
 assert.equal(text.shareSponsorReport, "Compartir informe para patrocinadores");
 assert.equal(i18n.translateContent("New cat from photo"), "Gato nuevo registrado a partir de la foto");
 assert.equal(
@@ -64,6 +65,7 @@ control.change();
 assert.equal(i18n.locale, "ht");
 assert.equal(text.todayTitle, "Jodi a");
 assert.equal(text.sameCatQuestion, "Menm chat la?");
+assert.equal(text.actingAs, "Volontè");
 assert.equal(text.shareSponsorReport, "Pataje rapò pou esponsò");
 assert.equal(i18n.translateContent("New cat from photo"), "Nouvo chat anrejistre apati foto a");
 assert.equal(
@@ -77,5 +79,6 @@ assert.equal(attributes["aria-label"], "Lang");
 
 i18n.setLocale("not-a-locale");
 assert.equal(i18n.locale, "en");
+assert.equal(text.actingAs, "Volunteer");
 
 console.log("English/Spanish/Haitian Creole UI text checks passed");

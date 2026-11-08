@@ -121,6 +121,13 @@ def match_photo(
     return _match_photo(wrapper.context, photo_id, colony_id, record=True)
 
 
+def match_report_photo(
+    context: ImportContext, photo_id: int, colony_id: str
+) -> dict[str, Any]:
+    """Run the same guarded photo tool for an already-structured app report."""
+    return _match_photo(context, photo_id, colony_id, record=True)
+
+
 @function_tool(failure_error_function=None)
 def record_event(
     wrapper: RunContextWrapper[ImportContext],

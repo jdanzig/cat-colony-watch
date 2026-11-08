@@ -255,6 +255,7 @@
     document.getElementById("brand-tagline").textContent = T.appTagline;
     document.querySelector(".brand").setAttribute("aria-label", T.appName);
     document.getElementById("language-label").textContent = T.language;
+    document.getElementById("actor-label").textContent = T.actingAs;
     actorSelect.setAttribute("aria-label", T.actingAs);
     const loadingCopy = document.getElementById("loading-copy");
     if (loadingCopy) loadingCopy.textContent = T.loading;

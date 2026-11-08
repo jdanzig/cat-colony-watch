@@ -24,7 +24,6 @@ os.environ["UPSTASH_REDIS_REST_URL"] = ""
 os.environ["UPSTASH_REDIS_REST_TOKEN"] = ""
 
 import app.main as web
-from app.message_agent import AgentSummary
 
 
 spend_changes = [
@@ -197,7 +196,7 @@ with tempfile.TemporaryDirectory() as directory:
         ).status_code == 422
 
         original_describe_photo = web.describe_photo
-        original_process_report = web.process_report
+        original_match_report_photo = web.match_report_photo
 
         def fake_describe_photo(*args, **kwargs):
             return {
@@ -220,12 +219,12 @@ with tempfile.TemporaryDirectory() as directory:
                 "_meta": {"run_cost_usd": 0.01},
             }
 
-        def fake_process_report(agent, context, report_input):
+        def fake_match_report_photo(context, photo_id, colony_id):
             candidate = context.db.connection.execute(
                 "SELECT id FROM cats WHERE colony_id = 'laundromat' AND reported_name = 'Mango'"
             ).fetchone()
-            context.db.create_same_cat_suggestion(
-                next(iter(context.photo_ids)),
+            result = context.db.create_same_cat_suggestion(
+                photo_id,
                 int(candidate["id"]),
                 "weak",
                 [{
@@ -236,14 +235,10 @@ with tempfile.TemporaryDirectory() as directory:
                 }],
                 "Human comparison required",
             )
-            return AgentSummary(
-                summary="Recorded a Laundromat sighting; a weak Mango match needs review.",
-                colony_ids=["laundromat"],
-                needs_review=True,
-            )
+            return result
 
         web.describe_photo = fake_describe_photo
-        web.process_report = fake_process_report
+        web.match_report_photo = fake_match_report_photo
         try:
             photo_file = io.BytesIO()
             Image.new("RGB", (64, 64), (112, 74, 48)).save(photo_file, format="JPEG")
@@ -264,12 +259,15 @@ with tempfile.TemporaryDirectory() as directory:
             )
         finally:
             web.describe_photo = original_describe_photo
-            web.process_report = original_process_report
+            web.match_report_photo = original_match_report_photo
         assert photo_report.status_code == 200, photo_report.text
         photo_result = photo_report.json()
         assert photo_result["new_cat_count"] == 0
         assert photo_result["match_suggestions"][0]["candidate"] == "Mango"
         assert photo_result["match_suggestions"][0]["strength"] == "weak"
+        assert photo_result["summary"] == (
+            "Recorded a Laundromat sighting; a weak Mango match needs review."
+        )
         assert abs(photo_result["api_cost_usd"] - 0.01) < 0.000001, photo_result
         assert abs(photo_result["api_spend_today_usd"] - 0.01) < 0.000001
         web._load_state(web.app)
@@ -328,6 +326,7 @@ with tempfile.TemporaryDirectory() as directory:
         assert index.text.count("?v=0123456789ab") == 7
         assert "/static/favicon.svg?v=0123456789ab" in index.text
         assert 'id="locale-select"' in index.text
+        assert 'id="actor-label"' in index.text
         assert client.get("/static/ui_text.js").status_code == 200
         assert "¿Es el mismo gato?" in client.get("/static/ui_text.js").text
 

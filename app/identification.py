@@ -222,7 +222,7 @@ def describe_photo(
         "hidden details as unclear. Apparent health must contain only visible signs, never a diagnosis. "
         "cat_count must equal the number of entries in cats."
     )
-    api = client or OpenAI()
+    api = client or OpenAI(timeout=60.0, max_retries=0)
     response = api.responses.parse(
         model=selected_model,
         reasoning={"effort": "none"},
@@ -439,7 +439,7 @@ def match_cat(
                 ]
             )
 
-    api = client or OpenAI()
+    api = client or OpenAI(timeout=60.0, max_retries=0)
     response = api.responses.parse(
         model=selected_model,
         reasoning={"effort": "none"},
