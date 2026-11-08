@@ -3,15 +3,15 @@
   const C = window.CCW;
   const { T, app, state, api, refresh, escapeHTML, fill, photoURL, viewHeader, emptyState, actorId, showToast, registerTab } = C;
 
-  const featureLabels = {
-    body_markings: T.featureBodyMarkings,
-    coat_color: T.featureCoatColor,
-    ear_shape_or_damage: T.featureEarShape,
-    ear_tip: T.featureEarTip,
-    eye_color: T.featureEyeColor,
-    face_markings: T.featureFaceMarkings,
-    pattern: T.featurePattern,
-    tail: T.featureTail,
+  const featureLabelKeys = {
+    body_markings: "featureBodyMarkings",
+    coat_color: "featureCoatColor",
+    ear_shape_or_damage: "featureEarShape",
+    ear_tip: "featureEarTip",
+    eye_color: "featureEyeColor",
+    face_markings: "featureFaceMarkings",
+    pattern: "featurePattern",
+    tail: "featureTail",
   };
 
   function evidenceFor(suggestion) {
@@ -24,7 +24,7 @@
     ])];
     const differences = [...new Set([
       ...(verdict.contradictions || []).map((item) => String(item).trim()).filter(Boolean),
-      ...Object.entries(features).filter(([, value]) => value === "different").map(([key]) => fill(T.featureDiffers, { feature: featureLabels[key] || key })),
+      ...Object.entries(features).filter(([, value]) => value === "different").map(([key]) => fill(T.featureDiffers, { feature: T[featureLabelKeys[key]] || key })),
     ])];
     return { matches, differences };
   }

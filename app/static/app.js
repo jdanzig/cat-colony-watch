@@ -2,6 +2,7 @@
   "use strict";
 
   const T = window.UI_TEXT;
+  const I18N = window.UI_I18N;
   const app = document.getElementById("app");
   const nav = document.getElementById("bottom-nav");
   const dialog = document.getElementById("detail-dialog");
@@ -19,10 +20,14 @@
   const photoURL = (id) => id ? `/api/photos/${id}` : "";
   const actorId = () => actorSelect.value;
   const actor = () => state.data.volunteers.find((item) => item.id === actorId());
-  const eventLabels = {
-    fed: T.eventFed, sighting: T.eventSighting, tnr_done: T.eventTnrDone,
-    health: T.eventHealth, kittens: T.eventKittens, need: T.eventNeed, status: T.eventStatus,
-  };
+  const eventLabels = {};
+
+  function updateEventLabels() {
+    Object.assign(eventLabels, {
+      fed: T.eventFed, sighting: T.eventSighting, tnr_done: T.eventTnrDone,
+      health: T.eventHealth, kittens: T.eventKittens, need: T.eventNeed, status: T.eventStatus,
+    });
+  }
 
   function timeAgo(value) {
     if (!value) return T.neverFed;
@@ -38,7 +43,8 @@
     const days = Math.round(hours / 24);
     if (days === 1) return T.dayAgo;
     if (days < 14) return fill(T.daysAgo, { count: days });
-    return fill(T.onDate, { date: date.toLocaleDateString(undefined, { month: "short", day: "numeric" }) });
+    const dateLocale = I18N.locale === "es" ? "es-US" : I18N.locale === "ht" ? "ht-HT" : "en-US";
+    return fill(T.onDate, { date: date.toLocaleDateString(dateLocale, { month: "short", day: "numeric" }) });
   }
 
   async function api(path, options = {}) {
@@ -191,6 +197,7 @@
   }
 
   function localizeShell() {
+    updateEventLabels();
     document.title = T.pageTitle;
     document.getElementById("brand-name").textContent = T.appName;
     document.getElementById("brand-tagline").textContent = T.appTagline;
@@ -200,6 +207,7 @@
     nav.setAttribute("aria-label", T.appName);
     [T.tabToday, T.tabColonies, T.tabConfirm, T.tabReport].forEach((label, index) => { nav.querySelectorAll("button b")[index].textContent = label; });
     document.getElementById("dialog-close").setAttribute("aria-label", T.close);
+    I18N.localizeControl(document.getElementById("locale-select"));
   }
 
   window.CCW = {
@@ -245,6 +253,13 @@
   dialogContent.addEventListener("click", (event) => {
     const copy = event.target.closest("#copy-sponsor-link");
     if (copy) copySponsorLink(copy);
+  });
+
+  I18N.bindControl(document.getElementById("locale-select"));
+  window.addEventListener("ccw:localechange", () => {
+    if (dialog.open) dialog.close();
+    localizeShell();
+    render();
   });
 
   localizeShell();

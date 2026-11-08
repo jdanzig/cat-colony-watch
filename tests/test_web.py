@@ -32,6 +32,11 @@ with tempfile.TemporaryDirectory() as directory:
     with TestClient(web.app) as client:
         assert client.get("/api/bootstrap").status_code == 401
         assert client.get("/api/sponsor-link").status_code == 401
+        signin_page = client.get("/signin")
+        assert signin_page.status_code == 200
+        assert "__DEPLOY_REVISION__" not in signin_page.text
+        assert signin_page.text.count("?v=0123456789ab") == 4
+        assert 'id="locale-select"' in signin_page.text
         assert client.get("/report/not-the-token").status_code == 404
         sponsor_report = client.get("/report/test-sponsor-link")
         assert sponsor_report.status_code == 200
@@ -43,6 +48,7 @@ with tempfile.TemporaryDirectory() as directory:
         assert "<img" not in sponsor_report.text
         assert "/api/" not in sponsor_report.text
         assert "305-555" not in sponsor_report.text
+        assert 'id="locale-select"' in sponsor_report.text
         for private_value in ("Marta", "Beatriz", "Mango", "Laundromat", "25.", "-80."):
             assert private_value not in sponsor_report.text
 
@@ -169,7 +175,9 @@ with tempfile.TemporaryDirectory() as directory:
         assert "__DEPLOY_REVISION__" not in index.text
         assert index.text.count("?v=0123456789ab") == 7
         assert "/static/favicon.svg?v=0123456789ab" in index.text
+        assert 'id="locale-select"' in index.text
         assert client.get("/static/ui_text.js").status_code == 200
+        assert "¿Es el mismo gato?" in client.get("/static/ui_text.js").text
 
         confirm_js = client.get("/static/confirm.js").text
         assert "T.featureMatches" not in confirm_js

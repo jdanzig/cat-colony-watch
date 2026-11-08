@@ -35,6 +35,7 @@ from app.rules import apply_named_cat_facts, rebuild_alerts
 
 DATA_DIR = Path("data/demo")
 STATIC_DIR = Path(__file__).parent / "static"
+SIGNIN_TEMPLATE = STATIC_DIR / "signin.html"
 SPONSOR_TEMPLATE = Path(__file__).parent / "sponsor.html"
 DB_PATH = Path(os.getenv("CCW_DB_PATH", "/tmp/cat_colony_watch.db"))
 LOCAL_LOG_PATH = Path(os.getenv("CCW_LOCAL_CHANGE_LOG", "data/local_changes.json"))
@@ -49,6 +50,12 @@ def _deploy_revision() -> str:
 
 def _index_html() -> str:
     return (STATIC_DIR / "index.html").read_text().replace(
+        "__DEPLOY_REVISION__", _deploy_revision()
+    )
+
+
+def _signin_html() -> str:
+    return SIGNIN_TEMPLATE.read_text().replace(
         "__DEPLOY_REVISION__", _deploy_revision()
     )
 
@@ -302,7 +309,7 @@ def healthz(request: Request):
 
 @app.get("/signin")
 def signin_page():
-    return FileResponse(STATIC_DIR / "signin.html")
+    return HTMLResponse(_signin_html())
 
 
 @app.post("/signin")

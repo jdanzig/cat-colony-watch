@@ -15,7 +15,8 @@ The demo is for Mangrove Mews, a made-up Miami rescue caring for 18 colonies. It
 1. Open the [live app](https://cat-colony-watch.onrender.com) on a phone or laptop. A free Render service may take up to a minute to wake up.
 2. Enter the team passcode Beatriz shared with you. Do not post this passcode publicly.
 3. Choose your name under **Working as**. The app remembers it on that phone.
-4. Use the four tabs at the bottom:
+4. Use the language menu to choose English, Español or Kreyòl. The choice carries across sign-in, the app and sponsor reports.
+5. Use the four tabs at the bottom:
    - **Today** puts urgent needs first. Tap **Done** after the team handles one.
    - **Colonies** shows all 18 colonies on a map and in a list. Tap a colony for its cat count, fixed count, TNR list, vet needs, latest feeding, feeders and cat profiles.
    - **Confirm** puts two photos side by side. Read the matching and differing markings, then choose **Same**, **Different** or **New cat**. Strong suggestions can be confirmed together, but the app never merges cats by itself.

@@ -61,8 +61,12 @@ img { display: block; max-width: 100%; }
 .brand-mark svg { width: 32px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .brand strong { display: block; font: 800 clamp(18px, 4vw, 23px)/1 "Fraunces", serif; letter-spacing: -.03em; white-space: nowrap; }
 .brand small { display: none; color: var(--ink-soft); font-size: 13px; }
-.actor-control { max-width: 145px; display: grid; gap: 1px; color: var(--ink-soft); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; }
-.actor-control select { width: 100%; min-height: 38px; padding: 4px 28px 4px 8px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper-light); color: var(--ink); font-size: 14px; font-weight: 700; text-transform: none; letter-spacing: 0; }
+.actor-control { width: 145px; max-width: 42vw; display: grid; gap: 2px; color: var(--ink-soft); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; }
+.actor-meta { min-height: 24px; display: flex; align-items: center; justify-content: space-between; gap: 4px; }
+.actor-meta label { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.actor-control > select { width: 100%; min-height: 38px; padding: 4px 28px 4px 8px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper-light); color: var(--ink); font-size: 14px; font-weight: 700; text-transform: none; letter-spacing: 0; }
+.locale-select { width: 54px; min-height: 28px; padding: 3px 16px 3px 7px; border: 1px solid rgba(23,63,53,.24); border-radius: 99px; background-color: rgba(255,253,247,.86); color: var(--forest); font-size: 11px; font-weight: 700; line-height: 1; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; }
+.locale-select:hover, .locale-select:focus-visible { border-color: var(--forest); background-color: white; box-shadow: 0 0 0 3px rgba(39,103,86,.13); outline: none; }
 
 #app { width: min(1120px, 100%); margin: 0 auto; padding: 28px 18px calc(104px + var(--safe-bottom)); outline: none; }
 .loading-state { min-height: 60vh; display: grid; place-content: center; justify-items: center; text-align: center; color: var(--ink-soft); }
@@ -241,7 +245,8 @@ h1, h2, h3 { font-family: "Fraunces", serif; letter-spacing: -.035em; }
 .toast.visible { opacity: 1; transform: translate(-50%, 0); }
 
 .signin-page { display: grid; min-height: 100vh; place-items: center; padding: 20px; background: var(--forest); }
-.signin-card { overflow: hidden; width: min(920px, 100%); border-radius: 28px; background: var(--paper-light); box-shadow: 0 30px 100px rgba(0,0,0,.28); }
+.signin-card { position: relative; overflow: hidden; width: min(920px, 100%); border-radius: 28px; background: var(--paper-light); box-shadow: 0 30px 100px rgba(0,0,0,.28); }
+.page-locale-select { position: absolute; z-index: 2; top: 14px; right: 14px; width: 58px; min-height: 36px; background-color: var(--paper-light); }
 .signin-art { position: relative; overflow: hidden; min-height: 230px; background: #e8b84d; }
 .signin-art svg { position: absolute; inset: auto 0 0; width: 100%; fill: var(--forest); }
 .signin-art .cat-line { fill: none; stroke: var(--paper-light); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
@@ -256,6 +261,7 @@ h1, h2, h3 { font-family: "Fraunces", serif; letter-spacing: -.035em; }
 
 .sponsor-page { min-height: 100vh; padding: max(28px, env(safe-area-inset-top)) 18px max(34px, env(safe-area-inset-bottom)); }
 .sponsor-shell { width: min(920px, 100%); margin: 0 auto; }
+.sponsor-locale-select { display: block; width: 58px; min-height: 36px; margin: 0 0 10px auto; }
 .sponsor-head { position: relative; overflow: hidden; padding: clamp(26px, 7vw, 54px); border-radius: 28px; background: var(--forest); color: white; box-shadow: var(--shadow); }
 .sponsor-head::after { content: ""; position: absolute; width: 210px; height: 210px; right: -70px; bottom: -100px; border-radius: 50%; background: var(--gold); opacity: .9; }
 .sponsor-mark { width: 54px; height: 54px; margin-bottom: 32px; display: grid; place-items: center; border-radius: 18px; background: var(--paper-light); color: var(--forest); transform: rotate(-3deg); }
@@ -297,7 +303,7 @@ h1, h2, h3 { font-family: "Fraunces", serif; letter-spacing: -.035em; }
   .brand-mark svg { width: 29px; }
   .brand strong { font-size: 17px; }
   .actor-control { max-width: 136px; }
-  .actor-control select { font-size: 13px; }
+  .actor-control > select { font-size: 13px; }
   .admin-tools { align-items: stretch; flex-direction: column; }
   .admin-tools .ghost-button { width: 100%; }
 }
