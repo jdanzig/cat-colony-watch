@@ -202,7 +202,8 @@
     document.getElementById("brand-name").textContent = T.appName;
     document.getElementById("brand-tagline").textContent = T.appTagline;
     document.querySelector(".brand").setAttribute("aria-label", T.appName);
-    document.getElementById("actor-label").textContent = T.actingAs;
+    document.getElementById("language-label").textContent = T.language;
+    actorSelect.setAttribute("aria-label", T.actingAs);
     document.getElementById("loading-copy").textContent = T.loading;
     nav.setAttribute("aria-label", T.appName);
     [T.tabToday, T.tabColonies, T.tabConfirm, T.tabReport].forEach((label, index) => { nav.querySelectorAll("button b")[index].textContent = label; });

@@ -63,7 +63,7 @@ img { display: block; max-width: 100%; }
 .brand small { display: none; color: var(--ink-soft); font-size: 13px; }
 .actor-control { width: 145px; max-width: 42vw; display: grid; gap: 2px; color: var(--ink-soft); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; }
 .actor-meta { min-height: 24px; display: flex; align-items: center; justify-content: space-between; gap: 4px; }
-.actor-meta label { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.actor-meta > label { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .actor-control > select { width: 100%; min-height: 38px; padding: 4px 28px 4px 8px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper-light); color: var(--ink); font-size: 14px; font-weight: 700; text-transform: none; letter-spacing: 0; }
 .locale-select { width: 54px; min-height: 28px; padding: 3px 16px 3px 7px; border: 1px solid rgba(23,63,53,.24); border-radius: 99px; background-color: rgba(255,253,247,.86); color: var(--forest); font-size: 11px; font-weight: 700; line-height: 1; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; }
 .locale-select:hover, .locale-select:focus-visible { border-color: var(--forest); background-color: white; box-shadow: 0 0 0 3px rgba(39,103,86,.13); outline: none; }
