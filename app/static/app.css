@@ -220,12 +220,14 @@ h1, h2, h3 { font-family: "Fraunces", serif; letter-spacing: -.035em; }
 .choice-button.warn { border-color: #d79a7f; color: #812e11; }
 
 .report-kinds { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; margin-bottom: 20px; }
-.report-kind { min-height: 92px; padding: 10px 7px; border: 1px solid var(--line); border-radius: 17px; background: var(--paper-light); cursor: pointer; }
+.report-kind { min-height: 92px; padding: 10px 7px; border: 1px solid var(--line); border-radius: 17px; background: var(--paper-light); cursor: pointer; transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease; }
 .report-kind span { display: block; margin-bottom: 4px; font-size: 28px; }
 .report-kind b { display: block; }
 .report-kind.active { border-color: var(--forest); background: var(--forest); color: white; }
 .report-help { margin: -8px 0 18px; color: var(--ink-soft); }
 .report-form { display: grid; gap: 16px; }
+.report-photo-fields { display: grid; gap: 16px; }
+.report-photo-fields[hidden] { display: none; }
 .field { display: grid; gap: 7px; font-weight: 700; }
 .field input, .field select, .field textarea { width: 100%; min-height: 54px; padding: 12px 14px; border: 1px solid #bcb5a8; border-radius: 14px; background: var(--paper-light); color: var(--ink); }
 .field textarea { min-height: 112px; resize: vertical; }
@@ -235,6 +237,7 @@ h1, h2, h3 { font-family: "Fraunces", serif; letter-spacing: -.035em; }
 .photo-input span { font-size: 31px; }
 .photo-input b { display: block; margin-top: 5px; }
 .photo-preview { max-height: 260px; margin-top: 8px; border-radius: 15px; object-fit: cover; }
+.photo-preview[hidden] { display: none; }
 .location-row { display: flex; align-items: center; gap: 10px; }
 .location-status { color: var(--ink-soft); font-size: 14px; }
 .report-result { padding: 18px; border-radius: 18px; background: #dfe9df; }
