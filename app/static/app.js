@@ -159,7 +159,7 @@
         <div class="alert-body"><div class="alert-meta"><span class="severity ${escapeHTML(alert.severity)}">${T[alert.severity] || alert.severity}</span><span>${alert.colony_id ? escapeHTML(alert.colony) : T.allColonies}</span></div>
           <h2>${alertText(alert)}</h2><button type="button" class="small-button" data-alert-done="${alert.id}">${T.done}</button></div>
       </article>`).join("");
-    const sponsorShare = actor()?.role === "admin" ? `<aside class="admin-tools"><div><p class="eyebrow">${T.adminTools}</p><strong>${T.sponsorSharePrompt}</strong></div><button type="button" class="ghost-button" id="share-sponsor-report">${T.shareSponsorReport}</button></aside>` : "";
+    const sponsorShare = actor()?.role === "admin" ? `<aside class="admin-tools"><div><p class="eyebrow">${T.adminTools}</p><strong>${T.sponsorSharePrompt}</strong></div><div class="admin-actions"><button type="button" class="ghost-button" id="share-sponsor-report">${T.shareSponsorReport}</button><button type="button" class="ghost-button danger-button" id="reset-demo">${T.resetDemo}</button></div></aside>` : "";
     app.innerHTML = `<section class="view">${viewHeader(T.todayEyebrow, T.todayTitle, T.todaySubtitle)}${sponsorShare}${cards ? `<div class="alert-grid">${cards}</div>` : emptyState("✓", T.allClearTitle, T.allClearBody)}</section>`;
   }
 
@@ -204,6 +204,38 @@
     }
     button.textContent = T.copied;
     showToast(T.linkCopied);
+  }
+
+  function openResetDemo() {
+    dialogContent.innerHTML = `<header class="detail-head"><p class="eyebrow">${T.adminTools}</p><h1>${T.resetDemoTitle}</h1><p>${T.resetDemoBody}</p></header>
+      <form class="share-report-form" id="reset-demo-form">
+        <label class="field"><span>${T.adminPasscode}</span><input id="reset-admin-passcode" type="password" autocomplete="current-password" required></label>
+        <p class="form-error" id="reset-demo-error" hidden></p>
+        <button type="submit" class="primary-button danger-button">${T.resetDemoConfirm}</button>
+      </form>`;
+    openDialog();
+    document.getElementById("reset-admin-passcode").focus();
+  }
+
+  async function resetDemo(form) {
+    const button = form.querySelector("button[type=submit]");
+    const error = document.getElementById("reset-demo-error");
+    button.disabled = true;
+    error.hidden = true;
+    try {
+      await api("/api/admin/reset", {
+        method: "POST",
+        headers: { "X-Admin-Passcode": document.getElementById("reset-admin-passcode").value },
+      });
+      dialog.close();
+      await refresh();
+      render();
+      showToast(T.resetDemoComplete);
+    } catch (requestError) {
+      button.disabled = false;
+      error.textContent = T.adminPasscodeError;
+      error.hidden = false;
+    }
   }
 
   async function resolveAlert(id, button) {
@@ -266,11 +298,18 @@
     if (alert) resolveAlert(alert.dataset.alertDone, alert);
     const share = event.target.closest("#share-sponsor-report");
     if (share) openSponsorShare();
+    const reset = event.target.closest("#reset-demo");
+    if (reset) openResetDemo();
   });
   dialogContent.addEventListener("submit", (event) => {
-    if (!event.target.matches("#share-report-form")) return;
-    event.preventDefault();
-    revealSponsorLink(event.target);
+    if (event.target.matches("#share-report-form")) {
+      event.preventDefault();
+      revealSponsorLink(event.target);
+    }
+    if (event.target.matches("#reset-demo-form")) {
+      event.preventDefault();
+      resetDemo(event.target);
+    }
   });
   dialogContent.addEventListener("click", (event) => {
     const copy = event.target.closest("#copy-sponsor-link");

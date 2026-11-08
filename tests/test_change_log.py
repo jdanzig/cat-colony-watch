@@ -29,6 +29,8 @@ with tempfile.TemporaryDirectory() as directory:
     assert ChangeLog(url="", token="", local_path=path).load() == [change]
     log.store_photo("abc123", b"photo bytes")
     assert log.load_photo("abc123") == b"photo bytes"
+    assert log.add_api_spend("2026-11-07", 0.0123) == 0.0123
+    assert log.api_spend("2026-11-07") == 0.0123
 
     db = Database()
     db.connection.execute(
@@ -49,5 +51,7 @@ with tempfile.TemporaryDirectory() as directory:
 
     log.clear()
     assert log.load() == []
+    assert not (path.parent / "live_photos" / "abc123.jpg").exists()
+    assert log.api_spend("2026-11-07") == 0.0123
 
 print("change-log persistence and replay checks passed")

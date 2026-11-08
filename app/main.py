@@ -9,6 +9,8 @@ import hmac
 import io
 import json
 import os
+import shutil
+import threading
 import uuid
 from contextlib import asynccontextmanager
 from copy import deepcopy
@@ -16,6 +18,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Literal
 from urllib.parse import parse_qs
+from zoneinfo import ZoneInfo
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, Header, HTTPException, Request
@@ -24,7 +27,7 @@ from fastapi.staticfiles import StaticFiles
 from PIL import Image, ImageOps
 from pydantic import BaseModel, Field
 
-from app.ai_cache import AICache
+from app.ai_cache import AICache, BudgetExceeded
 from app.change_log import ChangeLog
 from app.database import Database
 from app.identification import describe_photo
@@ -40,8 +43,13 @@ SPONSOR_TEMPLATE = Path(__file__).parent / "sponsor.html"
 DB_PATH = Path(os.getenv("CCW_DB_PATH", "/tmp/cat_colony_watch.db"))
 LOCAL_LOG_PATH = Path(os.getenv("CCW_LOCAL_CHANGE_LOG", "data/local_changes.json"))
 LIVE_PHOTO_DIR = Path(os.getenv("CCW_LIVE_PHOTO_DIR", "/tmp/ccw_live_photos"))
+RUNTIME_CACHE_PATH = Path(
+    os.getenv("CCW_AI_CACHE_PATH", "/tmp/cat_colony_watch_ai_cache.json")
+)
 COOKIE_NAME = "ccw_session"
 MAX_UPLOAD_BYTES = 12 * 1024 * 1024
+DAILY_API_LIMIT_USD = 3.0
+MIAMI_TIME = ZoneInfo("America/New_York")
 
 
 def _deploy_revision() -> str:
@@ -103,8 +111,8 @@ class LiveReport(BaseModel):
     colony_id: str
     volunteer_id: str
     note: str = Field(default="", max_length=2000)
-    lat: float | None = None
-    lng: float | None = None
+    lat: float | None = Field(default=None, ge=-90, le=90)
+    lng: float | None = Field(default=None, ge=-180, le=180)
     photo_data_url: str
 
 
@@ -116,7 +124,33 @@ def _session_token() -> str:
 
 
 def _build_database() -> tuple[Database, AICache]:
-    return import_demo(DATA_DIR, DB_PATH, allow_api=False)
+    RUNTIME_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(DATA_DIR / "ai_cache.json", RUNTIME_CACHE_PATH)
+    return import_demo(
+        DATA_DIR,
+        DB_PATH,
+        cache_path=RUNTIME_CACHE_PATH,
+        allow_api=False,
+    )
+
+
+def _api_spend_today(changes: list[dict], now: datetime | None = None) -> float:
+    today = (now or datetime.now(timezone.utc)).astimezone(MIAMI_TIME).date()
+    total = 0.0
+    for change in changes:
+        if change.get("type") != "live_report":
+            continue
+        try:
+            created = datetime.fromisoformat(change["created_at"]).astimezone(MIAMI_TIME)
+        except (KeyError, TypeError, ValueError):
+            continue
+        if created.date() == today:
+            total += float(change.get("data", {}).get("api_cost_usd", 0.0) or 0.0)
+    return round(total, 8)
+
+
+def _api_day(now: datetime | None = None) -> str:
+    return (now or datetime.now(timezone.utc)).astimezone(MIAMI_TIME).date().isoformat()
 
 
 def _volunteer_name(db: Database, volunteer_id: str) -> str:
@@ -262,6 +296,13 @@ def _load_state(app: FastAPI) -> None:
     app.state.agent = build_agent(cache.model)
     app.state.change_log = change_log
     app.state.change_count = len(changes)
+    derived_spend = _api_spend_today(changes)
+    recorded_spend = change_log.api_spend(_api_day())
+    if derived_spend > recorded_spend:
+        recorded_spend = change_log.add_api_spend(
+            _api_day(), derived_spend - recorded_spend
+        )
+    app.state.api_spend_today_usd = round(max(derived_spend, recorded_spend), 8)
 
 
 @asynccontextmanager
@@ -270,6 +311,7 @@ async def lifespan(app: FastAPI):
     for key in ("OPENAI_MODEL", "TEAM_PASSCODE", "ADMIN_PASSCODE"):
         if not os.getenv(key):
             raise RuntimeError(f"{key} is required")
+    app.state.mutation_lock = threading.RLock()
     _load_state(app)
     yield
     app.state.db.close()
@@ -295,6 +337,23 @@ async def require_team_passcode(request: Request, call_next):
     if path.startswith("/api/"):
         return JSONResponse({"detail": "team sign-in required"}, status_code=401)
     return RedirectResponse("/signin", status_code=303)
+
+
+@app.middleware("http")
+async def private_response_headers(request: Request, call_next):
+    response = await call_next(request)
+    response.headers.setdefault("X-Content-Type-Options", "nosniff")
+    response.headers.setdefault("X-Frame-Options", "DENY")
+    response.headers.setdefault("Referrer-Policy", "same-origin")
+    response.headers.setdefault(
+        "Permissions-Policy", "camera=(self), geolocation=(self), microphone=()"
+    )
+    if not request.url.path.startswith("/static/"):
+        response.headers.setdefault("Cache-Control", "private, no-store")
+    forwarded_proto = request.headers.get("x-forwarded-proto", "").split(",", 1)[0]
+    if request.url.scheme == "https" or forwarded_proto == "https" or os.getenv("RENDER"):
+        response.headers.setdefault("Strict-Transport-Security", "max-age=31536000")
+    return response
 
 
 @app.get("/healthz")
@@ -324,7 +383,11 @@ async def signin(request: Request):
         _session_token(),
         max_age=60 * 60 * 24 * 180,
         httponly=True,
-        secure=request.url.scheme == "https",
+        secure=(
+            request.url.scheme == "https"
+            or request.headers.get("x-forwarded-proto", "").split(",", 1)[0] == "https"
+            or bool(os.getenv("RENDER"))
+        ),
         samesite="lax",
     )
     return response
@@ -458,23 +521,26 @@ def storage(request: Request):
     return {
         "mode": request.app.state.change_log.mode,
         "changes": request.app.state.change_count,
+        "api_spend_today_usd": request.app.state.api_spend_today_usd,
+        "api_daily_limit_usd": DAILY_API_LIMIT_USD,
     }
 
 
 def _append_and_apply(request: Request, change: dict) -> dict:
-    try:
-        result = _apply_change(
-            request.app.state.db,
-            request.app.state.cache,
-            request.app.state.change_log,
-            change,
-        )
-        request.app.state.change_log.append(change)
-    except (ValueError, RuntimeError) as error:
-        _load_state(request.app)
-        raise HTTPException(status_code=400, detail=str(error)) from error
-    request.app.state.change_count += 1
-    return result
+    with request.app.state.mutation_lock:
+        try:
+            result = _apply_change(
+                request.app.state.db,
+                request.app.state.cache,
+                request.app.state.change_log,
+                change,
+            )
+            request.app.state.change_log.append(change)
+        except (ValueError, RuntimeError) as error:
+            _load_state(request.app)
+            raise HTTPException(status_code=400, detail=str(error)) from error
+        request.app.state.change_count += 1
+        return result
 
 
 @app.post("/api/reports/fed")
@@ -545,10 +611,70 @@ def _decode_and_resize_photo(data_url: str) -> tuple[bytes, str]:
     return content, hashlib.sha256(content).hexdigest()
 
 
+def _photo_report_outcomes(db: Database, photo_ids: list[int]) -> dict:
+    placeholders = ",".join("?" for _ in photo_ids)
+    matches = db.connection.execute(
+        f"""
+        SELECT s.photo_id, s.candidate_cat_id, s.strength,
+               COALESCE(c.reported_name, c.display_name) AS candidate
+        FROM suggestions s JOIN cats c ON c.id = s.candidate_cat_id
+        WHERE s.kind = 'same_cat' AND s.decided IS NULL
+          AND s.photo_id IN ({placeholders})
+        ORDER BY s.photo_id
+        """,
+        photo_ids,
+    ).fetchall()
+    new_cats = db.connection.execute(
+        f"""
+        SELECT COUNT(DISTINCT p.cat_id)
+        FROM photos p
+        WHERE p.id IN ({placeholders}) AND p.cat_id IS NOT NULL
+        """,
+        photo_ids,
+    ).fetchone()[0]
+    return {
+        "match_suggestions": [dict(row) for row in matches],
+        "new_cat_count": int(new_cats),
+    }
+
+
 @app.post("/api/reports/photo")
 def add_photo_report(report: LiveReport, request: Request):
+    with request.app.state.mutation_lock:
+        spend_before = request.app.state.cache.spend
+        request.state.photo_change_appended = False
+        try:
+            return _add_photo_report_locked(report, request)
+        except BudgetExceeded as error:
+            if not request.state.photo_change_appended:
+                _record_failed_api_spend(request, spend_before)
+            _load_state(request.app)
+            raise HTTPException(status_code=429, detail=str(error)) from error
+        except HTTPException:
+            raise
+        except Exception:
+            if not request.state.photo_change_appended:
+                _record_failed_api_spend(request, spend_before)
+            _load_state(request.app)
+            raise
+
+
+def _record_failed_api_spend(request: Request, spend_before: float) -> None:
+    spent = round(max(0.0, request.app.state.cache.spend - spend_before), 8)
+    if spent:
+        request.app.state.change_log.add_api_spend(_api_day(), spent)
+
+
+def _add_photo_report_locked(report: LiveReport, request: Request):
     db: Database = request.app.state.db
     cache: AICache = request.app.state.cache
+    remaining_budget = DAILY_API_LIMIT_USD - request.app.state.api_spend_today_usd
+    if remaining_budget <= 0.10:
+        raise BudgetExceeded(
+            f"Today's ${DAILY_API_LIMIT_USD:.2f} OpenAI limit has been reached"
+        )
+    cache.max_spend_usd = cache.spend + remaining_budget
+    spend_before = cache.spend
     try:
         db._require_colony(report.colony_id)
         volunteer_name = _volunteer_name(db, report.volunteer_id)
@@ -627,49 +753,56 @@ def add_photo_report(report: LiveReport, request: Request):
         "location": {"lat": report.lat, "lng": report.lng},
         "photos": photo_inputs,
     }
-    try:
-        summary = process_report(request.app.state.agent, context, report_input)
-        apply_named_cat_facts(db, report_id)
-        db.create_possible_duplicate_suggestions()
-        rebuild_alerts(db, at)
-        cache_entries = {
-            section: {
-                key: cache.data[section][key]
-                for key in set(cache.data.get(section, {})) - before[section]
-            }
-            for section in before
+    summary = process_report(request.app.state.agent, context, report_input)
+    apply_named_cat_facts(db, report_id)
+    db.create_possible_duplicate_suggestions()
+    rebuild_alerts(db, at)
+    api_cost_usd = round(cache.spend - spend_before, 8)
+    outcomes = _photo_report_outcomes(db, photo_ids)
+    cache_entries = {
+        section: {
+            key: cache.data[section][key]
+            for key in set(cache.data.get(section, {})) - before[section]
         }
-        change = {
-            "id": str(uuid.uuid4()),
-            "type": "live_report",
-            "created_at": at,
-            "data": {
-                "kind": report.kind,
-                "colony_id": report.colony_id,
-                "volunteer_id": report.volunteer_id,
-                "text": text,
-                "lat": report.lat,
-                "lng": report.lng,
-                "at": at,
-                "photo_hash": digest,
-                "descriptions": descriptions,
-                "original_photo_ids": photo_ids,
-                "mutations": context.mutations,
-                "summary": summary.summary,
-                "cache_entries": cache_entries,
-            },
-        }
-        request.app.state.change_log.append(change)
-    except Exception:
-        _load_state(request.app)
-        raise
+        for section in before
+    }
+    change = {
+        "id": str(uuid.uuid4()),
+        "type": "live_report",
+        "created_at": at,
+        "data": {
+            "kind": report.kind,
+            "colony_id": report.colony_id,
+            "volunteer_id": report.volunteer_id,
+            "text": text,
+            "lat": report.lat,
+            "lng": report.lng,
+            "at": at,
+            "photo_hash": digest,
+            "descriptions": descriptions,
+            "original_photo_ids": photo_ids,
+            "mutations": context.mutations,
+            "summary": summary.summary,
+            "api_cost_usd": api_cost_usd,
+            "cache_entries": cache_entries,
+        },
+    }
+    request.app.state.change_log.append(change)
+    request.state.photo_change_appended = True
+    recorded_spend = request.app.state.change_log.add_api_spend(
+        _api_day(), api_cost_usd
+    )
     request.app.state.change_count += 1
+    request.app.state.api_spend_today_usd = round(recorded_spend, 8)
     return {
         "ok": True,
         "report_id": report_id,
         "summary": summary.summary,
         "needs_review": summary.needs_review,
         "colony_ids": summary.colony_ids,
+        "api_cost_usd": api_cost_usd,
+        "api_spend_today_usd": request.app.state.api_spend_today_usd,
+        **outcomes,
     }
 
 
@@ -677,6 +810,11 @@ def add_photo_report(report: LiveReport, request: Request):
 def reset_demo(request: Request, x_admin_passcode: str | None = Header(default=None)):
     if not hmac.compare_digest(x_admin_passcode or "", os.getenv("ADMIN_PASSCODE", "")):
         raise HTTPException(status_code=403, detail="admin passcode required")
-    request.app.state.change_log.clear()
-    _load_state(request.app)
-    return {"ok": True, "changes": 0}
+    with request.app.state.mutation_lock:
+        request.app.state.change_log.clear()
+        _load_state(request.app)
+        return {
+            "ok": True,
+            "changes": 0,
+            "api_spend_today_usd": request.app.state.api_spend_today_usd,
+        }

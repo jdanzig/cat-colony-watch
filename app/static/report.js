@@ -59,6 +59,22 @@
     });
   }
 
+  function reportDetails(result) {
+    const details = (result.match_suggestions || []).map((match) => {
+      const strength = match.strength === "strong" ? T.strongMatch : T.weakMatch;
+      return `${fill(T.suggestedMatch, { cat: escapeHTML(match.candidate), strength })} ${T.matchNeedsConfirmation}`;
+    });
+    if (result.new_cat_count) {
+      details.push(fill(result.new_cat_count === 1 ? T.newCatRecorded : T.newCatsRecorded, { count: result.new_cat_count }));
+    }
+    if (Number.isFinite(result.api_cost_usd)) {
+      const numberLocale = I18N.locale === "es" ? "es-US" : I18N.locale === "ht" ? "ht-HT" : "en-US";
+      const cost = new Intl.NumberFormat(numberLocale, { style: "currency", currency: "USD", minimumFractionDigits: 4, maximumFractionDigits: 6 }).format(result.api_cost_usd);
+      details.push(fill(T.reportApiCost, { cost }));
+    }
+    return details.length ? `<ul>${details.map((detail) => `<li>${detail}</li>`).join("")}</ul>` : "";
+  }
+
   async function submitReport(form) {
     const colonyId = document.getElementById("report-colony").value;
     if (!colonyId) return showToast(T.chooseColonyError);
@@ -88,7 +104,7 @@
           result.summary = `${fill(T.photoReportRecorded, { colony: colony.name })} ${result.needs_review ? T.photoReportNeedsReview : T.photoReportNoReview}`;
         }
       }
-      document.getElementById("report-result").innerHTML = `<section class="report-result"><h2>${T.reportRecorded}</h2><p>${escapeHTML(result.summary)}</p></section>`;
+      document.getElementById("report-result").innerHTML = `<section class="report-result"><h2>${T.reportRecorded}</h2><p>${escapeHTML(result.summary)}</p>${reportDetails(result)}</section>`;
       form.reset();
       state.location = null;
       document.getElementById("location-status").textContent = "";

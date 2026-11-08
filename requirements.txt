@@ -1,7 +1,7 @@
-fastapi>=0.115
-httpx>=0.28
-openai>=2.0
-openai-agents>=0.4
-Pillow>=11.0
-python-dotenv>=1.0
-uvicorn[standard]>=0.34
+fastapi==0.162.2
+httpx==0.28.1
+openai==3.46.0
+openai-agents==0.24.0
+Pillow==13.0.0
+python-dotenv==1.2.4
+uvicorn[standard]==0.54.0

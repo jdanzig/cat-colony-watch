@@ -24,6 +24,12 @@ The demo is for Mangrove Mews, a made-up Miami rescue caring for 18 colonies. It
 
 Admins see **Share sponsor report** at the top of Today. Enter the separate admin passcode to reveal a secret link, then tap **Copy link**. Anyone with that link can see aggregate impact counts, but never locations, volunteer names, phone numbers or photos. Treat it like a private document link.
 
+Admins also see **Reset demo**. It requires the admin passcode and removes every live report, decision and uploaded photo before rebuilding the original demo. It does not reset API spend already incurred that day. Photo reports show their own estimated API cost, and the server enforces a durable **$3 daily OpenAI limit**, including across redeploys.
+
+### What is real and what is still a demo
+
+The reporting, matching suggestions, human decisions, alerts, persistence and privacy boundary are working application paths. The rescue, volunteers, locations, chat history and starting cat census are deliberately fictional. This version uses a shared team passcode rather than individual user accounts, and importing a private historical chat remains a developer-assisted command. Before use by a real rescue, replace the demo seed with its approved private data, set new secrets, configure a rescue-owned Upstash database and OpenAI project, and define who is allowed to use the admin passcode.
+
 ### Bringing in a WhatsApp history
 
 Cat Colony Watch does not connect to or automate WhatsApp. It only reads a chat export that a person deliberately saves.

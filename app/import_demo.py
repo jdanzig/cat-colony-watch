@@ -50,6 +50,7 @@ def import_demo(
     data_dir: str | Path,
     db_path: str | Path,
     *,
+    cache_path: str | Path | None = None,
     limit: int | None = None,
     model: str | None = None,
     max_spend_usd: float = 3.0,
@@ -63,7 +64,7 @@ def import_demo(
     if allow_api and not os.getenv("OPENAI_API_KEY"):
         raise RuntimeError("OPENAI_API_KEY is required")
 
-    cache = AICache(data_dir / "ai_cache.json", selected_model, max_spend_usd)
+    cache = AICache(cache_path or data_dir / "ai_cache.json", selected_model, max_spend_usd)
     prompt_versions = {
         "description": DESCRIPTION_PROMPT_VERSION,
         "match": MATCH_PROMPT_VERSION,

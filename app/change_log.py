@@ -14,6 +14,7 @@ import httpx
 
 REDIS_CHANGES_KEY = "ccw:changes"
 REDIS_PHOTO_PREFIX = "ccw:photo:"
+REDIS_SPEND_PREFIX = "ccw:api-spend:"
 
 
 class ChangeLog:
@@ -59,10 +60,50 @@ class ChangeLog:
         self._write_local(changes)
 
     def clear(self) -> None:
+        """Remove every live change and live photo, restoring the committed demo."""
         if self.url:
+            cursor: str | int = 0
+            photo_keys: list[str] = []
+            while True:
+                result = self._redis(
+                    ["SCAN", cursor, "MATCH", f"{REDIS_PHOTO_PREFIX}*", "COUNT", 100]
+                )
+                cursor, keys = result
+                photo_keys.extend(keys)
+                if str(cursor) == "0":
+                    break
+            for start in range(0, len(photo_keys), 100):
+                self._redis(["DEL", *photo_keys[start : start + 100]])
             self._redis(["DEL", REDIS_CHANGES_KEY])
             return
         self._write_local([])
+        photo_dir = self.local_path.parent / "live_photos"
+        if photo_dir.is_dir():
+            for path in photo_dir.glob("*.jpg"):
+                path.unlink()
+
+    def api_spend(self, day: str) -> float:
+        if self.url:
+            return float(self._redis(["GET", f"{REDIS_SPEND_PREFIX}{day}"]) or 0.0)
+        path = self._local_spend_path()
+        values = json.loads(path.read_text()) if path.exists() else {}
+        return float(values.get(day, 0.0))
+
+    def add_api_spend(self, day: str, amount: float) -> float:
+        amount = round(float(amount), 8)
+        if amount < 0:
+            raise ValueError("API spend cannot be negative")
+        if self.url:
+            return float(
+                self._redis(["INCRBYFLOAT", f"{REDIS_SPEND_PREFIX}{day}", amount])
+            )
+        path = self._local_spend_path()
+        values = json.loads(path.read_text()) if path.exists() else {}
+        values[day] = round(float(values.get(day, 0.0)) + amount, 8)
+        temporary = path.with_suffix(path.suffix + ".tmp")
+        temporary.write_text(json.dumps(values, indent=2, sort_keys=True) + "\n")
+        temporary.replace(path)
+        return float(values[day])
 
     def store_photo(self, digest: str, content: bytes) -> None:
         """Persist one already-resized live photo by its content hash."""
@@ -106,3 +147,6 @@ class ChangeLog:
 
     def _local_photo_path(self, digest: str) -> Path:
         return self.local_path.parent / "live_photos" / f"{digest}.jpg"
+
+    def _local_spend_path(self) -> Path:
+        return self.local_path.with_name(f"{self.local_path.stem}_api_spend.json")
